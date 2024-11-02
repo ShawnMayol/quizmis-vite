@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "/C.png";
 
 const Signup = () => {
     return (
@@ -7,7 +8,7 @@ const Signup = () => {
             <div className="w-1/3 bg-white flex items-center justify-center">
                 <div className="text-center">
                     <Link to="/" className="text-4xl font-bold mb-4">
-                        Logo Here
+                        <img src={logo} className="h-60" alt="Quizmis Logo" />
                     </Link>
                 </div>
             </div>

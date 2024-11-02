@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import logo from "/C.png";
+import logo2 from "/c2.png";
 
 const Dropdown = ({ title }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -34,11 +36,7 @@ const TopBar = () => {
         <div className="bg-white shadow-md py-4 px-8 flex justify-between items-center">
             <div className="flex items-center">
                 <Link to="/" className="flex items-center">
-                    <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
-                        className="h-8 me-3"
-                        alt="Quizmis Logo"
-                    />
+                    <img src={logo} className="h-14 me-3" alt="Quizmis Logo" />
                     <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
                         <span className="text-green-500">
                             <span className="text-red-500">Q</span>
@@ -56,14 +54,20 @@ const TopBar = () => {
 
             <div className="flex space-x-4">
                 <Link
+                    to="/join"
+                    className="bg-white text-[#20935C] border-2 px-4 py-2 rounded-md hover:bg-gray-100 hover:border-transparent transition duration-300"
+                >
+                    Enter Quiz
+                </Link>
+                <Link
                     to="/login"
-                    className="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-300"
+                    className="bg-green-100 text-[#20935C] border-2 border-transparent px-4 py-2 rounded-md hover:bg-green-200 transition duration-300"
                 >
                     Log In
                 </Link>
                 <Link
                     to="/signup"
-                    className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition duration-300"
+                    className="bg-green-500 text-white border-2 border-transparent px-4 py-2 rounded-md hover:bg-green-400 transition duration-300"
                 >
                     Sign Up
                 </Link>
@@ -101,13 +105,13 @@ const Scroller = () => {
 const Footer = () => {
     return (
         <footer className="bg-gray-900">
-            <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+            <div className="mx-auto w-full max-w-screen-xl p-4 py-8 lg:py-14">
                 <div className="md:flex md:justify-between">
                     <div className="mb-6 md:mb-0">
                         <Link to="/" className="flex items-center">
                             <img
-                                src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
-                                className="h-8 me-3"
+                                src={logo2}
+                                className="h-14 me-3"
                                 alt="Quizmis Logo"
                             />
                             <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
@@ -120,21 +124,21 @@ const Footer = () => {
                     </div>
                     <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                         <div>
-                            <h2 className="mb-6 text-sm font-semibold uppercase text-white">
+                            <h2 className="mb-8 text-sm font-semibold uppercase text-white">
                                 Title
                             </h2>
                             <ul className=" text-gray-400 font-medium">
-                                <li className="mb-4">
+                                <li className="mb-6">
                                     <Link to="/" className="hover:underline">
                                         Text Text Text
                                     </Link>
                                 </li>
-                                <li className="mb-4">
+                                <li className="mb-6">
                                     <Link to="/" className="hover:underline">
                                         Text Text Text
                                     </Link>
                                 </li>
-                                <li className="mb-4">
+                                <li className="mb-6">
                                     <Link to="/" className="hover:underline">
                                         Text Text Text
                                     </Link>
@@ -147,21 +151,21 @@ const Footer = () => {
                             </ul>
                         </div>
                         <div>
-                            <h2 className="mb-6 text-sm font-semibold uppercase text-white">
+                            <h2 className="mb-8 text-sm font-semibold uppercase text-white">
                                 Title
                             </h2>
                             <ul className=" text-gray-400 font-medium">
-                                <li className="mb-4">
+                                <li className="mb-6">
                                     <Link to="/" className="hover:underline">
                                         Text Text Text
                                     </Link>
                                 </li>
-                                <li className="mb-4">
+                                <li className="mb-6">
                                     <Link to="/" className="hover:underline">
                                         Text Text Text
                                     </Link>
                                 </li>
-                                <li className="mb-4">
+                                <li className="mb-6">
                                     <Link to="/" className="hover:underline">
                                         Text Text Text
                                     </Link>
@@ -174,21 +178,21 @@ const Footer = () => {
                             </ul>
                         </div>
                         <div>
-                            <h2 className="mb-6 text-sm font-semibold uppercase text-white">
+                            <h2 className="mb-8 text-sm font-semibold uppercase text-white">
                                 Title
                             </h2>
                             <ul className=" text-gray-400 font-medium">
-                                <li className="mb-4">
+                                <li className="mb-6">
                                     <Link to="/" className="hover:underline">
                                         Text Text Text
                                     </Link>
                                 </li>
-                                <li className="mb-4">
+                                <li className="mb-6">
                                     <Link to="/" className="hover:underline">
                                         Text Text Text
                                     </Link>
                                 </li>
-                                <li className="mb-4">
+                                <li className="mb-6">
                                     <Link to="/" className="hover:underline">
                                         Text Text Text
                                     </Link>
@@ -203,13 +207,11 @@ const Footer = () => {
                     </div>
                 </div>
                 <hr className="my-6 sm:mx-auto border-gray-700 lg:my-8" />
-                <div className="sm:flex sm:items-center sm:justify-between">
+                <div className="sm:flex sm:items-center sm:justify-between cursor-default">
                     <span className="text-sm sm:text-center text-gray-400">
                         © 2024{" "}
-                        <Link to="/" className="hover:underline">
-                            Quizmis Inc
-                        </Link>
-                        . All Rights Reserved.
+                        <span className="hover:underline">Quizmis Inc</span>.
+                        All Rights Reserved.
                     </span>
                     <div className="flex mt-4 sm:justify-center sm:mt-0">
                         {/* Facebook */}
@@ -291,7 +293,8 @@ const Footer = () => {
 
 const HomePage = () => {
     return (
-        <div className="text-center">
+        <div className="bg-white text-center">
+        {/* <div className="bg-green-200 text-center"> */}
             <TopBar />
             <div className="flex flex-col items-center justify-start text-center mt-28 mb-24">
                 <h1 className="text-4xl font-bold mb-24">
@@ -306,7 +309,7 @@ const HomePage = () => {
                     knowledge.
                 </h1>
                 <Link
-                    to="/"
+                    to="/join"
                     className="bg-green-600 text-white px-28 py-6 rounded-full hover:bg-green-700 transition duration-300"
                 >
                     <p className="font-bold text-xl">Enter Quiz</p>

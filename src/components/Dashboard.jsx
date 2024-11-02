@@ -1,8 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "/C.png";
+import profileImage from "/C.png";
 
 const TopBar = () => {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [userStatus, setUserStatus] = useState("online"); // Dynamically set based on user's actual status
+    const username = "John Doe"; // Replace with dynamic username
+
+    const toggleDropdown = () => {
+        setIsDropdownOpen((prev) => !prev);
+    };
+
     return (
         <div className="bg-white shadow-md py-4 px-8 flex justify-between items-center">
             <div className="flex items-center">
@@ -42,14 +51,14 @@ const TopBar = () => {
                     <input
                         type="text"
                         id="simple-search"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 pe-28 p-2.5"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 pe-28 p-2.5"
                         placeholder="Search..."
                         required
                     />
                 </div>
                 <button
                     type="submit"
-                    className="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                    className="p-3 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
                 >
                     <svg
                         className="w-4 h-4"
@@ -70,8 +79,9 @@ const TopBar = () => {
             </form>
 
             <div className="flex items-center">
+                {/* Home */}
                 <Link
-                    to="/"
+                    to="/dashboard"
                     className="hover:text-gray-800 focus:ring-blue-500 focus:border-blue-500"
                 >
                     <svg
@@ -89,7 +99,8 @@ const TopBar = () => {
                         />
                     </svg>
                 </Link>
-                <Link to="/" className="hover:text-gray-800">
+                {/* Friends */}
+                <Link to="/friends" className="hover:text-gray-800">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -105,6 +116,7 @@ const TopBar = () => {
                         />
                     </svg>
                 </Link>
+                {/* Chats */}
                 <Link to="/" className="hover:text-gray-800">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +133,8 @@ const TopBar = () => {
                         />
                     </svg>
                 </Link>
-                <Link to="/" className="hover:text-gray-800">
+                {/* Notifications */}
+                <Link to="/notifications" className="hover:text-gray-800">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -137,6 +150,7 @@ const TopBar = () => {
                         />
                     </svg>
                 </Link>
+                {/* Options */}
                 <Link to="/" className="hover:text-gray-800">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -155,22 +169,114 @@ const TopBar = () => {
                 </Link>
             </div>
 
-            <div className="flex space-x-4">
-                <Link
-                    to="/login"
-                    className="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-300"
-                >
-                    Log In
-                </Link>
-                <Link
-                    to="/signup"
-                    className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition duration-300"
-                >
-                    Sign Up
-                </Link>
+            <div className="relative flex items-center space-x-4">
+                <div className="text-right">
+                    <p className="font-semibold">{username}</p>
+                    <p
+                        className={`text-sm ${
+                            userStatus === "online"
+                                ? "text-green-500"
+                                : "text-gray-500"
+                        }`}
+                    >
+                        {userStatus.charAt(0).toUpperCase() +
+                            userStatus.slice(1)}
+                    </p>
+                </div>
+                <img
+                    src={profileImage}
+                    alt="User Profile"
+                    className="w-12 h-12 rounded-full border-2 border-gray-300 cursor-pointer"
+                    onClick={toggleDropdown} // Toggle dropdown on click
+                />
+
+                {/* Dropdown Menu */}
+                {isDropdownOpen && (
+                    <div className="absolute right-0 top-12 bg-white border border-gray-200 shadow-md rounded-md w-42 py-2">
+                        <Link
+                            to="/profile"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                            Profile
+                        </Link>
+                        <Link
+                            to="/settings"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                            Settings
+                        </Link>
+                        <button
+                            onClick={() => {
+                                /* logout functionality here */
+                            }}
+                            className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                        >
+                            Logout
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     );
 };
 
-export default TopBar;
+const DashboardBody = () => {
+    return (
+        <div>
+            <TopBar />
+            <div className="flex justify-between py-8 px-4 bg-[#20935C] min-h-screen">
+                {/* Left Side Content */}
+                <div className="hidden lg:block lg:w-1/4 p-4">
+                    <div className="bg-white rounded-lg shadow-md p-4 mb-6">
+                        <p className="text-gray-600">Left Side Content</p>
+                        <p className="text-xs text-gray-400">
+                            Additional information or widgets can go here.
+                        </p>
+                    </div>
+                    {/* Additional Placeholder Boxes */}
+                    <div className="bg-white rounded-lg shadow-md p-4 mb-6">
+                        <p className="text-gray-600">Another Widget</p>
+                    </div>
+                </div>
+
+                {/* Main News Feed */}
+                <div className="w-full lg:w-1/2 p-4">
+                    {/* News Feed Post */}
+                    <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <p className="text-gray-800 font-semibold">
+                            News Feed Item 1
+                        </p>
+                        <p className="text-gray-600">
+                            This is a placeholder for a news feed item.
+                        </p>
+                    </div>
+                    {/* Additional News Feed Items */}
+                    <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <p className="text-gray-800 font-semibold">
+                            News Feed Item 2
+                        </p>
+                        <p className="text-gray-600">
+                            More content for the feed.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Right Side Content */}
+                <div className="hidden lg:block lg:w-1/4 p-4">
+                    <div className="bg-white rounded-lg shadow-md p-4 mb-6">
+                        <p className="text-gray-600">Right Side Content</p>
+                        <p className="text-xs text-gray-400">
+                            Notifications or other widgets.
+                        </p>
+                    </div>
+                    {/* Additional Placeholder Boxes */}
+                    <div className="bg-white rounded-lg shadow-md p-4 mb-6">
+                        <p className="text-gray-600">Another Widget</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default DashboardBody;
