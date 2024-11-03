@@ -55,19 +55,19 @@ const TopBar = () => {
             <div className="flex space-x-4">
                 <Link
                     to="/join"
-                    className="bg-white text-[#20935C] border-2 px-4 py-2 rounded-md hover:bg-gray-100 hover:border-transparent transition duration-300"
+                    className="bg-white text-[#20935C] border-2 px-4 py-2 rounded-md shadow-md hover:bg-gray-100 hover:border-transparent transition duration-300"
                 >
                     Enter Quiz
                 </Link>
                 <Link
                     to="/login"
-                    className="bg-green-100 text-[#20935C] border-2 border-transparent px-4 py-2 rounded-md hover:bg-green-200 transition duration-300"
+                    className="bg-green-100 text-[#20935C] border-2 border-transparent px-4 py-2 rounded-md shadow-md hover:bg-green-200 transition duration-300"
                 >
                     Log In
                 </Link>
                 <Link
                     to="/signup"
-                    className="bg-green-500 text-white border-2 border-transparent px-4 py-2 rounded-md hover:bg-green-400 transition duration-300"
+                    className="bg-green-500 text-white border-2 border-transparent px-4 py-2 rounded-md shadow-md hover:bg-green-400 transition duration-300"
                 >
                     Sign Up
                 </Link>
