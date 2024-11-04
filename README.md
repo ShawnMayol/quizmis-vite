@@ -5,7 +5,7 @@
 Quizmis is a web application designed to enhance learning through interactive quizzes. This project is built using React + Vite for the front end, with Tailwind CSS for styling, and MySQL with PHP for the back end. The application allows users to log in, sign up, and participate in various quizzes, providing a fun and educational experience.
 
 ## Tech Stack
-
+ SHawn
 -   **Frontend**:
     -   React
     -   Vite
