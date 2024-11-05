@@ -245,18 +245,18 @@ const Profile = () => {
                             Pinned Quizzes
                         </h3>
                         <div className="flex flex-wrap gap-12">
-                            <Link className="bg-white text-green-800 px-4 py-2 rounded-full shadow-sm">
+                            <div className="bg-green-200 text-green-800 px-4 py-2 rounded-full shadow-sm">
                                 Placeholder Quiz 1
-                            </Link>
-                            <Link className="bg-white text-green-800 px-4 py-2 rounded-full shadow-sm">
+                            </div>
+                            <div className="bg-green-200 text-green-800 px-4 py-2 rounded-full shadow-sm">
                                 Placeholder Quiz 2
-                            </Link>
-                            <Link className="bg-white text-green-800 px-4 py-2 rounded-full shadow-sm">
+                            </div>
+                            <div className="bg-green-200 text-green-800 px-4 py-2 rounded-full shadow-sm">
                                 Placeholder Quiz 3
-                            </Link>
-                            <Link className="bg-white text-green-800 px-4 py-2 rounded-full shadow-sm">
+                            </div>
+                            <div className="bg-green-200 text-green-800 px-4 py-2 rounded-full shadow-sm">
                                 Placeholder Quiz 4
-                            </Link>
+                            </div>
                             {/* Add more pills as needed */}
                         </div>
                     </div>

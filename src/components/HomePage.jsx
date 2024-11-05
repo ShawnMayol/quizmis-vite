@@ -9,8 +9,8 @@ const Dropdown = ({ title }) => {
     return (
         <div
             className="relative"
-            onMouseEnter={() => setIsOpen(true)}
-            onMouseLeave={() => setIsOpen(false)}
+            onMouseEnter={() => setIsOpen(true)} // Open dropdown on hover
+            onMouseLeave={() => setIsOpen(false)} // Close dropdown when not hovering
         >
             <button className="text-gray-700 font-medium hover:text-blue-600 transition duration-300">
                 {title}

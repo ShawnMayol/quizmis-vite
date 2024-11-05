@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "/C.png";
 
 const TopBar = () => {
     return (
@@ -8,8 +7,8 @@ const TopBar = () => {
             <div className="flex items-center">
                 <Link to="/" className="flex items-center">
                     <img
-                        src={logo}
-                        className="h-14 me-3"
+                        src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
+                        className="h-8 me-3"
                         alt="Quizmis Logo"
                     />
                     <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
