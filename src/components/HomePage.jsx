@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "/C.png";
-import logo2 from "/c2.png";
+import Logo from "/Logo.png";
 
 const Dropdown = ({ title }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -110,7 +110,7 @@ const Footer = () => {
                     <div className="mb-6 md:mb-0">
                         <Link to="/" className="flex items-center">
                             <img
-                                src={logo2}
+                                src={Logo}
                                 className="h-14 me-3"
                                 alt="Quizmis Logo"
                             />

@@ -46,7 +46,7 @@ const Login = () => {
                             Forgot password?
                         </Link>
                     </p>
-                    <div className="flex items-center justify-center mt-4">
+                    {/* <div className="flex items-center justify-center mt-4">
                         <span className="border-b border-gray-400 w-1/3"></span>
                         <span className="mx-2 text-gray-500">OR</span>
                         <span className="border-b border-gray-400 w-1/3"></span>
@@ -58,7 +58,7 @@ const Login = () => {
                         <button className="w-full bg-blue-600 text-white py-2 rounded">
                             Continue with Facebook
                         </button>
-                    </div>
+                    </div> */}
                 </form>
             </div>
         </div>
