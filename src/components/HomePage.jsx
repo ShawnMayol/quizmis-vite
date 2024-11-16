@@ -87,8 +87,9 @@ const Carousel = () => {
             >
                 <div className="relative h-56 overflow-hidden rounded-lg">
                     <div
-                        className="hidden duration-1000 ease-in-out"
+                        className="hidden ease-in-out"
                         data-carousel-item
+                        style={{ transitionDuration: "2s" }}
                     >
                         <Link to="/">
                             <img
@@ -99,44 +100,56 @@ const Carousel = () => {
                         </Link>
                     </div>
                     <div
-                        className="hidden duration-700 ease-in-out"
+                        className="hidden ease-in-out"
                         data-carousel-item
+                        style={{ transitionDuration: "2s" }}
                     >
-                        <img
-                            src={Logo}
-                            className="absolute block max-w-full max-h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                            alt="..."
-                        />
+                        <Link to="/">
+                            <img
+                                src={logo}
+                                className="absolute block max-w-full max-h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                alt="..."
+                            />
+                        </Link>
                     </div>
                     <div
-                        className="hidden duration-700 ease-in-out"
+                        className="hidden ease-in-out"
                         data-carousel-item
+                        style={{ transitionDuration: "2s" }}
                     >
-                        <img
-                            src="https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png"
-                            className="absolute block max-w-full max-h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                            alt="..."
-                        />
+                        <Link to="/">
+                            <img
+                                src={logo}
+                                className="absolute block max-w-full max-h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                alt="..."
+                            />
+                        </Link>
                     </div>
                     <div
-                        className="hidden duration-700 ease-in-out"
+                        className="hidden ease-in-out"
                         data-carousel-item
+                        style={{ transitionDuration: "2s" }}
                     >
-                        <img
-                            src="https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png"
-                            className="absolute block max-w-full max-h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                            alt="..."
-                        />
+                        <Link to="/">
+                            <img
+                                src={logo}
+                                className="absolute block max-w-full max-h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                alt="..."
+                            />
+                        </Link>
                     </div>
                     <div
-                        className="hidden duration-700 ease-in-out"
+                        className="hidden ease-in-out"
                         data-carousel-item
+                        style={{ transitionDuration: "2s" }}
                     >
-                        <img
-                            src="https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png"
-                            className="absolute block max-w-full max-h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                            alt="..."
-                        />
+                        <Link to="/">
+                            <img
+                                src={logo}
+                                className="absolute block max-w-full max-h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                alt="..."
+                            />
+                        </Link>
                     </div>
                 </div>
                 <div className="absolute z-30 flex -translate-x-1/2  left-1/2 space-x-3 rtl:space-x-reverse">
@@ -232,9 +245,8 @@ const Carousel = () => {
 const HomePage = () => {
     return (
         <div className="text-center">
-            {/* <div className="bg-green-200 text-center"> */}
             <TopBar />
-            <div className="flex flex-col items-center justify-start text-center mt-28 mb-24">
+            <div className="flex flex-col items-center justify-start text-center my-40">
                 <h1 className="text-4xl font-bold mb-24">
                     Empowering Carolinians,
                     <br />
@@ -255,7 +267,7 @@ const HomePage = () => {
             </div>
             <div className="mb-16">
                 <h1 className="text-3xl text-left font-bold mb-4 ms-48">
-                    Top Quizzes This Week
+                    Top Quizzes This Week! &#128293;
                 </h1>
                 <Carousel />
             </div>
@@ -265,7 +277,7 @@ const HomePage = () => {
                 </h1>
                 <Carousel />
             </div>
-            <p className="mb-4 text-xl">What is Quizmis?</p>
+            <p className="mb-4 text-2xl">What is Quizmis?</p>
             <h1 className="text-4xl font-bold mb-24">
                 Quizmis is a dedicated quiz platform
                 <br />
