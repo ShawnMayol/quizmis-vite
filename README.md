@@ -2,18 +2,16 @@
 
 ## Project Overview
 
-Quizmis is a web application designed to enhance learning through interactive quizzes. This project is built using React + Vite for the front end, with Tailwind CSS for styling, and MySQL with PHP for the back end. The application allows users to log in, sign up, and participate in various quizzes, providing a fun and educational experience.
-
+Quizmis is a web application designed to enhance learning through interactive quizzes. This project is built using React + Vite for the front end, with Tailwind CSS for styling, and Firebase for the back end.
 ## Tech Stack
- SHawn
--   **Frontend**:
-    -   React
-    -   Vite
-    -   Tailwind CSS
--   **Backend**:
-    -   PHP
-    -   MySQL
--   **Routing**: React Router
+
+- **Frontend**:
+    - React
+    - Vite
+    - Tailwind CSS
+- **Backend**:
+    - Firebase
+- **Routing**: React Router
 
 ## Getting Started
 
@@ -21,8 +19,8 @@ To get a local copy up and running, follow these simple steps:
 
 ### Prerequisites
 
--   [Node.js](https://nodejs.org/) (with npm)
--   A local server setup (XAMPP) for running the PHP/MySQL backend.
+- [Node.js](https://nodejs.org/) (with npm)
+- Firebase project set up for authentication and Firestore database.
 
 ### Installation
 
@@ -47,11 +45,11 @@ To get a local copy up and running, follow these simple steps:
     npm install
     ```
 
-4. **Set up the Backend**
+4. **Set up Firebase**
 
-    - Make sure your local server (XAMPP) is running.
-    - Import the MySQL database script into your database.
-    - Ensure the PHP files are correctly configured and placed in the appropriate directory (`htdocs` for XAMPP).
+    - Create a Firebase project in the [Firebase Console](https://console.firebase.google.com/).
+    - Enable Firebase Authentication and Firestore.
+    - Add your Firebase configuration in the `Firebase.js` file in the project.
 
 5. **Run the application**
    Start the development server by running:
