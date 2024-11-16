@@ -79,7 +79,7 @@ const TopBar = () => {
 
 const Carousel = () => {
     return (
-        <div className="px-10 pt-10 pb-10 mx-48 bg-gray-500 bg-opacity-20 rounded-lg">
+        <div className="px-10 pt-10 pb-14 mx-48 bg-gray-500 bg-opacity-20 rounded-lg">
             <div
                 id="default-carousel"
                 className="relative w-full"
@@ -152,7 +152,7 @@ const Carousel = () => {
                         </Link>
                     </div>
                 </div>
-                <div className="absolute z-30 flex -translate-x-1/2  left-1/2 space-x-3 rtl:space-x-reverse">
+                <div className="absolute z-30 mt-6 flex -translate-x-1/2  left-1/2 space-x-3 rtl:space-x-reverse">
                     <button
                         type="button"
                         className="w-3 h-3 rounded-full"
