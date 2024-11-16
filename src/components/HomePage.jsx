@@ -293,7 +293,7 @@ const Footer = () => {
 
 const HomePage = () => {
     return (
-        <div className="bg-white text-center">
+        <div className="text-center">
         {/* <div className="bg-green-200 text-center"> */}
             <TopBar />
             <div className="flex flex-col items-center justify-start text-center mt-28 mb-24">
