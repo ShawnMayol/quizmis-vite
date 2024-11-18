@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../Firebase.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import PasswordInput from "./PasswordInput";
 import Logo from "/C.png";
 import Fb from "/assets/facebook.svg";
 import Google from "/assets/google.svg";
@@ -92,12 +93,9 @@ const Signup = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        className="w-full p-2 mb-4 border border-gray-300 rounded"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                    <PasswordInput
+                        password={password}
+                        setPassword={setPassword}
                     />
                     <button
                         type="submit"

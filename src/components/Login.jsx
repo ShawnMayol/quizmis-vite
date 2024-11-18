@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../Firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import PasswordInput from "./PasswordInput";
 import Logo from "/C.png";
 import Fb from "/assets/facebook.svg";
 import Google from "/assets/google.svg";
@@ -74,26 +75,22 @@ const Login = () => {
                     />
 
                     {/* Password input */}
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        className="w-full p-2 mb-4 border border-gray-300 rounded"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                    <PasswordInput
+                        password={password}
+                        setPassword={setPassword}
                     />
-
 
                     {/* Submit button */}
                     <button
                         type="submit"
                         className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition duration-300"
-                        >
+                    >
                         Log In
                     </button>
-                        {/* Error message display */}
-                        {error && (
-                            <p className="text-red-500 text-center mt-4">{error}</p>
-                        )}
+                    {/* Error message display */}
+                    {error && (
+                        <p className="text-red-500 text-center mt-4">{error}</p>
+                    )}
                     <p className="flex justify-between text-gray-500 mt-6">
                         <Link to="/signup" className="text-blue-600">
                             Don't have an account?
