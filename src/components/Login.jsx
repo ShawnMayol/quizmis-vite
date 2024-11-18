@@ -95,7 +95,7 @@ const Login = () => {
                         <Link to="/signup" className="text-blue-600">
                             Don't have an account?
                         </Link>
-                        <Link to="/" className="text-blue-600">
+                        <Link to="/forgot" className="text-blue-600">
                             Forgot password?
                         </Link>
                     </p>

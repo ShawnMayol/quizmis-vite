@@ -106,12 +106,10 @@ const Signup = () => {
                     {error && (
                         <p className="text-red-500 text-center mt-4">{error}</p>
                     )}
-                    <p className="flex justify-between text-gray-500 mt-6">
-                        <Link to="/login" className="text-blue-600">
-                            Already have an account?
-                        </Link>
-                        <Link to="/" className="text-blue-600">
-                            Forgot password?
+                    <p className="flex text-gray-700 mt-6">
+                        Already have an account?
+                        <Link to="/login" className="text-blue-600 ms-1">
+                        Log In
                         </Link>
                     </p>
                     <div className="flex items-center justify-center mt-4">
