@@ -15,18 +15,5 @@ body {
   min-height: 100vh;
   background-image: url('/bg.png');
   background-color: #A2FBEE;
-  background-size:contain;
+  background-size: contain;
 }
-
-/*
-  DSA Wednesday coverage
-
-  binary search tree-
-  adt trees
-  avl trees
-  priority queue with array and linked list implementation
-*/
-
-/* 
-  partially ordered trees
-*/
