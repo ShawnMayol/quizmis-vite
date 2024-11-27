@@ -4,7 +4,6 @@ import { auth } from "../Firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import PasswordInput from "./PasswordInput";
 import Logo from "/C.png";
-import Fb from "/assets/facebook.svg";
 import Google from "/assets/google.svg";
 
 const Login = () => {
@@ -50,13 +49,6 @@ const Login = () => {
             </div>
 
             <div className="w-2/3 bg-[#20935C] flex flex-col items-center justify-center">
-                {/* <Link
-                    to="/signup"
-                    className="absolute top-4 right-4 bg-[#00A950] text-white px-12 py-3 rounded-full shadow-xl hover:bg-[#2dbb58] transition duration-300"
-                >
-                    Sign Up
-                </Link> */}
-
                 <form
                     className="bg-white p-12  rounded-lg shadow-xl w-3/5"
                     onSubmit={handleLogin}
@@ -105,13 +97,9 @@ const Login = () => {
                         <span className="border-b border-gray-400 w-1/3"></span>
                     </div>
                     <div className="flex flex-col items-center mt-4">
-                        <button className="w-full bg-red-600 text-white py-2 rounded mb-2 flex items-center justify-center">
+                        <button className="w-full border border-black hover:border-gray-500 py-2 rounded mb-2 flex items-center justify-center">
                             <img src={Google} className="w-8 me-2" alt="" />
                             Continue with Google
-                        </button>
-                        <button className="w-full bg-blue-600 text-white py-2 rounded flex items-center justify-center">
-                            <img src={Fb} className="w-8 me-2" alt="" />
-                            Continue with Facebook
                         </button>
                     </div>
                 </form>

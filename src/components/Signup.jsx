@@ -5,8 +5,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import PasswordInput from "./PasswordInput";
 import Logo from "/C.png";
-import Fb from "/assets/facebook.svg";
-import Google from "/assets/google.svg";
+    import Google from "/assets/google.svg";
 
 const Signup = () => {
     const [username, setUsername] = useState("");
@@ -65,13 +64,6 @@ const Signup = () => {
             </div>
 
             <div className="w-2/3 bg-[#20935C] flex flex-col items-center justify-center">
-                {/* <Link
-                    to="/login"
-                    className="absolute top-4 right-4 bg-[#00A950] text-white px-12 py-3 rounded-full shadow-xl hover:bg-[#2dbb58] transition duration-300"
-                >
-                    Log In
-                </Link> */}
-
                 <form
                     className="bg-white p-12 rounded-lg shadow-xl w-3/5"
                     onSubmit={handleSubmit}
@@ -109,7 +101,7 @@ const Signup = () => {
                     <p className="flex text-gray-700 mt-6">
                         Already have an account?
                         <Link to="/login" className="text-blue-600 ms-1">
-                        Log In
+                            Log In
                         </Link>
                     </p>
                     <div className="flex items-center justify-center mt-4">
@@ -118,13 +110,9 @@ const Signup = () => {
                         <span className="border-b border-gray-400 w-1/3"></span>
                     </div>
                     <div className="flex flex-col items-center mt-4">
-                        <button className="w-full bg-red-700 text-white py-2 rounded mb-2 flex items-center justify-center">
+                        <button className="w-full border border-black hover:border-gray-500 py-2 rounded mb-2 flex items-center justify-center">
                             <img src={Google} className="w-7 me-2" alt="" />
                             Continue with Google
-                        </button>
-                        <button className="w-full bg-blue-600 text-white py-2 rounded flex items-center justify-center">
-                            <img src={Fb} className="w-8 me-2" alt="" />
-                            Continue with Facebook
                         </button>
                     </div>
                 </form>
