@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import logo from "/Logo.png";
-import TopBar from "./general/TopBar.jsx";
+import TopBar from "./TopBar.jsx";
 
 const Profile = () => {
     const [user, setUser] = useState(null);
@@ -17,9 +17,9 @@ const Profile = () => {
     }, []);
 
     return (
-        <div className="bg-green-200">
+        <div className="">
             <TopBar />
-            <div className="flex p-8 mt-16">
+            <div className="flex p-8 pt-20">
                 {/* Left Section */}
                 <div className="w-1/3 flex flex-col items-center space-y-8 mt-8">
                     <img

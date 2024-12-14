@@ -17,14 +17,14 @@ const Join = () => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-green-200 flex flex-col items-center justify-center">
+        <div className="min-h-screen flex flex-col items-center justify-center">
             <div className="flex flex-col items-center">
                 <Link to={user ? "/dashboard" : "/"} className="mb-4">
-                    <img src={Logo} className="h-32 w-auto" alt="Quizmis Logo" />
+                    <img src={Logo} className="h-40 w-auto" alt="Quizmis Logo" />
                 </Link>
             </div>
 
-            <div className="flex flex-col items-center mb-36 mt-4 px-14 py-8 rounded-lg bg-green-300">
+            <div className="flex flex-col items-center mb-36 mt-4 shadow-lg px-14 py-8 rounded-lg bg-opacity-50 bg-green-300">
                 <div className="relative w-full max-w-md">
                     <input
                         type="text"

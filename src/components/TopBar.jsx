@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import logo from "/Logo.png";
-import "../../assets/css/Topbar.css";
-
-import "../../assets/css/Topbar.css";
+import "../assets/css/Topbar.css";
 
 const TopBar = () => {
     const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
@@ -38,7 +36,7 @@ const TopBar = () => {
     };
 
     return (
-        <div className="fixed top-0 w-full bg-white rounded-b-sm shadow-md py-3 px-8 flex justify-between items-center z-50">
+        <div className="fixed top-0 w-full bg-white rounded-b-md bg-opacity-70 shadow-md py-3 px-8 flex justify-between items-center z-50">
             <div className="flex items-center">
                 <Link to="/dashboard" className="flex items-center">
                     <img src={logo} className="h-14 mr-4" alt="Quizmis Logo" />

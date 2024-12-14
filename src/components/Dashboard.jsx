@@ -1,11 +1,12 @@
 import React from "react";
-import TopBar from "./general/TopBar.jsx";
+import TopBar from "./TopBar.jsx";
 
 const DashboardBody = () => {
     return (
         <div>
             <TopBar />
-            <div className="flex justify-between py-8 px-4 bg-[#20935C] min-h-screen mt-16">
+            <div className="flex justify-between py-8 px-4 min-h-screen pt-24">
+            {/* <div className="flex justify-between py-8 px-4 bg-[#20935C] min-h-screen pt-24"> */}
                 {/* Left Side Content */}
                 <div className="hidden lg:block lg:w-1/4 p-4">
                     <div className="bg-white rounded-lg shadow-md p-4 mb-6">

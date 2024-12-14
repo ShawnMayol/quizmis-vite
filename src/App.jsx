@@ -7,6 +7,8 @@ import Signup from "./components/Signup.jsx";
 import Join from "./components/Join.jsx";
 import Profile from "./components/Profile.jsx";
 import ForgotPassword from "./components/Forgot.jsx";
+import Create from "./components/Create.jsx";
+import CreateItems from './components/CreateItems.jsx';
 
 function App() {
     return (
@@ -18,6 +20,8 @@ function App() {
             <Route path="/join" element={<Join />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/forgot" element={<ForgotPassword />} />
+            <Route path="/create" element={<Create />} />
+            <Route path="/quiz/:quizId" element={<CreateItems />} />
         </Routes>
     );
 }
