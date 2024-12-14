@@ -1,0 +1,12 @@
+/* Modal starts off the screen to the right when initially hidden */
+.modal-hidden {
+    transform: translateX(100%);
+    transition: transform 300ms ease-in-out;
+  }
+  
+  /* Modal is fully visible and slides to its final position when open */
+  .modal-visible {
+    transform: translateX(0);
+    transition: transform 300ms ease-in-out;
+  }
+  
