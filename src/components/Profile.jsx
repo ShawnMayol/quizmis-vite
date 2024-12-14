@@ -1,10 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import logo from "/C.png";
-import profileImage from "/C.png";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import logo from "/Logo.png";
 import TopBar from "./general/TopBar.jsx";
 
 const Profile = () => {
+    const [user, setUser] = useState(null);
+    const auth = getAuth();
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+        });
+
+        return () => unsubscribe();
+    }, []);
+
     return (
         <div className="bg-green-200">
             <TopBar />
@@ -12,14 +23,14 @@ const Profile = () => {
                 {/* Left Section */}
                 <div className="w-1/3 flex flex-col items-center space-y-8 mt-8">
                     <img
-                        src="https://via.placeholder.com/150"
+                        src={user?.photoURL || logo}
                         alt="User Profile"
                         className="w-36 h-36 rounded-full object-cover"
                     />
-                    <h2 className="text-2xl font-semibold">User Name</h2>
-                    <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-400 transition duration-300">
+                    <h2 className="text-2xl font-semibold">{user?.displayName || 'Unknown User'}</h2>
+                    {/* <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-400 transition duration-300">
                         Edit Profile
-                    </button>
+                    </button> */}
                 </div>
 
                 {/* Right Section */}
@@ -45,7 +56,7 @@ const Profile = () => {
                         </div>
                     </div>
 
-                    {/* Pinned Quizzes Section */}
+                    {/* Comments Section */}
                     <div className="bg-green-100 p-4 rounded-lg shadow-md">
                         <h3 className="text-xl font-semibold mb-4">
                             Comments

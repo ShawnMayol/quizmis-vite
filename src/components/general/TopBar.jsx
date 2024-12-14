@@ -21,10 +21,9 @@ const TopBar = () => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser); // This will set the user state with the currently logged-in user
+            setUser(currentUser);
         });
-
-        return () => unsubscribe(); // Clean up the subscription when the component unmounts
+        return () => unsubscribe();
     }, []);
 
     const handleLogout = () => {
@@ -48,12 +47,20 @@ const TopBar = () => {
                     </span>
                 </Link>
             </div>
-            <img
-                src={user?.photoURL || logo}
-                alt="User Profile"
-                className="w-14 h-14 rounded-full border-2 border-gray-300 cursor-pointer"
-                onClick={openModal}
-            />
+            <div className="flex items-center">
+                <Link
+                    to="/join"
+                    className="bg-white text-[#20935C] border-2 px-4 py-2 rounded-md shadow-md hover:bg-gray-100 hover:border-transparent transition duration-300 me-6"
+                >
+                    Enter Quiz
+                </Link>
+                <img
+                    src={user?.photoURL || logo}
+                    alt="User Profile"
+                    className="w-14 h-14 rounded-full shadow-md border-2 border-gray-300 cursor-pointer"
+                    onClick={openModal}
+                />
+            </div>
 
             {/* Profile Modal */}
             <div
@@ -69,7 +76,9 @@ const TopBar = () => {
                             alt="User Profile"
                             className="w-10 h-10 rounded-full border-2 border-gray-300 mr-3"
                         />
-                        <h2 className="text-xl font-semibold">{user?.displayName || 'Unknown User'}</h2>
+                        <h2 className="text-xl font-semibold">
+                            {user?.displayName || "Unknown User"}
+                        </h2>
                     </div>
                     <button
                         onClick={closeModal}
@@ -79,11 +88,11 @@ const TopBar = () => {
                     </button>
                 </div>
                 <hr />
-                <ul className="space-y-2 my-3">
+                <ul className="space-y-1 my-3">
                     <li>
                         <Link
                             to="/profile"
-                            className="block p-2 rounded text-blue-500 hover:bg-blue-100 hover:text-blue-700 transition-all"
+                            className="block p-2 rounded text-black hover:bg-gray-200 hover:text-gray-900 transition-all"
                         >
                             Your Profile
                         </Link>
@@ -91,7 +100,7 @@ const TopBar = () => {
                     <li>
                         <Link
                             to="/your-quizzes"
-                            className="block p-2 rounded text-blue-500 hover:bg-blue-100 hover:text-blue-700 transition-all"
+                            className="block p-2 rounded text-black hover:bg-gray-200 hover:text-gray-900 transition-all"
                         >
                             Your Quizzes
                         </Link>
@@ -99,16 +108,35 @@ const TopBar = () => {
                     <li>
                         <Link
                             to="/saved-quizzes"
-                            className="block p-2 rounded text-blue-500 hover:bg-blue-100 hover:text-blue-700 transition-all"
+                            className="block p-2 rounded text-black hover:bg-gray-200 hover:text-gray-900 transition-all"
                         >
                             Saved Quizzes
                         </Link>
                     </li>
                 </ul>
                 <hr />
+                <ul className="space-y-1 my-3">
+                    <li>
+                        <Link
+                            to="/create"
+                            className="block p-2 rounded text-black hover:bg-gray-200 hover:text-gray-900 transition-all"
+                        >
+                            Create Quiz
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            to="/join"
+                            className="block p-2 rounded text-black hover:bg-gray-200 hover:text-gray-900 transition-all"
+                        >
+                            Join Quiz
+                        </Link>
+                    </li>
+                </ul>
+                <hr />
                 <button
                     onClick={handleLogout}
-                    className="block w-full text-start p-2 mt-3 rounded text-red-500 hover:bg-red-100 hover:text-red-700 transition-all"
+                    className="block w-full text-start p-2 mt-3 rounded text-black hover:bg-gray-200 hover:text-gray-900 transition-all"
                 >
                     Log Out
                 </button>

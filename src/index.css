@@ -13,7 +13,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-image: url('/bg.png');
+  background-image: url('/Background.png');
   background-color: #A2FBEE;
   background-size: contain;
 }

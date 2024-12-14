@@ -4,34 +4,6 @@ import Footer from "./Footer.jsx";
 import logo from "/C.png";
 import Logo from "/Logo.png";
 
-const Dropdown = ({ title }) => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    return (
-        <div
-            className="relative"
-            onMouseEnter={() => setIsOpen(true)} // Open dropdown on hover
-            onMouseLeave={() => setIsOpen(false)} // Close dropdown when not hovering
-        >
-            <button className="text-gray-700 font-medium hover:text-blue-600 transition duration-300">
-                {title}
-            </button>
-            {isOpen && (
-                <div className="absolute left-0 mt-2 w-40 bg-white shadow-md rounded-md z-10">
-                    <ul>
-                        <li className="p-2 hover:bg-gray-100">Option 1</li>
-                        <li className="p-2 hover:bg-gray-100">Option 2</li>
-                        <li className="p-2 hover:bg-gray-100">Option 3</li>
-                        <li className="p-2 hover:bg-gray-100">Option 4</li>
-                        <li className="p-2 hover:bg-gray-100">Option 5</li>
-                        <li className="p-2 hover:bg-gray-100">Option 6</li>
-                    </ul>
-                </div>
-            )}
-        </div>
-    );
-};
-
 const TopBar = () => {
     return (
         <div className="bg-white shadow-md py-4 px-8 flex justify-between items-center">
@@ -45,12 +17,6 @@ const TopBar = () => {
                         </span>
                     </span>
                 </Link>
-            </div>
-
-            <div className="flex space-x-4">
-                {Array.from({ length: 6 }, (_, i) => (
-                    <Dropdown key={i} title={`Dropdown ${i + 1}`} />
-                ))}
             </div>
 
             <div className="flex space-x-4">
