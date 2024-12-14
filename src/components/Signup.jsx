@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../Firebase.js";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+    createUserWithEmailAndPassword,
+    GoogleAuthProvider,
+    signInWithPopup,
+} from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import PasswordInput from "./PasswordInput";
 import Logo from "/C.png";
-    import Google from "/assets/google.svg";
+import Google from "/assets/google.svg";
 
 const Signup = () => {
     const [username, setUsername] = useState("");
@@ -50,6 +54,33 @@ const Signup = () => {
             } else {
                 setError("Error creating account. Please try again.");
             }
+        }
+    };
+
+    const handleSignupWithGoogle = async () => {
+        const provider = new GoogleAuthProvider();
+
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+
+            // Validate the user's email domain
+            if (!user.email.endsWith("@usc.edu.ph")) {
+                setError("Only USC email addresses are allowed.");
+                await auth.signOut(); // Log the user out
+                return;
+            }
+
+            // Write user data to Firestore
+            await setDoc(doc(db, "users", user.uid), {
+                username: user.displayName || "Google User",
+                email: user.email,
+            });
+
+            navigate("/dashboard"); // Redirect to dashboard
+        } catch (error) {
+            console.error("Google Sign-Up Error:", error.message);
+            setError("Failed to sign up with Google. Please try again.");
         }
     };
 
@@ -110,7 +141,11 @@ const Signup = () => {
                         <span className="border-b border-gray-400 w-1/3"></span>
                     </div>
                     <div className="flex flex-col items-center mt-4">
-                        <button className="w-full border border-black hover:border-gray-500 py-2 rounded mb-2 flex items-center justify-center">
+                        <button
+                            type="button" // Prevents form submission
+                            className="w-full border border-black hover:border-gray-500 py-2 rounded mb-2 flex items-center justify-center"
+                            onClick={handleSignupWithGoogle} // Google signup handler
+                        >
                             <img src={Google} className="w-7 me-2" alt="" />
                             Continue with Google
                         </button>
