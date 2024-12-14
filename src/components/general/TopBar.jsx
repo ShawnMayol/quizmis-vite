@@ -1,17 +1,41 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import logo from "/Logo.png";
+import "../../assets/css/Topbar.css";
+
 import "../../assets/css/Topbar.css";
 
 const TopBar = () => {
     const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
-    const username = "John Doe"; // Dynamic username
+    const [user, setUser] = useState(null);
+    const auth = getAuth();
+    const navigate = useNavigate();
 
     const openModal = () => {
         setIsProfileModalOpen(true);
     };
     const closeModal = () => {
         setIsProfileModalOpen(false);
+    };
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser); // This will set the user state with the currently logged-in user
+        });
+
+        return () => unsubscribe(); // Clean up the subscription when the component unmounts
+    }, []);
+
+    const handleLogout = () => {
+        signOut(auth)
+            .then(() => {
+                console.log("Logout successful");
+                navigate("/login");
+            })
+            .catch((error) => {
+                console.error("Logout failed", error);
+            });
     };
 
     return (
@@ -25,7 +49,7 @@ const TopBar = () => {
                 </Link>
             </div>
             <img
-                src={logo}
+                src={user?.photoURL || logo}
                 alt="User Profile"
                 className="w-14 h-14 rounded-full border-2 border-gray-300 cursor-pointer"
                 onClick={openModal}
@@ -41,11 +65,11 @@ const TopBar = () => {
                 <div className="flex justify-between items-center mb-4">
                     <div className="flex items-center">
                         <img
-                            src={logo}
+                            src={user?.photoURL || logo}
                             alt="User Profile"
                             className="w-10 h-10 rounded-full border-2 border-gray-300 mr-3"
                         />
-                        <h2 className="text-xl font-semibold">{username}</h2>
+                        <h2 className="text-xl font-semibold">{user?.displayName || 'Unknown User'}</h2>
                     </div>
                     <button
                         onClick={closeModal}
@@ -82,12 +106,12 @@ const TopBar = () => {
                     </li>
                 </ul>
                 <hr />
-                <Link
-                    to="/logout"
-                    className="block p-2 mt-3 rounded text-red-500 hover:bg-red-100 hover:text-red-700 transition-all"
+                <button
+                    onClick={handleLogout}
+                    className="block w-full text-start p-2 mt-3 rounded text-red-500 hover:bg-red-100 hover:text-red-700 transition-all"
                 >
                     Log Out
-                </Link>
+                </button>
             </div>
 
             {isProfileModalOpen && (
