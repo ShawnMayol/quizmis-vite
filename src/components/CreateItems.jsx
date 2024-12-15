@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import TopBar from "./TopBar";
 import { db } from "../Firebase.js";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import "../assets/css/Copy.css";
 
 const CreateItems = () => {
     const { quizId } = useParams();
@@ -18,6 +19,15 @@ const CreateItems = () => {
     });
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const navigate = useNavigate();
+    const [isHovering, setIsHovering] = useState(false);
+    const [copied, setCopied] = useState(false);
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText(quizId).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        });
+    };
 
     useEffect(() => {
         const fetchQuizDetails = async () => {
@@ -63,10 +73,37 @@ const CreateItems = () => {
             <TopBar />
             <div className="flex flex-col items-center justify-center">
                 <div className="w-5/6 bg-opacity-75 bg-green-100 rounded-lg shadow-xl p-8 mt-10">
-                    <div className="flex justify-between">
-                        <h1 className="text-2xl font-bold mb-6">
-                            {quiz.title || "Loading..."}
-                        </h1>
+                    <div className="flex justify-between items-center mb-6">
+                        <div>
+                            <h1 className="text-2xl font-bold">
+                                {quiz.title || "Loading..."}
+                            </h1>
+                        </div>
+                        <div className="flex items-center">
+                            <p className="text-md font-medium pe-2">Code:</p>
+                            <div className="copy-button-wrapper">
+                                <p className="text-lg font-medium text-gray-700 me-4">
+                                    {quizId}
+                                </p>
+                                <div className="flex items-center">
+                                    <button
+                                        onClick={handleCopy}
+                                        className="copy-button"
+                                    >
+                                        <img
+                                            src="/assets/copy.svg"
+                                            alt="Copy"
+                                            className="copy-icon"
+                                        />
+                                    </button>
+                                    <span className="copy-tooltip">
+                                        {copied
+                                            ? "Copied to clipboard!"
+                                            : "Copy code"}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                         <img
                             src="/assets/settings.svg"
                             alt="Settings"
