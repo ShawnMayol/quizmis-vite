@@ -62,25 +62,26 @@ const Signup = () => {
 
         try {
             const result = await signInWithPopup(auth, provider);
-            const user = result.user;
+            const { user } = result;
 
-            // Validate the user's email domain
             if (!user.email.endsWith("@usc.edu.ph")) {
                 setError("Only USC email addresses are allowed.");
-                await auth.signOut(); // Log the user out
                 return;
             }
 
-            // Write user data to Firestore
             await setDoc(doc(db, "users", user.uid), {
                 username: user.displayName || "Google User",
                 email: user.email,
             });
 
-            navigate("/dashboard"); // Redirect to dashboard
+            navigate("/dashboard");
         } catch (error) {
             console.error("Google Sign-Up Error:", error.message);
             setError("Failed to sign up with Google. Please try again.");
+
+            if (auth.currentUser) {
+                await auth.signOut();
+            }
         }
     };
 
