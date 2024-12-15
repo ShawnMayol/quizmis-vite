@@ -16,6 +16,7 @@ import AboutUs from "./components/AboutUs.jsx";
 import PrivacyPolicy from "./components/PrivacyPolicy.jsx";
 import TermsAndConditions from "./components/TermsAndConditions.jsx";
 import ContactUs from "./components/ContactUs.jsx";
+import TakeQuiz from "./components/TakeQuiz.jsx";
 
 function App() {
     return (
@@ -34,12 +35,15 @@ function App() {
                 path="/quiz/:quizId/question/:questionIndex/edit"
                 element={<EditQuestion />}
             />
+            <Route path="/take-quiz/:quizId" element={<TakeQuiz />} />
             <Route path="/quizzes/:userID" element={<YourQuizzes />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-            <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+            <Route
+                path="/terms-and-conditions"
+                element={<TermsAndConditions />}
+            />
             <Route path="/contact" element={<ContactUs />} />
-
         </Routes>
     );
 }
