@@ -5,90 +5,124 @@ import useAuthCheck from "../hooks/useAuthCheck.jsx";
 import LoadingScreen from "./LoadingScreen.jsx";
 import Footer from "./Footer.jsx";
 
-// Image URLs provided
-const imageURLs = [
-    "https://goldpenguin.org/wp-content/uploads/2024/03/sunset.png",
-    "https://img.freepik.com/free-photo/pixel-art-river-landscape-illustration_23-2151793157.jpg",
-    "https://i.pinimg.com/474x/04/14/87/0414874d9c531d082636ffcb37b217da.jpg",
-    "https://i.pinimg.com/736x/3c/89/e4/3c89e4af1e9d5fdba724648354a7f2d2.jpg",
-    "https://pbs.twimg.com/media/FX09OEOUYAAy-uQ.png",
-    "https://64.media.tumblr.com/4d9f911a9310776d716e492e8fd03cad/tumblr_p1oxc3f1jS1tlgv32o1_540.png",
-    "https://64.media.tumblr.com/e9740a1c752a6d7af27e3f04d7c2f97d/tumblr_p4433mMcfS1tlgv32o1_r1_540.png",
-    "https://i.pinimg.com/1200x/6e/13/c4/6e13c4f292191b12aa31eb1d4df24128.jpg",
+const courseData = [
+    {
+        name: "CIS 1101 - PROGRAMMING 1",
+        image: "https://northlink.edu.ph/lms/pluginfile.php/423/course/overviewfiles/computer%20programming1.jpg",
+    },
+    {
+        name: "CIS 1201 - PROGRAMMING 2",
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiRETUMKLftPuSQgUwezZjx9jv7mkXj17Tyzn1wkrrRfsmd7g9vB86CpVZhAmUVI46205Bb21LOImFq-4mATn9fOTQ87t6yr6N-T3SqOGNOv8avE7wruyjvRe_Ur9cjn18mlYxhFH9AsL8/s640/86698731_10158013343572442_3708177310558453760_n.jpg",
+    },
+    {
+        name: "CS 1202 - WEB DEVELOPMENT 1",
+        image: "https://media.geeksforgeeks.org/wp-content/uploads/20231205165904/web-development-image.webp",
+    },
+    {
+        name: "CIS 1205 - NETWORKING 1",
+        image: "https://i0.wp.com/www.technologygee.com/wp-content/uploads/2023/12/what-is-computer-networking-tech-gee-knowledge-base-technology-gee.png?resize=620%2C400&ssl=1",
+    },
+    {
+        name: "CIS 2101 - DATA STRUCTURES AND ALGORITHMS",
+        image: "https://www.synergisticit.com/wp-content/uploads/2020/09/Data-structures-and-algorithms-new.webp",
+    },
 ];
 
 const Dashboard = () => {
-    const [announcements, setAnnouncements] = useState([]);
-    const [recentActivity, setRecentActivity] = useState([]);
     const db = getFirestore();
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const announcementsSnapshot = await getDocs(collection(db, "announcements"));
-                setAnnouncements(announcementsSnapshot.docs.map((doc) => doc.data()));
-
-                const activitySnapshot = await getDocs(collection(db, "recent_activity"));
-                setRecentActivity(activitySnapshot.docs.map((doc) => doc.data()));
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-
-        fetchData();
-    }, []);
-    const user = useAuthCheck('/login');
+    const user = useAuthCheck("/login");
 
     if (!user) {
-        return <LoadingScreen />
+        return <LoadingScreen />;
     }
+
+    const [filters, setFilters] = useState({
+        "CIS 1101": true,
+        "CIS 1201": true,
+        "CS 1202": true,
+        "CIS 1205": true,
+        "CIS 2101": true,
+    });
+    const [showFilters, setShowFilters] = useState(false);
+
+    const toggleFilter = (course) => {
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            [course]: !prevFilters[course],
+        }));
+    };
+
+    const toggleFilterVisibility = () => {
+        setShowFilters(!showFilters);
+    };
 
     return (
         <div>
             <TopBar />
             <div
-                className="p-8 pt-24 min-h-screen"
+                className="p-10 pt-24 min-h-screen"
                 style={{
-                    background: "linear-gradient(to bottom, #e6f5e6, #c7e9c0, #90ee90)",
+                    background:
+                        "linear-gradient(to bottom, #e6f5e6, #c7e9c0, #90ee90)",
                 }}
             >
-                {/* Admin Updates */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                    <div className="bg-white p-6 rounded-lg shadow-md lg:col-span-1">
-                        <h2 className="text-3xl font-extrabold text-green-700 mb-4">📢 Admin Updates</h2>
-                        {announcements.length > 0 ? (
-                            announcements.map((item, index) => (
-                                <div key={index} className="p-4 bg-gray-100 rounded-lg shadow-sm mb-2">
-                                    <p className="text-gray-700">{item.Hello || "No Message"}</p>
-                                </div>
-                            ))
-                        ) : (
-                            <p className="text-gray-400">No announcements yet.</p>
-                        )}
-                    </div>
-                    <div className="lg:col-span-2 bg-white p-6 rounded-lg shadow-md">
-                        <h2 className="text-3xl font-extrabold text-green-700 mb-4">📈 Activity Logs</h2>
-                        {recentActivity.length > 0 ? (
-                            recentActivity.map((item, index) => (
-                                <div key={index} className="p-4 bg-gray-100 rounded-lg shadow-sm mb-2">
-                                    <h3 className="text-lg font-semibold text-gray-800">
-                                        {item["Beat Around"] || "Activity Title"}
-                                    </h3>
-                                    <p className="text-gray-600">{item.description || "No details provided."}</p>
-                                </div>
-                            ))
-                        ) : (
-                            <p className="text-gray-400">No recent activity available.</p>
-                        )}
-                    </div>
+                <div className="flex justify-between items-center mb-8 mt-2">
+                    <h1 className="text-4xl font-extrabold text-green-700">
+                        Dashboard
+                    </h1>
+                    <img
+                        src="/assets/filter.svg"
+                        alt="Filter"
+                        className="h-8 w-8 cursor-pointer"
+                        onClick={toggleFilterVisibility}
+                    />
                 </div>
 
-                {/* Section Template */}
-                {["Recent", "Mathematics", "English and Language Arts"].map((section, idx) => (
-                    <div key={idx} className="mb-8">
-                        <h2 className="text-3xl font-extrabold text-green-700 mb-4">
-                            {section === "Recent" ? "🎨 Recent Quizzes" : section === "Mathematics" ? "🧮 Mathematics" : "📚 English and Language Arts"}
+                <hr className="border-green-800" />
+
+                {/* Filter options here */}
+                {showFilters && (
+                    <div className="bg-green-50 bg-opacity-60 p-4 rounded shadow mt-7">
+                        <h2 className="text-2xl font-bold mb-4 text-gray-700">
+                            Filter Quizzes
                         </h2>
+                        <div className="grid grid-cols-2 gap-4">
+                            {Object.entries(filters).map(
+                                ([course, isChecked]) => (
+                                    <label
+                                        key={course}
+                                        className="flex items-center bg-white p-2 rounded shadow hover:cursor-pointer"
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            checked={isChecked}
+                                            onChange={() =>
+                                                toggleFilter(course)
+                                            }
+                                            className="mr-2 form-checkbox rounded text-green-500"
+                                        />
+                                        <span className="text-md text-gray-700">
+                                            {course}
+                                        </span>
+                                    </label>
+                                )
+                            )}
+                        </div>
+                    </div>
+                )}
+
+                {/* Course Sections */}
+                {/* Top 4 Quizzes are displayed (based on totalTakers) */}
+                {courseData.map((course, idx) => (
+                    <div key={idx} className="mb-8 mt-8">
+                        <div className="flex items-center mb-4">
+                            <h2 className="text-3xl font-extrabold text-green-700 me-2">
+                                {course.name}
+                            </h2>
+                            <button className="text-green-600 no-underline hover:underline">
+                                View More
+                            </button>
+                        </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             {[...Array(4)].map((_, i) => (
                                 <a
@@ -97,11 +131,13 @@ const Dashboard = () => {
                                     className="block bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-transform duration-300 transform hover:scale-105"
                                 >
                                     <img
-                                        src={imageURLs[(idx * 4 + i) % imageURLs.length]}
-                                        alt={`${section} ${i + 1}`}
+                                        src={course.image}
+                                        alt={`${course.name} Quiz ${i + 1}`}
                                         className="rounded-lg mb-4 w-full h-40 object-cover"
                                     />
-                                    <h3 className="text-lg font-semibold text-gray-800">{`${section} ${i + 1}`}</h3>
+                                    <h3 className="text-lg font-semibold text-gray-800">{`Quiz ${
+                                        i + 1
+                                    }`}</h3>
                                 </a>
                             ))}
                         </div>

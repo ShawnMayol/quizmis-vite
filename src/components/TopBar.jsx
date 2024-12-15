@@ -89,27 +89,34 @@ const TopBar = () => {
                 <ul className="space-y-1 my-3">
                     <li>
                         <Link
+                            to="/dashboard"
+                            className="block p-2 rounded text-gray-800 hover:bg-green-100 hover:text-green-700 transition-all"
+                        >
+                            Dashboard
+                        </Link>
+                    </li>
+                    <hr />
+                    <li>
+                        <Link
                             to="/profile"
-                            className="block p-2 rounded text-black hover:bg-gray-200 hover:text-gray-900 transition-all"
+                            className="block p-2 rounded text-gray-800 hover:bg-green-100 hover:text-green-700 transition-all"
                         >
                             Your Profile
                         </Link>
                     </li>
                     <li>
                         <Link
-                            to={`/quizzes/${user?.uid}`} // Modified line to include the user's UID
-                            className="block p-2 rounded text-black hover:bg-gray-200 hover:text-gray-900 transition-all"
+                            to={`/quizzes/${user?.uid}`}
+                            className="block p-2 rounded text-gray-800 hover:bg-green-100 hover:text-green-700 transition-all"
                         >
                             Your Quizzes
                         </Link>
                     </li>
-                </ul>
-                <hr />
-                <ul className="space-y-1 my-3">
+                    <hr />
                     <li>
                         <Link
                             to="/create"
-                            className="block p-2 rounded text-black hover:bg-gray-200 hover:text-gray-900 transition-all"
+                            className="block p-2 rounded text-gray-800 hover:bg-green-100 hover:text-green-700 transition-all"
                         >
                             Create Quiz
                         </Link>
@@ -117,7 +124,7 @@ const TopBar = () => {
                     <li>
                         <Link
                             to="/join"
-                            className="block p-2 rounded text-black hover:bg-gray-200 hover:text-gray-900 transition-all"
+                            className="block p-2 rounded text-gray-800 hover:bg-green-100 hover:text-green-700 transition-all"
                         >
                             Join Quiz
                         </Link>
@@ -126,7 +133,7 @@ const TopBar = () => {
                 <hr />
                 <button
                     onClick={handleLogout}
-                    className="block w-full text-start p-2 mt-3 rounded text-black hover:bg-gray-200 hover:text-gray-900 transition-all"
+                    className="block w-full text-start p-2 mt-3 rounded text-red-500 hover:bg-red-100 hover:text-red-700 transition-all"
                 >
                     Log Out
                 </button>
