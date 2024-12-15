@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import TopBar from "./TopBar.jsx";
 import { db } from "../Firebase.js";
-import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import {
+    doc,
+    getDoc,
+    updateDoc,
+    arrayUnion,
+    increment,
+} from "firebase/firestore";
 
 const CreateQuestions = () => {
     const navigate = useNavigate();
@@ -91,6 +97,7 @@ const CreateQuestions = () => {
             const quizRef = doc(db, "quizzes", quizId);
             await updateDoc(quizRef, {
                 questions: arrayUnion(newQuestion),
+                numItems: increment(1),
             });
             // alert("Question added successfully!");
             setQuestionText("");
@@ -98,7 +105,7 @@ const CreateQuestions = () => {
                 { text: "", isCorrect: false },
                 { text: "", isCorrect: false },
             ]);
-            navigate(`/quiz/${quizId}`);
+            navigate(`/quiz/${quizId}`); // Navigate back to quiz details
         } catch (error) {
             console.error("Error adding question: ", error);
             alert("Failed to add question. Please try again.");
