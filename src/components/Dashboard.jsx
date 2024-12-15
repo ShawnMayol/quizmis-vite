@@ -3,7 +3,7 @@ import { getFirestore, collection, getDocs } from "firebase/firestore";
 import TopBar from "./TopBar.jsx";
 import useAuthCheck from "../hooks/useAuthCheck.jsx";
 import LoadingScreen from "./LoadingScreen.jsx";
-
+import Footer from "./Footer.jsx";
 
 // Image URLs provided
 const imageURLs = [
@@ -22,7 +22,6 @@ const Dashboard = () => {
     const [recentActivity, setRecentActivity] = useState([]);
     const db = getFirestore();
 
-    // Fetch Firestore Data
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -85,10 +84,10 @@ const Dashboard = () => {
                 </div>
 
                 {/* Section Template */}
-                {["Templates", "Mathematics", "English and Language Arts"].map((section, idx) => (
+                {["Recent", "Mathematics", "English and Language Arts"].map((section, idx) => (
                     <div key={idx} className="mb-8">
                         <h2 className="text-3xl font-extrabold text-green-700 mb-4">
-                            {section === "Templates" ? "🎨 Templates" : section === "Mathematics" ? "🧮 Mathematics" : "📚 English and Language Arts"}
+                            {section === "Recent" ? "🎨 Recent Quizzes" : section === "Mathematics" ? "🧮 Mathematics" : "📚 English and Language Arts"}
                         </h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             {[...Array(4)].map((_, i) => (
@@ -109,6 +108,7 @@ const Dashboard = () => {
                     </div>
                 ))}
             </div>
+            <Footer />
         </div>
     );
 };

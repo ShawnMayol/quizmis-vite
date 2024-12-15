@@ -38,7 +38,7 @@ const Footer = () => {
           </div>
 
           {/* Dynamic Footer Links */}
-          <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3 text-center">
             {footerData.map((section, idx) => (
               <div key={idx}>
                 <h2 className="mb-4 text-sm font-semibold uppercase text-white">
