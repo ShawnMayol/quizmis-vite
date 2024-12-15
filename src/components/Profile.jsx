@@ -26,7 +26,7 @@ const Profile = () => {
 
         return () => unsubscribe();
     }, []);
-
+// i eat
     return (
         <div
             className="min-h-screen bg-gradient-to-b from-green-100 to-green-200 relative"
@@ -37,7 +37,7 @@ const Profile = () => {
             }}
         >
             <TopBar />
-            <div className="flex justify-center items-center pt-12">
+            <div className="flex justify-center items-center py-20 pt-28">
                 {/* Profile Card */}
                 <div className="bg-white w-full max-w-4xl rounded-xl shadow-lg p-10">
                     {/* Title */}
