@@ -20,6 +20,7 @@ import TakeQuiz from "./components/TakeQuiz.jsx";
 import Quiz from "./components/Quiz.jsx";
 import Results from "./components/Results.jsx";
 
+
 function App() {
     return (
         <Routes>
@@ -34,7 +35,7 @@ function App() {
             <Route path="/quiz/:quizId" element={<CreateItems />} />
             <Route path="/quiz/:quizId/add" element={<CreateQuestion />} />
             <Route
-                path="/quiz/:quizId/question/:questionIndex/edit"
+path="/quiz/:quizId/question/:questionIndex/edit"
                 element={<EditQuestion />}
             />
             <Route path="/take-quiz/:quizId" element={<TakeQuiz />} />
