@@ -154,6 +154,8 @@ const CreateItems = () => {
                                                 })
                                             }
                                             className="mt-1 p-2 w-full border rounded-md"
+                                            minLength="4"
+                                            maxLength="20"
                                             required
                                         />
                                     </div>
@@ -175,6 +177,7 @@ const CreateItems = () => {
                                             }
                                             rows="4"
                                             className="mt-1 p-2 w-full border rounded-md"
+                                            maxLength="100"
                                         />
                                     </div>
                                     <div className="mb-6">

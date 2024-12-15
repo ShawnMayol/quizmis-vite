@@ -71,6 +71,8 @@ const Create = () => {
                                 onChange={(e) => setQuizTitle(e.target.value)}
                                 className="mt-1 p-2 py-4 w-full border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="Enter quiz title"
+                                minLength="4"
+                                maxLength="20"
                                 required
                             />
                             <p className="text-xs text-gray-600 mt-1">
@@ -92,6 +94,7 @@ const Create = () => {
                                 rows="4"
                                 className="mt-1 p-2 w-full border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="Describe your quiz"
+                                maxLength="100"
                             ></textarea>
                             <p className="text-xs text-gray-600">
                                 Optional. Max 100 characters.

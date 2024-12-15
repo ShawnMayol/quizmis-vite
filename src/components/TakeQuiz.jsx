@@ -24,6 +24,20 @@ const TakeQuiz = () => {
         fetchQuizDetails();
     }, [quizId, navigate]);
 
+    const handleStartQuiz = () => {
+        navigate(`/take-quiz/${quizId}/question/0`);
+
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen().catch((err) => {
+                console.error(
+                    `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
+                );
+            });
+        } else {
+            console.error("Full screen mode is not supported in this browser.");
+        }
+    };
+
     const averageScore =
         quiz && quiz.totalQuizTakers > 0
             ? (quiz.scoreAccumulated / quiz.totalQuizTakers).toFixed(2)
@@ -55,13 +69,17 @@ const TakeQuiz = () => {
                                     </li>
                                     <li>
                                         <strong>Average Score:</strong>{" "}
-                                        {averageScore}
+                                        {averageScore} / {quiz.numItems}
                                     </li>
                                     <li>
                                         <strong>Date Created:</strong>{" "}
                                         {new Date(
                                             quiz.dateCreated
-                                        ).toLocaleDateString("en-US")}
+                                        ).toLocaleDateString("en-US", {
+                                            year: "numeric",
+                                            month: "short",
+                                            day: "numeric",
+                                        })}
                                     </li>
                                     <li>
                                         <strong>Creator:</strong>{" "}
@@ -76,9 +94,7 @@ const TakeQuiz = () => {
 
                     <button
                         className="bg-green-400 w-1/6 hover:bg-green-500 text-white font-bold py-4 px-8 text-2xl rounded-e-md"
-                        onClick={() =>
-                            navigate(`/take-quiz/${quizId}/question/0`)
-                        }
+                        onClick={handleStartQuiz}
                     >
                         Start
                     </button>
