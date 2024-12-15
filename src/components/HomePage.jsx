@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../Firebase"; // Make sure auth is correctly imported
+import { onAuthStateChanged } from "firebase/auth";
 import Footer from "./Footer.jsx";
 import HomePagetopbar from "./HomepageTopbar.jsx";
 import Carousel from "./Carousel.jsx";
-import useAuthCheck from "../hooks/useAuthCheck.jsx";
 
 const HomePage = () => {
     const gradients = [
@@ -18,12 +19,14 @@ const HomePage = () => {
 
     const [gradientClass, setGradientClass] = useState(gradients[0]);
     const navigate = useNavigate();
-    const user = useAuthCheck("/login");
 
     useEffect(() => {
-        if (user) {
-            navigate("/dashboard");
-        }
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                navigate("/dashboard");
+            }
+            // Do not redirect if there is no user
+        });
 
         let index = 0;
         const gradientInterval = setInterval(() => {
@@ -31,8 +34,11 @@ const HomePage = () => {
             setGradientClass(gradients[index]);
         }, 4000); // Change gradient every 4 seconds
 
-        return () => clearInterval(gradientInterval);
-    }, []);
+        return () => {
+            clearInterval(gradientInterval);
+            unsubscribe(); // Cleanup subscription on unmount
+        };
+    }, [navigate]);
 
     return (
         <div className="flex flex-col min-h-screen">

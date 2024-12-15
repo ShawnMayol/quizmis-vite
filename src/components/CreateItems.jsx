@@ -72,15 +72,12 @@ const CreateItems = () => {
         <div className="min-h-screen pt-20">
             <TopBar />
             <div className="flex flex-col items-center justify-center">
-                <div className="w-5/6 bg-opacity-75 bg-green-100 rounded-lg shadow-xl p-8 mt-10">
+                <div className="w-5/6 bg-opacity-95 bg-white rounded-lg shadow-xl p-8 mt-10">
                     <div className="flex justify-between items-center mb-6">
-                        <div>
-                            <h1 className="text-2xl font-bold">
+                        <div className="flex items-center">
+                            <h1 className="text-2xl font-bold me-2">
                                 {quiz.title || "Loading..."}
                             </h1>
-                        </div>
-                        <div className="flex items-center">
-                            <p className="text-md font-medium pe-2">Code:</p>
                             <div className="copy-button-wrapper">
                                 <p className="text-lg font-medium text-gray-700 me-4">
                                     {quizId}
@@ -263,7 +260,7 @@ const CreateItems = () => {
                             <Link
                                 to={`/quiz/${quizId}/question/${index}/edit`}
                                 key={index}
-                                className="p-4 shadow rounded-lg bg-white"
+                                className="p-4 shadow rounded-lg bg-green-50 hover:bg-green-100"
                             >
                                 <div className="flex justify-between items-center py-2">
                                     <h2 className="text-lg font-semibold">{`Question ${

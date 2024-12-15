@@ -7,19 +7,21 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 const EditQuestion = () => {
     const { quizId, questionIndex } = useParams();
     const index = parseInt(questionIndex, 10);
-    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const navigate = useNavigate();
     const [quiz, setQuiz] = useState(null);
     const [question, setQuestion] = useState({
         text: "",
-        options: [
-            { text: "", isCorrect: false },
-            { text: "", isCorrect: false },
-        ],
+        options: [{ text: "" }, { text: "" }],
+        correctIndex: null,
     });
 
-    const handleCancel = () => {
-        navigate(`/quiz/${quizId}`);
+    const addOption = () => {
+        if (question.options.length < 5) {
+            setQuestion((prevQuestion) => ({
+                ...prevQuestion,
+                options: [...prevQuestion.options, { text: "" }],
+            }));
+        }
     };
 
     useEffect(() => {
@@ -28,21 +30,16 @@ const EditQuestion = () => {
             const quizDoc = await getDoc(quizRef);
             if (quizDoc.exists()) {
                 const data = quizDoc.data();
-                console.log("Fetched quiz data:", data);
                 setQuiz(data);
                 if (data.questions && data.questions[index]) {
                     setQuestion(data.questions[index]);
-                    console.log("Fetched question:", data.questions[index]);
                 } else {
-                    console.log(`No question found at index: ${index}`);
                     navigate(`/quiz/${quizId}`);
                 }
             } else {
-                console.log("No such quiz!");
                 navigate(`/quiz/${quizId}`);
             }
         };
-
         fetchQuizDetails();
     }, [quizId, index, navigate]);
 
@@ -54,31 +51,59 @@ const EditQuestion = () => {
         }));
     };
 
-    const handleOptionChange = (index, value) => {
-        const newOptions = question.options.map((option, i) => {
-            if (i === index) {
-                return { ...option, text: value };
-            }
-            return option;
-        });
-        setQuestion({ ...question, options: newOptions });
+    const handleOptionChange = (optionIndex, value) => {
+        const newOptions = question.options.map((option, i) => ({
+            text: i === optionIndex ? value : option.text,
+        }));
+        setQuestion((prevQuestion) => ({
+            ...prevQuestion,
+            options: newOptions,
+        }));
     };
 
     const handleToggleCorrect = (selectedIndex) => {
-        const newOptions = question.options.map((option, index) => {
-            return { ...option, isCorrect: index === selectedIndex };
-        });
-        setQuestion({ ...question, options: newOptions });
+        setQuestion((prevQuestion) => ({
+            ...prevQuestion,
+            correctIndex: selectedIndex,
+        }));
+    };
+
+    const removeOption = (optionIndex) => {
+        if (question.options.length > 2) {
+            const newOptions = question.options.filter(
+                (_, i) => i !== optionIndex
+            );
+            setQuestion((prevQuestion) => ({
+                ...prevQuestion,
+                options: newOptions,
+                correctIndex:
+                    prevQuestion.correctIndex === optionIndex
+                        ? null
+                        : prevQuestion.correctIndex > optionIndex
+                        ? prevQuestion.correctIndex - 1
+                        : prevQuestion.correctIndex,
+            }));
+        }
     };
 
     const saveChanges = async () => {
+        if (
+            question.correctIndex === null ||
+            question.correctIndex >= question.options.length ||
+            question.options.some((option) => option.text.trim() === "")
+        ) {
+            alert(
+                "Please ensure all fields are filled correctly and a correct answer is selected."
+            );
+            return;
+        }
+
         const updatedQuestions = [...quiz.questions];
         updatedQuestions[index] = question;
 
         try {
             const quizRef = doc(db, "quizzes", quizId);
             await updateDoc(quizRef, { questions: updatedQuestions });
-            console.log("Question updated successfully!");
             navigate(`/quiz/${quizId}`);
         } catch (error) {
             console.error("Error updating question: ", error);
@@ -90,11 +115,9 @@ const EditQuestion = () => {
         <div className="min-h-screen py-20">
             <TopBar />
             <div className="flex flex-col items-center justify-center">
-                <div className="w-5/6 bg-opacity-75 bg-green-100 rounded-lg shadow-xl p-8 mt-10">
-                    <h1 className="text-2xl font-bold mb-6">Edit question</h1>
-
+                <div className="w-5/6 bg-opacity-95 bg-white rounded-lg shadow-xl p-8 mt-10">
+                    <h1 className="text-2xl font-bold mb-6">Edit Question</h1>
                     <hr className="border-black mb-8" />
-
                     <input
                         type="text"
                         value={question.questionText}
@@ -102,8 +125,7 @@ const EditQuestion = () => {
                         placeholder="Enter question"
                         className="w-full p-2 border rounded-lg text-2xl text-center py-40 bg-green-50"
                     />
-
-                    <div className="flex justify-between items-center mt-2 space-x-2">
+                    <div className="flex justify-between items-center mt-4 space-x-2">
                         {question.options.map((option, index) => (
                             <div
                                 key={index}
@@ -113,13 +135,14 @@ const EditQuestion = () => {
                                     <input
                                         type="radio"
                                         name="correctOption"
-                                        checked={option.isCorrect}
+                                        checked={
+                                            question.correctIndex === index
+                                        }
                                         onChange={() =>
                                             handleToggleCorrect(index)
                                         }
-                                        className="form-radio border-gray-700 border-2 p-3 mt-2 ms-2 rounded-full h-5 w-5 text-green-600"
+                                        className="form-radio hover:cursor-pointer border-gray-700 border-2 rounded-full h-5 w-5 text-green-600"
                                     />
-                                   
                                 </label>
                                 <input
                                     type="text"
@@ -141,7 +164,7 @@ const EditQuestion = () => {
                                         <img
                                             src="/assets/trash.svg"
                                             alt="Delete"
-                                            className="h-5 w-5 hover:cursor-pointer"
+                                            className="h-7 w-7 hover:cursor-pointer"
                                         />
                                     </button>
                                 )}
@@ -149,16 +172,7 @@ const EditQuestion = () => {
                         ))}
                         {question.options.length < 5 && (
                             <button
-                                onClick={() => {
-                                    const newOptions = [
-                                        ...question.options,
-                                        { text: "", isCorrect: false },
-                                    ];
-                                    setQuestion({
-                                        ...question,
-                                        options: newOptions,
-                                    });
-                                }}
+                                onClick={addOption}
                                 className="bg-green-200 hover:bg-green-300 font-bold p-2 rounded"
                             >
                                 <img
@@ -169,10 +183,9 @@ const EditQuestion = () => {
                             </button>
                         )}
                     </div>
-
                     <div className="flex justify-between mt-2">
                         <button
-                            onClick={handleCancel}
+                            onClick={() => navigate(`/quiz/${quizId}`)}
                             className="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                         >
                             Cancel

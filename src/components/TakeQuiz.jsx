@@ -32,45 +32,55 @@ const TakeQuiz = () => {
     return (
         <div className="min-h-screen flex items-center justify-center">
             <TopBar />
-            <div className="w-5/6 bg-opacity-85 bg-green-100 rounded-lg shadow-xl py-10 px-12 mt-10">
-                <div className="flex justify-between items-center mb-6 mx-1">
-                    <h1 className="text-3xl font-bold">Take Quiz</h1>
+            <div className="w-5/6 bg-opacity-95 bg-white rounded-lg shadow-xl py-10 px-12 mt-10">
+                <div className="flex justify-between items-center mx-1">
+                    <h1 className="text-3xl font-bold">{quiz?.title}</h1>
                     <span className="text-gray-700 text-lg">
                         {quiz?.numItems} items
                     </span>
                 </div>
+                <p className="text-md mb-6 mt-2 ms-1">{quiz?.description}</p>
                 <hr className="border-black mb-8" />
                 <div className="flex justify-between">
-                    <div>
+                    <div className="bg-green-100 w-5/6 p-4 rounded-md shadow">
                         {quiz ? (
                             <>
-                                <h1 className="text-4xl font-bold mb-4 text-left">
-                                    {quiz.title}
-                                </h1>
-                                <p className="text-lg mb-4">
-                                    {quiz.description}
-                                </p>
-                                <p className="text-lg mb-4">
-                                    <strong>Course:</strong> {quiz.course}
-                                </p>
-                                <p className="text-lg mb-4">
-                                    <strong>Total Takers:</strong>{" "}
-                                    {quiz.totalQuizTakers}
-                                </p>
-                                <p className="text-lg mb-4">
-                                    <strong>Average Score:</strong>{" "}
-                                    {averageScore}
-                                </p>
+                                <ul className=" pl-5 space-y-4 text-xl py-2">
+                                    <li>
+                                        <strong>Course:</strong> {quiz.course}
+                                    </li>
+                                    <li>
+                                        <strong>Total Takers:</strong>{" "}
+                                        {quiz.totalQuizTakers}
+                                    </li>
+                                    <li>
+                                        <strong>Average Score:</strong>{" "}
+                                        {averageScore}
+                                    </li>
+                                    <li>
+                                        <strong>Date Created:</strong>{" "}
+                                        {new Date(
+                                            quiz.dateCreated
+                                        ).toLocaleDateString("en-US")}
+                                    </li>
+                                    <li>
+                                        <strong>Creator:</strong>{" "}
+                                        {quiz.creatorName}
+                                    </li>
+                                </ul>
                             </>
                         ) : (
                             <p>Loading quiz details...</p>
                         )}
                     </div>
+
                     <button
-                        className="bg-green-400 hover:bg-green-500 text-white font-bold py-4 px-8 text-2xl rounded"
-                        onClick={() => navigate(`/take-quiz/${quizId}/question/0`)}
+                        className="bg-green-400 w-1/6 hover:bg-green-500 text-white font-bold py-4 px-8 text-2xl rounded-e-md"
+                        onClick={() =>
+                            navigate(`/take-quiz/${quizId}/question/0`)
+                        }
                     >
-                        Take Quiz
+                        Start
                     </button>
                 </div>
             </div>

@@ -64,12 +64,13 @@ const Quiz = () => {
         // Calculate score
         let score = 0;
         quiz.questions.forEach((question, index) => {
-            if (answers[index] === question.correctOptionIndex) {
+            if (answers[index] === question.correctIndex) {
                 score += 1;
             }
         });
 
-        const percentageScore = (score / quiz.questions.length) * 100;
+        const totalItems = quiz.questions.length; // Total number of questions in the quiz
+        const percentageScore = (score / totalItems) * 100;
 
         // Database updates
         try {
@@ -97,7 +98,7 @@ const Quiz = () => {
 
             // Navigate to a results page or use state to show results
             navigate(`/quiz/${quizId}/results`, {
-                state: { score, percentageScore },
+                state: { score, percentageScore, numItems: totalItems }, // Now passing numItems
             });
         } catch (error) {
             console.error("Failed to record quiz results:", error);

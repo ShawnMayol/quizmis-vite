@@ -26,7 +26,7 @@ const Create = () => {
             console.error("No user logged in!");
             return;
         }
-        const currentDate = new Date(); // Get the current date for the creation timestamp
+        const currentDate = new Date();
         try {
             const docRef = await addDoc(collection(db, "quizzes"), {
                 title: quizTitle,

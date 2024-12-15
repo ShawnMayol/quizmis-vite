@@ -13,7 +13,7 @@ const useAuthCheck = (redirectPath = '/login') => {
             }
         });
 
-        return () => unsubscribe(); // Cleanup subscription on unmount
+        return () => unsubscribe();
     }, [auth, navigate, redirectPath]);
 
     return auth.currentUser;

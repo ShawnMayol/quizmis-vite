@@ -46,7 +46,7 @@ const YourQuizzes = () => {
         <div className="min-h-screen pt-32">
             <TopBar />
             <div className="flex flex-col items-center justify-center">
-                <div className="w-5/6 bg-opacity-75 bg-green-100 rounded-lg shadow-xl p-8 mt-10">
+                <div className="w-5/6 bg-opacity-95 bg-white rounded-lg shadow-xl p-8 mt-10">
                     <h1 className="text-2xl font-bold mb-6">Your Quizzes</h1>
                     <hr className="border-black mb-8" />
                     {quizzes.length > 0 ? (
@@ -54,7 +54,7 @@ const YourQuizzes = () => {
                             <Link
                                 key={quiz.id}
                                 to={`/quiz/${quiz.id}`}
-                                className="block p-4 shadow rounded-lg mb-2 bg-white hover:bg-gray-100 transition-colors"
+                                className="block p-6 shadow rounded-lg mb-4 bg-green-50 hover:bg-green-100 transition-colors"
                             >
                                 <div className="flex justify-between items-center">
                                     <h2 className="text-xl font-semibold">
