@@ -116,7 +116,16 @@ const EditQuestion = () => {
             <TopBar />
             <div className="flex flex-col items-center justify-center">
                 <div className="w-5/6 bg-opacity-95 bg-white rounded-lg shadow-xl p-8 mt-10">
-                    <h1 className="text-2xl font-bold mb-6">Edit Question</h1>
+                    <div className="flex justify-between">
+                        <h1 className="text-2xl font-bold mb-6">
+                            Edit Question
+                        </h1>
+                        <img
+                            src="/assets/trash.svg"
+                            alt="Delete"
+                            className="h-7 w-7 hover:cursor-pointer"
+                        />
+                    </div>
                     <hr className="border-black mb-8" />
                     <input
                         type="text"
