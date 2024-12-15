@@ -17,6 +17,7 @@ import PrivacyPolicy from "./components/PrivacyPolicy.jsx";
 import TermsAndConditions from "./components/TermsAndConditions.jsx";
 import ContactUs from "./components/ContactUs.jsx";
 
+
 function App() {
     return (
         <Routes>
@@ -31,7 +32,7 @@ function App() {
             <Route path="/quiz/:quizId" element={<CreateItems />} />
             <Route path="/quiz/:quizId/add" element={<CreateQuestion />} />
             <Route
-                path="/quiz/:quizId/question/:questionIndex/edit"
+path="/quiz/:quizId/question/:questionIndex/edit"
                 element={<EditQuestion />}
             />
             <Route path="/quizzes/:userID" element={<YourQuizzes />} />
@@ -39,6 +40,8 @@ function App() {
             <Route path="/privacypolicy" element={<PrivacyPolicy />} />
             <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
             <Route path="/contact" element={<ContactUs />} />
+
+                
 
         </Routes>
     );

@@ -1,226 +1,159 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "./Footer.jsx";
-import HomePagetopbar from "./HomepageTopbar.jsx"; // Updated top bar component
-import logo from "/Logo.png";
-
-const Carousel = () => {
-    return (
-        <div className="px-10 py-8 mx-48 bg-gray-500 bg-opacity-20 rounded-lg">
-            <div    
-                id="default-carousel"
-                className="relative w-full"
-                data-carousel="slide"
-            >
-                <div className="relative h-56 overflow-hidden rounded-lg">
-                    <div
-                        className="hidden ease-in-out"
-                        data-carousel-item
-                        style={{ transitionDuration: "2s" }}
-                    >
-                        <Link to="/">
-                            <img
-                                src={logo}
-                                className="absolute block max-w-full max-h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                                alt="..."
-                            />
-                        </Link>
-                    </div>
-                    <div
-                        className="hidden ease-in-out"
-                        data-carousel-item
-                        style={{ transitionDuration: "2s" }}
-                    >
-                        <Link to="/">
-                            <img
-                                src={logo}
-                                className="absolute block max-w-full max-h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                                alt="..."
-                            />
-                        </Link>
-                    </div>
-                    <div
-                        className="hidden ease-in-out"
-                        data-carousel-item
-                        style={{ transitionDuration: "2s" }}
-                    >
-                        <Link to="/">
-                            <img
-                                src={logo}
-                                className="absolute block max-w-full max-h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                                alt="..."
-                            />
-                        </Link>
-                    </div>
-                    <div
-                        className="hidden ease-in-out"
-                        data-carousel-item
-                        style={{ transitionDuration: "2s" }}
-                    >
-                        <Link to="/">
-                            <img
-                                src={logo}
-                                className="absolute block max-w-full max-h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                                alt="..."
-                            />
-                        </Link>
-                    </div>
-                    <div
-                        className="hidden ease-in-out"
-                        data-carousel-item
-                        style={{ transitionDuration: "2s" }}
-                    >
-                        <Link to="/">
-                            <img
-                                src={logo}
-                                className="absolute block max-w-full max-h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                                alt="..."
-                            />
-                        </Link>
-                    </div>
-                </div>
-                <div className="absolute z-30 mt-6 flex -translate-x-1/2  left-1/2 space-x-3 rtl:space-x-reverse">
-                    <button
-                        type="button"
-                        className="w-3 h-3 rounded-full"
-                        aria-current="true"
-                        aria-label="Slide 1"
-                        data-carousel-slide-to="0"
-                    ></button>
-                    <button
-                        type="button"
-                        className="w-3 h-3 rounded-full"
-                        aria-current="false"
-                        aria-label="Slide 2"
-                        data-carousel-slide-to="1"
-                    ></button>
-                    <button
-                        type="button"
-                        className="w-3 h-3 rounded-full"
-                        aria-current="false"
-                        aria-label="Slide 3"
-                        data-carousel-slide-to="2"
-                    ></button>
-                    <button
-                        type="button"
-                        className="w-3 h-3 rounded-full"
-                        aria-current="false"
-                        aria-label="Slide 4"
-                        data-carousel-slide-to="3"
-                    ></button>
-                    <button
-                        type="button"
-                        className="w-3 h-3 rounded-full"
-                        aria-current="false"
-                        aria-label="Slide 5"
-                        data-carousel-slide-to="4"
-                    ></button>
-                </div>
-                <button
-                    type="button"
-                    className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                    data-carousel-prev
-                >
-                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                        <svg
-                            className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 6 10"
-                        >
-                            <path
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M5 1 1 5l4 4"
-                            />
-                        </svg>
-                        <span className="sr-only">Previous</span>
-                    </span>
-                </button>
-                <button
-                    type="button"
-                    className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                    data-carousel-next
-                >
-                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                        <svg
-                            className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 6 10"
-                        >
-                            <path
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="m1 9 4-4-4-4"
-                            />
-                        </svg>
-                        <span className="sr-only">Next</span>
-                    </span>
-                </button>
-            </div>
-        </div>
-    );
-};
+import HomePagetopbar from "./HomepageTopbar.jsx";
+import Carousel from "./Carousel.jsx";
 
 const HomePage = () => {
+    const gradients = [
+        "from-red-100 via-purple-200 to-cyan-200",
+        "from-orange-100 via-yellow-200 to-green-200",
+        "from-yellow-100 via-green-300 to-blue-200",
+        "from-blue-100 via-indigo-200 to-purple-200",
+        "from-pink-100 via-rose-200 to-red-200",
+        "from-lime-100 via-teal-200 to-blue-200",
+        "from-emerald-100 via-sky-200 to-indigo-200",
+    ];
+
+    const [gradientClass, setGradientClass] = useState(gradients[0]);
+
+    useEffect(() => {
+        let index = 0;
+        const gradientInterval = setInterval(() => {
+            index = (index + 1) % gradients.length;
+            setGradientClass(gradients[index]);
+        }, 4000); // Change gradient every 4 seconds
+
+        return () => clearInterval(gradientInterval);
+    }, []);
+
     return (
-        <div className="text-center">
-            {/* HomePage_topbar at the very top */}
+        <div className="flex flex-col min-h-screen">
+            {/* Topbar Component */}
             <HomePagetopbar />
 
-            {/* Main Page Content */}
-            <div className="flex flex-col items-center justify-start text-center my-40">
-                <h1 className="text-4xl font-bold mb-24">
-                    Empowering Carolinians,
-                    <br />
-                    one quiz at a time,
-                    <br />
-                    connecting learners
-                    <br />
-                    through shared knowledge.
-                </h1>
-                <Link
-                    to="/join"
-                    className="bg-green-600 text-white px-28 py-6 rounded-full hover:bg-green-700 transition duration-300"
-                >
-                    <p className="font-bold text-xl">Enter Quiz</p>
-                </Link>
-            </div>
+            {/* Hero Section */}
+            <section
+                className={`relative h-screen flex justify-center items-center bg-gradient-to-br ${gradientClass} transition-all duration-1000`}
+            >
+                <div className="absolute text-center p-10 bg-white shadow-2xl rounded-2xl max-w-4xl mx-4 transform hover:scale-105 transition-transform duration-300">
+                    <h1 className="text-6xl font-extrabold text-gray-800 mb-6 leading-snug">
+                        Empowering <span className="text-green-500">Carolini​ans</span>,
+                        <br /> one <span className="text-red-500">quiz</span> at a time
+                    </h1>
+                    <p className="text-lg text-gray-600 mb-8">
+                        Connecting learners through shared knowledge and interactive experiences.
+                    </p>
+                    <Link
+                        to="/join"
+                        className="inline-block bg-green-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-green-600 shadow-lg transition duration-300"
+                    >
+                        Enter Quiz
+                    </Link>
+                </div>
+            </section>
 
-            {/* Section: Top Quizzes */}
-            <div className="mb-16">
-                <h1 className="text-3xl text-left font-bold mb-4 ms-48">
-                    Top Quizzes This Week! &#128293;
-                </h1>
-                <Carousel />
-            </div>a
+            {/* Top Quizzes Section */}
+            <section className="py-16">
+                <div className="container mx-auto text-center">
+                    <h2 className="text-3xl font-bold mb-8 flex items-center justify-center">
+                        🏆 Top Quizzes This Week
+                    </h2>
+                    <div className="flex justify-center">
+                        <div className="bg-white shadow-md rounded-lg p-4 w-3/4">
+                            <Carousel />
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-            {/* Section: Featured */}
-            <div className="mb-24">
-                <h1 className="text-3xl text-left font-bold mb-4 ms-48">Featured</h1>
-                <Carousel />
-            </div>
+            {/* Featured Quizzes Section */}
+            <section className="py-16">
+                <div className="container mx-auto text-center">
+                    <h2 className="text-3xl font-bold mb-8 flex items-center justify-center">
+                        ⭐ Featured Quizzes
+                    </h2>
+                    <div className="flex justify-center">
+                        <div className="bg-white shadow-md rounded-lg p-4 w-3/4">
+                            <Carousel />
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-            {/* Quizmis Description */}
-            <p className="mb-4 text-2xl">What is Quizmis?</p>
-            <h1 className="text-4xl font-bold mb-24">
-                Quizmis is a dedicated quiz platform
-                <br />
-                for University of San Carlos students
-                <br />
-                and faculty, offering personalized
-                <br />
-                quizzes, user profiles, and interactive
-                <br />
-                engagement.
-            </h1>
+            {/* What is Quizmis Section */}
+            <section
+                className={`relative h-screen flex flex-col justify-center items-center space-y-8 bg-gradient-to-br ${gradientClass} transition-all duration-1000`}
+            >
+                {/* Card 1 */}
+                <div className="max-w-3xl bg-white shadow-lg rounded-2xl p-8 transform hover:scale-105 transition-transform duration-300">
+                    <h2 className="text-4xl font-bold text-gray-800 mb-4">
+                        Discover <span className="text-purple-500">Quizmis</span>
+                    </h2>
+                    <p className="text-lg text-gray-600 leading-relaxed">
+                        <span className="font-semibold text-gray-700">Quizmis</span> is the trusted quiz platform for University of San Carlos students and faculty. It provides{" "}
+                        <span className="text-blue-500 font-medium">personalized quizzes</span>,{" "}
+                        <span className="text-green-500 font-medium">interactive engagement</span>, and{" "}
+                        <span className="text-yellow-500 font-medium">user profiles</span> to enhance your learning experience.
+                    </p>
+                </div>
+
+                {/* Card 2 */}
+                <div className="max-w-3xl bg-white shadow-lg rounded-2xl p-8 transform hover:scale-105 transition-transform duration-300">
+                    <h2 className="text-4xl font-bold text-gray-800 mb-4">
+                        Elevate Your <span className="text-green-500">Study Game</span>
+                    </h2>
+                    <p className="text-lg text-gray-600 leading-relaxed">
+                        Master your subjects with <span className="text-blue-500 font-medium">interactive quizzes</span> and{" "}
+                        <span className="text-red-500 font-medium">real-time analytics</span>. Understand your strengths, pinpoint areas for improvement, and boost academic success.
+                    </p>
+                </div>
+
+                {/* Card 3 */}
+                <div className="max-w-3xl bg-white shadow-lg rounded-2xl p-8 transform hover:scale-105 transition-transform duration-300">
+                    <h2 className="text-4xl font-bold text-gray-800 mb-4">
+                        Collaborate with <span className="text-blue-500">Peers</span>
+                    </h2>
+                    <p className="text-lg text-gray-600 leading-relaxed">
+                        Join group quizzes and <span className="text-green-500 font-medium">study sessions</span> with fellow students. Leverage shared knowledge and enjoy the collaborative learning experience Quizmis offers.
+                    </p>
+                </div>
+
+                {/* Card 4 */}
+                <div className="max-w-3xl bg-white shadow-lg rounded-2xl p-8 transform hover:scale-105 transition-transform duration-300">
+                    <h2 className="text-4xl font-bold text-gray-800 mb-4">
+                        Track Your <span className="text-yellow-500">Progress</span>
+                    </h2>
+                    <p className="text-lg text-gray-600 leading-relaxed">
+                        Keep a close eye on your achievements with intuitive <span className="text-purple-500 font-medium">progress charts</span> and <span className="text-blue-500 font-medium">milestones</span> designed to motivate and reward your hard work.
+                    </p>
+                </div>
+            </section>
+
+            {/* Why Choose Quizmis Section */}
+            <section className="py-16">
+                <h2 className="text-3xl font-bold text-center mb-8">Why Choose Quizmis?</h2>
+                <div className="bg-white shadow-lg rounded-lg p-6 mx-auto w-3/4 overflow-auto h-60">
+                    <ul className="list-none space-y-4 text-gray-700 text-lg">
+                        <li className="flex items-start">
+                            <span className="inline-block text-green-500 text-2xl mr-2">✔</span>
+                            <span>Customizable quiz creation tools.</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="inline-block text-blue-500 text-2xl mr-2">✔</span>
+                            <span>Real-time performance analytics.</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="inline-block text-yellow-500 text-2xl mr-2">✔</span>
+                            <span>User-friendly interfaces for students and faculty.</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="inline-block text-purple-500 text-2xl mr-2">✔</span>
+                            <span>Secure and efficient platform management.</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
 
             {/* Footer */}
             <Footer />
