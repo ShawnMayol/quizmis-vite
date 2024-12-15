@@ -17,21 +17,33 @@ const Join = () => {
     }, []);
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center">
-            <div className="flex flex-col items-center">
-                <Link to={user ? "/dashboard" : "/"} className="mb-4">
-                    <img src={Logo} className="h-40 w-auto" alt="Quizmis Logo" />
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-cyan-50 via-green-100 to-blue-50">
+            {/* Logo Section */}
+            <div className="flex flex-col items-center mb-10">
+                <Link to={user ? "/dashboard" : "/"}>
+                    <img
+                        src={Logo}
+                        className="h-48 w-auto transform hover:scale-105 transition-transform duration-300"
+                        alt="Quizmis Logo"
+                    />
                 </Link>
+                <h1 className="text-4xl font-extrabold text-gray-800 mt-6">
+                    Join a <span className="text-green-500">Quiz</span>
+                </h1>
+                <p className="text-lg text-gray-600 mt-2">
+                    Enter your unique quiz code to get started.
+                </p>
             </div>
 
-            <div className="flex flex-col items-center mb-36 mt-4 shadow-lg px-14 py-8 rounded-lg bg-opacity-50 bg-green-300">
-                <div className="relative w-full max-w-md">
+            {/* Input Section */}
+            <div className="relative w-full max-w-lg bg-white shadow-2xl rounded-2xl p-8 transform hover:scale-105 transition-transform duration-300">
+                <div className="relative">
                     <input
                         type="text"
                         placeholder="Enter quiz code"
-                        className="w-full p-4 pr-20 border rounded-lg text-lg focus:outline-none"
+                        className="w-full p-5 pr-24 border-2 border-gray-200 rounded-full text-lg text-gray-700 focus:outline-none focus:border-green-400"
                     />
-                    <button className="absolute top-0 right-0 bg-green-500 text-white h-full px-4 rounded-r-lg hover:bg-green-400 transition duration-300">
+                    <button className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-green-500 text-white text-lg font-semibold px-6 py-3 rounded-full hover:bg-green-600 transition duration-300 shadow-lg">
                         JOIN
                     </button>
                 </div>
