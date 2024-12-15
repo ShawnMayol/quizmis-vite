@@ -49,10 +49,10 @@ const Create = () => {
     };
 
     return (
-        <div className="min-h-screen pt-20">
+        <div className="min-h-screen py-20">
             <TopBar />
             <div className="flex flex-col items-center justify-center">
-                <div className="w-5/6 bg-opacity-75 bg-green-100 rounded-lg shadow-xl p-8 mt-10">
+                <div className="w-5/6 bg-opacity-95 bg-white rounded-lg shadow-xl p-8 mt-10">
                     <h1 className="text-2xl font-bold mb-6">
                         Create a New Quiz
                     </h1>
@@ -69,7 +69,7 @@ const Create = () => {
                                 id="quizTitle"
                                 value={quizTitle}
                                 onChange={(e) => setQuizTitle(e.target.value)}
-                                className="mt-1 p-2 w-full border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="mt-1 p-2 py-4 w-full border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="Enter quiz title"
                                 required
                             />
@@ -108,7 +108,7 @@ const Create = () => {
                                 id="course"
                                 value={course}
                                 onChange={(e) => setCourse(e.target.value)}
-                                className="mt-1 p-2 w-full border rounded-md hover:cursor-pointer shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="mt-1 p-2 py-4 w-full border rounded-md hover:cursor-pointer shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 required
                             >
                                 <option value="">Select Course</option>
@@ -140,7 +140,7 @@ const Create = () => {
                                 id="visibility"
                                 value={visibility}
                                 onChange={(e) => setVisibility(e.target.value)}
-                                className="mt-1 p-2 w-full border rounded-md hover:cursor-pointer shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="mt-1 p-2 py-4 w-full border rounded-md hover:cursor-pointer shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 required
                             >
                                 <option value="">Select Visibility</option>

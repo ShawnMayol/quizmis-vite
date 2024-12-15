@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import TopBar from "./TopBar.jsx";
+import useAuthCheck from "../hooks/useAuthCheck.jsx";
+import LoadingScreen from "./LoadingScreen.jsx";
+
 
 // Image URLs provided
 const imageURLs = [
@@ -35,6 +38,11 @@ const Dashboard = () => {
 
         fetchData();
     }, []);
+    const user = useAuthCheck('/login');
+
+    if (!user) {
+        return <LoadingScreen />
+    }
 
     return (
         <div>

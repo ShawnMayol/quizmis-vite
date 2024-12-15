@@ -26,7 +26,7 @@ const Profile = () => {
 
         return () => unsubscribe();
     }, []);
-// i eat
+
     return (
         <div
             className="min-h-screen bg-gradient-to-b from-green-100 to-green-200 relative"

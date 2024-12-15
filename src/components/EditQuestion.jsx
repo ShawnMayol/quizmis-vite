@@ -64,11 +64,10 @@ const EditQuestion = () => {
         setQuestion({ ...question, options: newOptions });
     };
 
-    const handleToggleCorrect = (index) => {
-        const newOptions = question.options.map((option, i) => ({
-            ...option,
-            isCorrect: i === index ? !option.isCorrect : option.isCorrect,
-        }));
+    const handleToggleCorrect = (selectedIndex) => {
+        const newOptions = question.options.map((option, index) => {
+            return { ...option, isCorrect: index === selectedIndex };
+        });
         setQuestion({ ...question, options: newOptions });
     };
 
@@ -98,7 +97,7 @@ const EditQuestion = () => {
 
                     <input
                         type="text"
-                        value={question.questionText} 
+                        value={question.questionText}
                         onChange={handleQuestionChange}
                         placeholder="Enter question"
                         className="w-full p-2 border rounded-lg text-2xl text-center py-40 bg-green-50"
@@ -112,18 +111,15 @@ const EditQuestion = () => {
                             >
                                 <label className="absolute top-1 left-2 flex items-center">
                                     <input
-                                        type="checkbox"
+                                        type="radio"
+                                        name="correctOption"
                                         checked={option.isCorrect}
                                         onChange={() =>
                                             handleToggleCorrect(index)
                                         }
-                                        className="form-checkbox border-gray-700 border-2 rounded h-5 w-5 text-green-600"
+                                        className="form-radio border-gray-700 border-2 p-3 mt-2 ms-2 rounded-full h-5 w-5 text-green-600"
                                     />
-                                    {!option.isCorrect && (
-                                        <span className="text-gray-300 -ml-4">
-                                            ✔
-                                        </span>
-                                    )}
+                                   
                                 </label>
                                 <input
                                     type="text"
@@ -139,16 +135,7 @@ const EditQuestion = () => {
                                 />
                                 {question.options.length > 2 && (
                                     <button
-                                        onClick={() => {
-                                            const newOptions =
-                                                question.options.filter(
-                                                    (_, i) => i !== index
-                                                );
-                                            setQuestion({
-                                                ...question,
-                                                options: newOptions,
-                                            });
-                                        }}
+                                        onClick={() => removeOption(index)}
                                         className="absolute top-1 right-2"
                                     >
                                         <img
@@ -182,6 +169,7 @@ const EditQuestion = () => {
                             </button>
                         )}
                     </div>
+
                     <div className="flex justify-between mt-2">
                         <button
                             onClick={handleCancel}
