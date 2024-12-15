@@ -5,6 +5,7 @@ import Logo from "/Brand.png";
 
 const Join = () => {
     const [user, setUser] = useState(null);
+    const [quizCode, setQuizCode] = useState("");
     const navigate = useNavigate();
     const auth = getAuth();
 
@@ -15,6 +16,14 @@ const Join = () => {
 
         return () => unsubscribe();
     }, []);
+
+    const handleJoinQuiz = () => {
+        if (quizCode.trim()) {
+            navigate(`/take-quiz/${quizCode}`);
+        } else {
+            alert("Please enter a valid quiz code.");
+        }
+    };
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center">
@@ -30,8 +39,13 @@ const Join = () => {
                         type="text"
                         placeholder="Enter quiz code"
                         className="w-full p-4 pr-20 border rounded-lg text-lg focus:outline-none"
+                        value={quizCode}
+                        onChange={(e) => setQuizCode(e.target.value)}
                     />
-                    <button className="absolute top-0 right-0 bg-green-500 text-white h-full px-4 rounded-r-lg hover:bg-green-400 transition duration-300">
+                    <button
+                        className="absolute top-0 right-0 bg-green-500 text-white h-full px-4 rounded-r-lg hover:bg-green-400 transition duration-300"
+                        onClick={handleJoinQuiz}
+                    >
                         JOIN
                     </button>
                 </div>
