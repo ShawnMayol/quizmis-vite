@@ -36,7 +36,7 @@ const TopBar = () => {
     };
 
     return (
-        <div className="fixed top-0 w-full bg-white rounded-b-md bg-opacity-70 shadow-md py-3 px-8 flex justify-between items-center z-40">
+        <div className="fixed top-0 w-full bg-white rounded-b-md bg-opacity-95 shadow-md py-3 px-8 flex justify-between items-center z-40">
             <div className="flex items-center">
                 <Link to="/dashboard" className="flex items-center">
                     <img src={logo} className="h-14 mr-4" alt="Quizmis Logo" />
@@ -97,18 +97,10 @@ const TopBar = () => {
                     </li>
                     <li>
                         <Link
-                            to="/your-quizzes"
+                            to={`/quizzes/${user?.uid}`} // Modified line to include the user's UID
                             className="block p-2 rounded text-black hover:bg-gray-200 hover:text-gray-900 transition-all"
                         >
                             Your Quizzes
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            to="/saved-quizzes"
-                            className="block p-2 rounded text-black hover:bg-gray-200 hover:text-gray-900 transition-all"
-                        >
-                            Saved Quizzes
                         </Link>
                     </li>
                 </ul>
