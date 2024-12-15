@@ -15,30 +15,6 @@ const Create = () => {
     const [user, loading, error] = useAuthState(auth);
     const navigate = useNavigate();
 
-    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-
-    const toggleSettingsModal = () => {
-        setIsSettingsOpen(!isSettingsOpen);
-    };
-
-    const handleSettingsUpdate = async (e) => {
-        e.preventDefault();
-        try {
-            const quizRef = doc(db, "quizzes", quizId);
-            await updateDoc(quizRef, {
-                title: quizTitle,
-                description: description,
-                course: course,
-                visibility: visibility,
-            });
-            alert("Quiz settings updated successfully!");
-            toggleSettingsModal(); // Close modal on successful update
-        } catch (error) {
-            console.error("Error updating quiz settings: ", error);
-            alert("Failed to update quiz settings. Please try again.");
-        }
-    };
-
     const handleQuizCreation = async (e) => {
         e.preventDefault();
         if (loading) return;
@@ -50,6 +26,7 @@ const Create = () => {
             console.error("No user logged in!");
             return;
         }
+        const currentDate = new Date(); // Get the current date for the creation timestamp
         try {
             const docRef = await addDoc(collection(db, "quizzes"), {
                 title: quizTitle,
@@ -60,6 +37,9 @@ const Create = () => {
                 creatorName: user.displayName || "Anonymous",
                 numItems: 0,
                 questions: [],
+                dateCreated: currentDate.toISOString(),
+                totalQuizTakers: 0,
+                scoreAccumulated: 0,
             });
             console.log("Document written with ID: ", docRef.id);
             navigate(`/quiz/${docRef.id}`);

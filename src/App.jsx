@@ -8,7 +8,10 @@ import Join from "./components/Join.jsx";
 import Profile from "./components/Profile.jsx";
 import ForgotPassword from "./components/Forgot.jsx";
 import Create from "./components/Create.jsx";
-import CreateItems from './components/CreateItems.jsx';
+import CreateItems from "./components/CreateItems.jsx";
+import CreateQuestion from "./components/CreateQuestion.jsx";
+import EditQuestion from "./components/EditQuestion.jsx";
+import YourQuizzes from "./components/Quizzes.jsx";
 
 function App() {
     return (
@@ -22,6 +25,12 @@ function App() {
             <Route path="/forgot" element={<ForgotPassword />} />
             <Route path="/create" element={<Create />} />
             <Route path="/quiz/:quizId" element={<CreateItems />} />
+            <Route path="/quiz/:quizId/add" element={<CreateQuestion />} />
+            <Route
+                path="/quiz/:quizId/question/:questionIndex/edit"
+                element={<EditQuestion />}
+            />
+            <Route path="/quizzes/:userID" element={<YourQuizzes />} />
         </Routes>
     );
 }
