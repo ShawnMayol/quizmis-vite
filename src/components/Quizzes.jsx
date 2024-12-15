@@ -57,12 +57,9 @@ const YourQuizzes = () => {
                                 className="block p-4 shadow rounded-lg mb-2 bg-white hover:bg-gray-100 transition-colors"
                             >
                                 <div className="flex justify-between items-center">
-                                    <div>
-                                        <h2 className="text-xl font-semibold">
-                                            {quiz.title}
-                                        </h2>
-                                        <p>{quiz.description}</p>
-                                    </div>
+                                    <h2 className="text-xl font-semibold">
+                                        {quiz.title}
+                                    </h2>
                                     <span className="text-gray-500 text-sm">
                                         {quiz.numItems} items
                                     </span>

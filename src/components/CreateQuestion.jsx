@@ -64,11 +64,10 @@ const CreateQuestions = () => {
         setOptions(newOptions);
     };
 
-    const handleToggleCorrect = (index) => {
-        const newOptions = options.map((option, i) => ({
-            ...option,
-            isCorrect: i === index ? !option.isCorrect : option.isCorrect,
-        }));
+    const handleToggleCorrect = (selectedIndex) => {
+        const newOptions = options.map((option, index) => {
+            return { ...option, isCorrect: index === selectedIndex };
+        });
         setOptions(newOptions);
     };
 
@@ -139,18 +138,14 @@ const CreateQuestions = () => {
                                 >
                                     <label className="absolute top-1 left-2 flex items-center">
                                         <input
-                                            type="checkbox"
+                                            type="radio"
+                                            name="correctOption"
                                             checked={option.isCorrect}
                                             onChange={() =>
                                                 handleToggleCorrect(index)
                                             }
-                                            className="form-checkbox border-gray-700 border-2 rounded h-5 w-5 text-green-600"
+                                            className="form-radio hover:cursor-pointer border-gray-700 border-2 p-3 mt-2 ms-2 rounded-full h-5 w-5 text-green-600"
                                         />
-                                        {!option.isCorrect && (
-                                            <span className="text-gray-300 -ml-4">
-                                                ✔
-                                            </span>
-                                        )}
                                     </label>
                                     <input
                                         type="text"
@@ -161,8 +156,8 @@ const CreateQuestions = () => {
                                                 e.target.value
                                             )
                                         }
-                                        placeholder={`Enter answer option`}
-                                        className="flex-grow p-2 text-center py-24 bg-green-50 rounded-lg"
+                                        placeholder="Enter answer option"
+                                        className="flex-grow p-2 text-center py-24 bg-green-50 rounded-lg text-xl"
                                     />
                                     {options.length > 2 && (
                                         <button
