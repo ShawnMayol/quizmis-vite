@@ -1,48 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Footer from "./Footer.jsx";
+import HomePagetopbar from "./HomepageTopbar.jsx"; // Updated top bar component
 import logo from "/Logo.png";
-
-const TopBar = () => {
-    return (
-        <div className="bg-white bg-opacity-70 shadow-md py-3 px-8 flex justify-between items-center">
-            <div className="flex items-center">
-                <Link to="/" className="flex items-center">
-                    <img src={logo} className="h-14 mr-4" alt="Quizmis Logo" />
-                    <span className="self-center text-2xl font-semibold text-green-500">
-                        <span className="text-red-500">Q</span>uizmis
-                    </span>
-                </Link>
-            </div>
-
-            <div className="flex space-x-4">
-                <Link
-                    to="/join"
-                    className="bg-green-50 text-[#20935C] border-2 px-4 py-2 rounded-md shadow-md hover:bg-gree-100 hover:border-transparent transition duration-300"
-                >
-                    Enter Quiz
-                </Link>
-                <Link
-                    to="/login"
-                    className="bg-white text-[#20935C] border-2 border-transparent px-4 py-2 rounded-md shadow-md hover:bg-green-50 transition duration-300"
-                >
-                    Log In
-                </Link>
-                <Link
-                    to="/signup"
-                    className="bg-green-500 text-white border-2 border-transparent px-4 py-2 rounded-md shadow-md hover:bg-green-400 transition duration-300"
-                >
-                    Sign Up
-                </Link>
-            </div>
-        </div>
-    );
-};
 
 const Carousel = () => {
     return (
         <div className="px-10 py-8 mx-48 bg-gray-500 bg-opacity-20 rounded-lg">
-            <div
+            <div    
                 id="default-carousel"
                 className="relative w-full"
                 data-carousel="slide"
@@ -114,7 +79,7 @@ const Carousel = () => {
                         </Link>
                     </div>
                 </div>
-                {/* <div className="absolute z-30 mt-6 flex -translate-x-1/2  left-1/2 space-x-3 rtl:space-x-reverse">
+                <div className="absolute z-30 mt-6 flex -translate-x-1/2  left-1/2 space-x-3 rtl:space-x-reverse">
                     <button
                         type="button"
                         className="w-3 h-3 rounded-full"
@@ -150,8 +115,8 @@ const Carousel = () => {
                         aria-label="Slide 5"
                         data-carousel-slide-to="4"
                     ></button>
-                </div> */}
-                {/* <button
+                </div>
+                <button
                     type="button"
                     className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
                     data-carousel-prev
@@ -198,7 +163,7 @@ const Carousel = () => {
                         </svg>
                         <span className="sr-only">Next</span>
                     </span>
-                </button> */}
+                </button>
             </div>
         </div>
     );
@@ -207,7 +172,10 @@ const Carousel = () => {
 const HomePage = () => {
     return (
         <div className="text-center">
-            <TopBar />
+            {/* HomePage_topbar at the very top */}
+            <HomePagetopbar />
+
+            {/* Main Page Content */}
             <div className="flex flex-col items-center justify-start text-center my-40">
                 <h1 className="text-4xl font-bold mb-24">
                     Empowering Carolinians,
@@ -216,9 +184,7 @@ const HomePage = () => {
                     <br />
                     connecting learners
                     <br />
-                    through shared
-                    <br />
-                    knowledge.
+                    through shared knowledge.
                 </h1>
                 <Link
                     to="/join"
@@ -227,18 +193,22 @@ const HomePage = () => {
                     <p className="font-bold text-xl">Enter Quiz</p>
                 </Link>
             </div>
+
+            {/* Section: Top Quizzes */}
             <div className="mb-16">
                 <h1 className="text-3xl text-left font-bold mb-4 ms-48">
                     Top Quizzes This Week! &#128293;
                 </h1>
                 <Carousel />
-            </div>
+            </div>a
+
+            {/* Section: Featured */}
             <div className="mb-24">
-                <h1 className="text-3xl text-left font-bold mb-4 ms-48">
-                    Featured
-                </h1>
+                <h1 className="text-3xl text-left font-bold mb-4 ms-48">Featured</h1>
                 <Carousel />
             </div>
+
+            {/* Quizmis Description */}
             <p className="mb-4 text-2xl">What is Quizmis?</p>
             <h1 className="text-4xl font-bold mb-24">
                 Quizmis is a dedicated quiz platform
@@ -251,6 +221,8 @@ const HomePage = () => {
                 <br />
                 engagement.
             </h1>
+
+            {/* Footer */}
             <Footer />
         </div>
     );

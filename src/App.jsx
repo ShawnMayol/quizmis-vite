@@ -9,6 +9,11 @@ import Profile from "./components/Profile.jsx";
 import ForgotPassword from "./components/Forgot.jsx";
 import Create from "./components/Create.jsx";
 import CreateItems from './components/CreateItems.jsx';
+import AboutUs from "./components/AboutUs.jsx";
+import PrivacyPolicy from "./components/PrivacyPolicy.jsx";
+import TermsAndConditions from "./components/TermsAndConditions.jsx";
+import ContactUs from "./components/ContactUs.jsx";
+
 
 function App() {
     return (
@@ -22,6 +27,10 @@ function App() {
             <Route path="/forgot" element={<ForgotPassword />} />
             <Route path="/create" element={<Create />} />
             <Route path="/quiz/:quizId" element={<CreateItems />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+            <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+            <Route path="/contact" element={<ContactUs />} />
         </Routes>
     );
 }
