@@ -92,7 +92,7 @@ const CreateQuestions = () => {
             await updateDoc(quizRef, {
                 questions: arrayUnion(newQuestion),
             });
-            alert("Question added successfully!");
+            // alert("Question added successfully!");
             setQuestionText("");
             setOptions([
                 { text: "", isCorrect: false },

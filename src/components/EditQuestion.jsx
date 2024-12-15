@@ -47,24 +47,11 @@ const EditQuestion = () => {
     }, [quizId, index, navigate]);
 
     const handleQuestionChange = (e) => {
-        setQuestion({ ...question, text: e.target.value });
-    };
-
-    const handleSettingsUpdate = async (e) => {
-        e.preventDefault();
-        try {
-            const quizRef = doc(db, "quizzes", quizId);
-            await updateDoc(quizRef, {
-                title: quiz.title,
-                description: quiz.description,
-                course: quiz.course,
-                visibility: quiz.visibility,
-            });
-            toggleSettingsModal();
-        } catch (error) {
-            console.error("Error updating quiz settings: ", error);
-            alert("Failed to update quiz settings. Please try again.");
-        }
+        const newText = e.target.value;
+        setQuestion((prevQuestion) => ({
+            ...prevQuestion,
+            questionText: newText,
+        }));
     };
 
     const handleOptionChange = (index, value) => {
@@ -85,19 +72,15 @@ const EditQuestion = () => {
         setQuestion({ ...question, options: newOptions });
     };
 
-    const toggleSettingsModal = () => {
-        setIsSettingsOpen(!isSettingsOpen);
-    };
-
     const saveChanges = async () => {
         const updatedQuestions = [...quiz.questions];
-        updatedQuestions[index] = question; // Update the specific question
+        updatedQuestions[index] = question;
 
         try {
             const quizRef = doc(db, "quizzes", quizId);
             await updateDoc(quizRef, { questions: updatedQuestions });
             console.log("Question updated successfully!");
-            navigate(`/quiz/${quizId}`); // Redirect back to quiz items view
+            navigate(`/quiz/${quizId}`);
         } catch (error) {
             console.error("Error updating question: ", error);
             alert("Failed to update question. Please try again.");
@@ -115,11 +98,12 @@ const EditQuestion = () => {
 
                     <input
                         type="text"
-                        value={question.questionText}
+                        value={question.questionText} 
                         onChange={handleQuestionChange}
                         placeholder="Enter question"
                         className="w-full p-2 border rounded-lg text-2xl text-center py-40 bg-green-50"
                     />
+
                     <div className="flex justify-between items-center mt-2 space-x-2">
                         {question.options.map((option, index) => (
                             <div

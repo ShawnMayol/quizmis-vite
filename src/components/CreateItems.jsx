@@ -228,12 +228,11 @@ const CreateItems = () => {
                                 key={index}
                                 className="p-4 shadow rounded-lg bg-white"
                             >
-                                <h2 className="text-lg font-semibold">{`Question ${
-                                    index + 1
-                                }: ${question.questionText}`}</h2>
-                                <div className="flex justify-between items-center">
-                                    <p>{question.description}</p>
-                                    <div className="text-right">
+                                <div className="flex justify-between items-center py-2">
+                                    <h2 className="text-lg font-semibold">{`Question ${
+                                        index + 1
+                                    }: ${question.questionText}`}</h2>
+                                    <div>
                                         <span className="text-sm">{`Choices: ${question.options.length}`}</span>
                                     </div>
                                 </div>
@@ -241,7 +240,7 @@ const CreateItems = () => {
                         ))}
                         <button
                             onClick={handleAddQuestion}
-                            className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4 rounded"
                         >
                             Add Question
                         </button>
