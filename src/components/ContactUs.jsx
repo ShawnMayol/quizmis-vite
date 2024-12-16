@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { db } from "../Firebase"; // Import Firestore
+import { collection, addDoc } from "firebase/firestore"; // Firestore methods
+import emailjs from "@emailjs/browser";
 import HomePagetopbar from "./HomepageTopbar.jsx";
 import Footer from "./Footer.jsx";
 
@@ -11,15 +14,57 @@ const ContactUs = () => {
     address: "",
     concern: "",
   });
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Form submitted successfully!");
+
+    // Replace these with your EmailJS credentials
+    const serviceID = "Quizmis_id";
+    const templateID = "template_g8x9j5u";
+    const publicKey = "2nXvTplIybebk5X59";
+
+    try {
+      // Send email using EmailJS
+      await emailjs.send(
+        serviceID,
+        templateID,
+        {
+          firstName: formData.firstName,
+          middleName: formData.middleName,
+          lastName: formData.lastName,
+          email: formData.email,
+          address: formData.address,
+          concern: formData.concern,
+        },
+        publicKey
+      );
+
+      // Store data into Firestore under "Contact_Us"
+      await addDoc(collection(db, "Contact_Us"), formData);
+
+      // Reset form and show success message
+      setSuccessMessage("Form submitted successfully!");
+      setErrorMessage("");
+      setFormData({
+        firstName: "",
+        middleName: "",
+        lastName: "",
+        email: "",
+        address: "",
+        concern: "",
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      setErrorMessage("Failed to submit form. Please try again.");
+      setSuccessMessage("");
+    }
   };
 
   return (
@@ -136,7 +181,7 @@ const ContactUs = () => {
                   name="address"
                   value={formData.address}
                   onChange={handleChange}
-                  placeholder="Your USC Address"
+                  placeholder="Your Address"
                   className="w-full p-2 border rounded"
                 />
               </div>
@@ -153,6 +198,14 @@ const ContactUs = () => {
                   className="w-full p-2 border rounded"
                 ></textarea>
               </div>
+
+              {/* Success or Error Message */}
+              {successMessage && (
+                <p className="text-green-500 text-center">{successMessage}</p>
+              )}
+              {errorMessage && (
+                <p className="text-red-500 text-center">{errorMessage}</p>
+              )}
 
               {/* Submit */}
               <div className="text-center">

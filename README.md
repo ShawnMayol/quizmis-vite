@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Quizmis is a web application designed to enhance learning through interactive quizzes. This project is built using React + Vite for the front end, with Tailwind CSS for styling, and Firebase for the back end.
+Quizmis is a web application designed to enhance learning through interactive quizzes. This project is built using React + Vite for the front end, with Tailwind CSS for styling, Firebase for the back end and EmailJS for email receiving and sending.
 ## Tech Stack
 
 - **Frontend**:
