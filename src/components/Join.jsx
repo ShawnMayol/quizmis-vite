@@ -41,7 +41,7 @@ const Join = () => {
                         <input
                             type="text"
                             placeholder="Enter quiz code"
-                            className="w-full p-4 border-none bg-[#FFFFF0] rounded-lg text-lg focus:outline-none focus:ring-0"
+                            className="w-full p-4 border-none bg-[#FFFFF0] rounded-lg text-lg focus:outline-none focus:ring-0 font-semibold"
                             value={quizCode}
                             onChange={(e) => setQuizCode(e.target.value)}
                             maxLength={25}
