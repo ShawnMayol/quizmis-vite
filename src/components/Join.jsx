@@ -4,7 +4,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Logo from "/assets/QuizmisBrand.svg";
 import TopBar from "./TopBar.jsx";
 import Footer from "./Footer.jsx";
-import "../assets/css/Join.css";
 
 const Join = () => {
     const [user, setUser] = useState(null);
@@ -31,7 +30,7 @@ const Join = () => {
     return (
         <div>
             <TopBar />
-            <div className="min-h-screen flex flex-col items-center justify-center bg-[#FAF9F6]">
+            <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#FFFFF0] via-[#FFFFF0] to-[#FFFFF0]">
                 <img
                     src="/assets/ThatGraduate.svg"
                     alt="Background"
