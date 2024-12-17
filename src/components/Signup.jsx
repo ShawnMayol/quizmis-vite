@@ -118,7 +118,10 @@ const Signup = () => {
                     />
                     <button
                         type="submit"
-                        className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700"
+                        className="w-full bg-[#00A850] text-white py-3 rounded-md shadow-md"
+                        style={{
+                            boxShadow: "0 6px 0 #2c8c3b",
+                        }}
                     >
                         Sign Up
                     </button>
@@ -149,7 +152,7 @@ const Signup = () => {
 
                     <p className="text-center mt-8">
                         Already have an account?{" "}
-                        <Link to="/login" className="text-blue-600">
+                        <Link to="/login" className="text-blue-600 hover:underline">
                             Log in
                         </Link>
                     </p>

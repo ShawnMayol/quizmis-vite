@@ -85,7 +85,7 @@ const Login = () => {
             }
             navigate("/dashboard");
         } catch (err) {
-            console.error("Google sign-in error:", err); 
+            console.error("Google sign-in error:", err);
             setError("Failed to sign up with Google. Please try again.");
         }
     };
@@ -122,7 +122,10 @@ const Login = () => {
 
                     <button
                         type="submit"
-                        className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700"
+                        className="w-full bg-[#00A850] text-white py-3 rounded-md shadow-md"
+                        style={{
+                            boxShadow: "0 6px 0 #2c8c3b",
+                        }}
                     >
                         Log In
                     </button>

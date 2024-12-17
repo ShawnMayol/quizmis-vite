@@ -3,28 +3,26 @@ import { Link } from "react-router-dom";
 import logo from "/assets/QuizmisBrand.svg";
 const TopBar = () => {
     return (
-        <div className="bg-white bg-opacity-70 shadow-md py-3 px-8 flex justify-between items-center">
-            <div className="flex items-center">
-                <Link to="/" className="flex items-center">
-                    <img src={logo} className="h-14 mr-4" alt="Quizmis Logo" />
-                </Link>
-            </div>
+        <div className="fixed top-0 bg-[#FFFFF0] shadow-[#02A850] shadow-sm w-full py-3 px-8 flex justify-between items-center z-40">
+            <Link to="/">
+                <img src={logo} className="h-14 mr-4" alt="Quizmis Logo" />
+            </Link>
             <div className="flex space-x-4">
                 <Link
-                    to="/join"
-                    className="bg-green-50 text-[#20935C] border-2 px-4 py-2 rounded-md shadow-md hover:bg-gree-100 hover:border-transparent transition duration-300"
-                >
-                    Enter Quiz
-                </Link>
-                <Link
                     to="/login"
-                    className="bg-white text-[#20935C] border-2 border-transparent px-4 py-2 rounded-md shadow-md hover:bg-green-50 transition duration-300"
+                    className="bg-[#FAF9F6] text-[#02A850] border-2  px-4 py-2 rounded-lg shadow-lg"
+                    style={{
+                        boxShadow: "0 6px 0 #cecdcc",
+                    }}
                 >
                     Log In
                 </Link>
                 <Link
                     to="/signup"
-                    className="bg-green-500 text-white border-2 border-transparent px-4 py-2 rounded-md shadow-md hover:bg-green-400 transition duration-300"
+                    className="bg-[#00A850] text-white border-2 border-transparent px-4 py-2 rounded-lg shadow-md"
+                    style={{
+                        boxShadow: "0 5px 0 #2c8c3b",
+                    }}
                 >
                     Sign Up
                 </Link>

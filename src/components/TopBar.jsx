@@ -59,7 +59,7 @@ const TopBar = () => {
     return (
         <div className="fixed top-0 w-full bg-[#FFFFF0] shadow-[#02A850] shadow-sm px-8 flex justify-between items-center z-40">
             <div className="flex items-center">
-                <Link to="/dashboard" className="flex items-center">
+                <Link to="/dashboard">
                     <img src={logo} className="h-14 mr-4" alt="Quizmis Logo" />
                 </Link>
             </div>
