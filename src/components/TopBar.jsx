@@ -7,9 +7,12 @@ import { HomeIcon as HomeIconSolid } from "@heroicons/react/16/solid";
 import { HomeIcon as HomeIconOutline } from "@heroicons/react/24/outline";
 import { PlusIcon as PlusIconSolid } from "@heroicons/react/16/solid";
 import { PlusIcon as PlusIconOutline } from "@heroicons/react/24/outline";
-import { PencilIcon as PencilIconSolid } from "@heroicons/react/16/solid";
-import { PencilIcon as PencilIconOutline } from "@heroicons/react/24/outline";
 import { Bars3Icon } from "@heroicons/react/24/solid";
+import { UserIcon } from "@heroicons/react/24/outline";
+import { PencilIcon } from "@heroicons/react/24/outline";
+import { DocumentTextIcon } from "@heroicons/react/24/outline";
+import { DocumentPlusIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/outline";
 
 const TopBar = () => {
     const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
@@ -100,7 +103,7 @@ const TopBar = () => {
                             : " border-b-4 border-transparent")
                     }
                 >
-                    <PencilIconOutline className="w-6 mr-2" />
+                    <PencilIcon className="w-6 mr-2" />
                     <span className="text-2xl mt-1">Join</span>
                 </NavLink>
             </div>
@@ -112,83 +115,97 @@ const TopBar = () => {
                 />
             </div>
 
-            {/* Profile Modal */}
             <div
                 className={`fixed top-0 right-0 h-full w-1/4 bg-[#FFFFF0] shadow-lg rounded-lg p-6 z-20 ${
                     isProfileModalOpen ? "modal-visible" : "modal-hidden"
                 }`}
-                style={{ transition: "transform 300ms ease-in-out" }}
+                style={{ display: "flex", flexDirection: "column" }}
             >
-                <div className="flex justify-between items-center mb-4">
-                    <div className="flex items-center">
-                        <img
-                            src={user?.photoURL || logo}
-                            alt="User Profile"
-                            className="w-10 h-10 rounded-full border-2 border-green-400 mr-4"
-                        />
-                        <h2 className="text-xl text-[#02A850] font-semibold">
-                            {user?.displayName || "Unknown User"}
-                        </h2>
+                <div style={{ flexGrow: 1 }}>
+                    <div className="flex justify-between items-center mb-4">
+                        <div className="flex items-center">
+                            <img
+                                src={user?.photoURL || logo}
+                                alt="User Profile"
+                                className="w-10 h-10 rounded-full border-2 border-green-400 mr-4"
+                            />
+                            <h2 className="text-xl text-[#02A850] font-semibold">
+                                {user?.displayName || "Unknown User"}
+                            </h2>
+                        </div>
+                        <button
+                            onClick={closeModal}
+                            className="text-green-400 hover:bg-green-100 text-4xl me-2 px-3 rounded-full pb-1"
+                        >
+                            &times;
+                        </button>
                     </div>
-                    <button
-                        onClick={closeModal}
-                        className="text-green-400 hover:bg-green-100 text-4xl me-2 px-3 rounded-full pb-1"
-                    >
-                        &times;
-                    </button>
+                    <hr className="border-[#8cf5bd]" />
+                    <ul className="space-y-1 my-3 overflow-auto">
+                        <li>
+                            <Link
+                                to="/dashboard"
+                                className="flex items-center p-2 rounded text-[#02A850] hover:bg-green-100 transition-all"
+                            >
+                                <HomeIconOutline className="w-5 mr-2" />
+                                <span className="mt-1">Dashboard</span>
+                            </Link>
+                        </li>
+                        <hr className="border-[#8cf5bd]" />
+                        <li>
+                            <Link
+                                to="/profile"
+                                className="flex items-center p-2 rounded text-[#02A850] hover:bg-green-100 transition-all"
+                            >
+                                <UserIcon className="w-5 mr-2" />
+                                <span className="mt-1">Your Profile</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to={`/quizzes/${user?.uid}`}
+                                className="flex items-center p-2 rounded text-[#02A850] hover:bg-green-100 transition-all"
+                            >
+                                <DocumentTextIcon className="w-5 mr-2" />
+                                <span className="mt-1">Your Quizzes</span>
+                            </Link>
+                        </li>
+                        <hr className="border-[#8cf5bd]" />
+                        <li>
+                            <Link
+                                to="/create"
+                                className="flex items-center p-2 rounded text-[#02A850] hover:bg-green-100 transition-all"
+                            >
+                                <DocumentPlusIcon className="w-5 mr-2" />
+                                <span className="mt-1">Create Quiz</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/join"
+                                className="flex items-center p-2 rounded text-[#02A850] hover:bg-green-100 transition-all"
+                            >
+                                <PencilIcon className="w-5 mr-2" />
+                                <span className="mt-1">Join Quiz</span>
+                            </Link>
+                        </li>
+                        <hr className="border-[#8cf5bd]" />
+                        <li>
+                            <button
+                                onClick={handleLogout}
+                                className="flex items-center p-2 rounded w-full text-red-500 hover:bg-red-100 transition-all"
+                            >
+                                <ArrowLeftStartOnRectangleIcon className="w-5 mr-2" />
+                                <span className="mt-1">Log Out</span>
+                            </button>
+                        </li>
+                    </ul>
                 </div>
-                <hr className="border-[#8cf5bd]" />
-                <ul className="space-y-1 my-3">
-                    <li>
-                        <Link
-                            to="/dashboard"
-                            className="block p-2 rounded text-[#02A850] hover:bg-green-100 hover:text-green-700 transition-all"
-                        >
-                            Dashboard
-                        </Link>
-                    </li>
-                    <hr className="border-[#8cf5bd]" />
-                    <li>
-                        <Link
-                            to="/profile"
-                            className="block p-2 rounded text-[#02A850] hover:bg-green-100 hover:text-green-700 transition-all"
-                        >
-                            Your Profile
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            to={`/quizzes/${user?.uid}`}
-                            className="block p-2 rounded text-[#02A850] hover:bg-green-100 hover:text-green-700 transition-all"
-                        >
-                            Your Quizzes
-                        </Link>
-                    </li>
-                    <hr className="border-[#8cf5bd]" />
-                    <li>
-                        <Link
-                            to="/create"
-                            className="block p-2 rounded text-[#02A850] hover:bg-green-100 hover:text-green-700 transition-all"
-                        >
-                            Create Quiz
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            to="/join"
-                            className="block p-2 rounded text-[#02A850] hover:bg-green-100 hover:text-green-700 transition-all"
-                        >
-                            Join Quiz
-                        </Link>
-                    </li>
-                </ul>
-                <hr className="border-[#8cf5bd]" />
-                <button
-                    onClick={handleLogout}
-                    className="block w-full text-start p-2 mt-3 rounded text-red-500 hover:bg-red-100 hover:text-red-700 transition-all"
-                >
-                    Log Out
-                </button>
+                <div>
+                    <p className="text-center text-xs py-2 text-[#02A850]">
+                        © 2024 Quizmis Inc. All Rights Reserved.
+                    </p>
+                </div>
             </div>
 
             {isProfileModalOpen && (

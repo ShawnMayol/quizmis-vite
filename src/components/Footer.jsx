@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "/Logo.png"; 
+import Logo from "/assets/QuizmisBrand.svg"; 
 
 const footerData = [
   {
@@ -21,7 +21,7 @@ const footerData = [
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-400">
+    <footer className="bg-[#FFFFF0] text-gray-400 border-t">
       {/* Top Section */}
       <div className="mx-auto w-full max-w-screen-xl p-4 py-8 lg:py-14">
         <div className="md:flex md:justify-between">
@@ -29,11 +29,6 @@ const Footer = () => {
           <div className="mb-6 md:mb-0">
             <Link to="/" className="flex items-center">
               <img src={Logo} className="h-14 me-3" alt="Quizmis Logo" />
-              <span className="text-2xl font-semibold text-white">
-                <span className="text-green-500">
-                  <span className="text-red-500">Q</span>uizmis
-                </span>
-              </span>
             </Link>
           </div>
 
@@ -41,7 +36,7 @@ const Footer = () => {
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3 text-center">
             {footerData.map((section, idx) => (
               <div key={idx}>
-                <h2 className="mb-4 text-sm font-semibold uppercase text-white">
+                <h2 className="mb-4 text-md font-bold uppercase text-[#02A850]">
                   {section.title}
                 </h2>
                 <ul>
@@ -51,7 +46,7 @@ const Footer = () => {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:underline"
+                        className="hover:underline text-[#46b87b]"
                       >
                         {link.name}
                       </a>
@@ -64,11 +59,11 @@ const Footer = () => {
         </div>
 
         {/* Divider */}
-        <hr className="my-6 sm:mx-auto border-gray-700 lg:my-8" />
+        <hr className="my-6 sm:mx-auto border-[#62d899] lg:my-8" />
 
         {/* Bottom Section */}
         <div className="sm:flex sm:items-center sm:justify-between">
-          <span className="text-sm sm:text-center">
+          <span className="text-sm sm:text-center text-[#02A850]">
             © {new Date().getFullYear()} Quizmis Inc. All Rights Reserved.
           </span>
           <div className="flex mt-4 sm:justify-center sm:mt-0 space-x-4">
@@ -78,7 +73,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Visit our Facebook page"
-                className="hover:text-white"
+                className="hover:text-[#6cbb91] text-[#02A850]"
             >
                 <i className="fa-brands fa-facebook-f text-lg"></i>
             </a> 
@@ -89,7 +84,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Join our Discord server"
-                className="hover:text-white"
+                className="hover:text-[#6cbb91] text-[#02A850]"
             >
                 <i className="fa-brands fa-discord text-lg"></i>
             </a>
@@ -100,7 +95,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Visit our Twitter page"
-                className="hover:text-white"
+                className="hover:text-[#6cbb91] text-[#02A850]"
             >
                 <i className="fa-brands fa-twitter text-lg"></i>
             </a>
@@ -111,7 +106,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Visit our GitHub repository"
-                className="hover:text-white"
+                className="hover:text-[#6cbb91] text-[#02A850]"
             >
                 <i className="fa-brands fa-github text-lg"></i>
             </a>
