@@ -7,7 +7,8 @@ import { HomeIcon as HomeIconSolid } from "@heroicons/react/16/solid";
 import { HomeIcon as HomeIconOutline } from "@heroicons/react/24/outline";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { UserIcon } from "@heroicons/react/24/outline";
-import { PencilIcon } from "@heroicons/react/24/outline";
+import { PencilIcon as PencilIconOutline } from "@heroicons/react/24/outline";
+import { PencilIcon as PencilIconSolid } from "@heroicons/react/24/solid";
 import { DocumentTextIcon } from "@heroicons/react/24/outline";
 import { DocumentPlusIcon as PlusOutline } from "@heroicons/react/24/outline";
 import { DocumentPlusIcon as PlusSolid } from "@heroicons/react/24/solid";
@@ -124,8 +125,19 @@ const TopBar = () => {
                             : " border-b-4 border-transparent")
                     }
                 >
-                    <PencilIcon className="w-6 mr-2" />
-                    <span className="text-2xl mt-1">Join</span>
+                    {({ isActive }) =>
+                        isActive ? (
+                            <>
+                                <PencilIconSolid className="w-6 mr-2" />
+                                <span className="text-2xl mt-1 font-semibold">Join</span>
+                            </>
+                        ) : (
+                            <>
+                                <PencilIconOutline className="w-6 mr-2" />
+                                <span className="text-2xl mt-1">Join</span>
+                            </>
+                        )
+                    }
                 </NavLink>
             </div>
 
@@ -206,7 +218,7 @@ const TopBar = () => {
                                 to="/join"
                                 className="flex items-center p-2 rounded text-[#02A850] hover:bg-green-100 transition-all"
                             >
-                                <PencilIcon className="w-5 mr-2" />
+                                <PencilIconOutline className="w-5 mr-2" />
                                 <span className="mt-1">Join Quiz</span>
                             </Link>
                         </li>
@@ -224,7 +236,7 @@ const TopBar = () => {
                 </div>
                 <div>
                     <p className="text-center text-xs py-2 text-[#02A850]">
-                        © 2024 Quizmis Inc. All Rights Reserved.
+                        © 2024 Quizmis Team. All Rights Reserved.
                     </p>
                 </div>
             </div>
