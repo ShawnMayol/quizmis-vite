@@ -11,7 +11,7 @@ const PasswordInput = ({ password, setPassword }) => {
             <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full p-2 border rounded bg-[#FAF9F6]"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />

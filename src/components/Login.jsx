@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import PasswordInput from "./PasswordInput";
-import Logo from "/C.png";
+import Logo from "/assets/QuizmisLogo.svg";
 import Google from "/assets/google.svg";
 
 const Login = () => {
@@ -92,15 +92,15 @@ const Login = () => {
 
     return (
         <div className="flex h-screen">
-            <div className="w-1/3 bg-white flex items-center justify-center">
+            <div className="w-1/3 bg-[#FFFFF0] flex items-center justify-center">
                 <Link to="/">
-                    <img src={Logo} className="h-60" alt="Quizmis Logo" />
+                    <img src={Logo} className="h-80" alt="Quizmis Logo" />
                 </Link>
             </div>
 
             <div className="w-2/3 bg-[#20935C] flex items-center justify-center">
                 <form
-                    className="bg-white p-12 rounded-lg shadow-xl w-3/5"
+                    className="bg-[#FFFFF0] p-12 rounded-lg shadow-xl w-3/5"
                     onSubmit={handleLogin}
                 >
                     <h2 className="text-2xl font-bold mb-6 text-center">
@@ -110,7 +110,7 @@ const Login = () => {
                     <input
                         type="email"
                         placeholder="Email"
-                        className="w-full p-2 mb-4 border rounded"
+                        className="w-full p-2 mb-4 border rounded bg-[#FAF9F6]"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
@@ -122,7 +122,7 @@ const Login = () => {
 
                     <button
                         type="submit"
-                        className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
+                        className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700"
                     >
                         Log In
                     </button>
@@ -141,7 +141,7 @@ const Login = () => {
 
                     <button
                         type="button"
-                        className="w-full border py-2 rounded flex items-center justify-center border-gray-500 hover:border-gray-400"
+                        className="w-full border py-3 rounded flex items-center bg-[#FAF9F6] justify-center border-gray-500 hover:border-gray-400"
                         onClick={handleGoogleLogin}
                     >
                         <img src={Google} className="w-6 mr-2" alt="Google" />

@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import PasswordInput from "./PasswordInput";
-import Logo from "/C.png";
+import Logo from "/assets/QuizmisLogo.svg";
 import Google from "/assets/google.svg";
 
 const Signup = () => {
@@ -85,14 +85,14 @@ const Signup = () => {
 
     return (
         <div className="flex h-screen">
-            <div className="w-1/3 bg-white flex items-center justify-center">
+            <div className="w-1/3 bg-[#FFFFF0] flex items-center justify-center">
                 <Link to="/">
-                    <img src={Logo} className="h-60" alt="Quizmis Logo" />
+                    <img src={Logo} className="h-80" alt="Quizmis Logo" />
                 </Link>
             </div>
             <div className="w-2/3 bg-[#20935C] flex items-center justify-center">
                 <form
-                    className="bg-white p-12 rounded-lg shadow-xl w-3/5"
+                    className="bg-[#FFFFF0] p-12 rounded-lg shadow-xl w-3/5"
                     onSubmit={handleEmailSignup}
                 >
                     <h2 className="text-2xl font-bold mb-6 text-center">
@@ -101,14 +101,14 @@ const Signup = () => {
                     <input
                         type="text"
                         placeholder="Username"
-                        className="w-full p-2 mb-4 border rounded"
+                        className="w-full p-2 mb-4 border rounded bg-[#FAF9F6]"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                     />
                     <input
                         type="email"
                         placeholder="Email"
-                        className="w-full p-2 mb-4 border rounded"
+                        className="w-full p-2 mb-4 border rounded bg-[#FAF9F6]"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
@@ -118,7 +118,7 @@ const Signup = () => {
                     />
                     <button
                         type="submit"
-                        className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
+                        className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700"
                     >
                         Sign Up
                     </button>
@@ -140,7 +140,7 @@ const Signup = () => {
 
                     <button
                         type="button"
-                        className="w-full border py-2 rounded border-gray-500 hover:border-gray-400 flex items-center justify-center"
+                        className="w-full border py-3 rounded border-gray-500 hover:border-gray-400 flex items-center justify-center bg-[#FAF9F6]"
                         onClick={handleGoogleSignup}
                     >
                         <img src={Google} className="w-6 mr-2" alt="Google" />
