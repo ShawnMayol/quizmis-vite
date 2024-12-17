@@ -52,9 +52,9 @@ const Create = () => {
     return (
         <div>
             <TopBar />
-            <div className="min-h-screen py-20 bg-[#20935C]">
-                <div className="flex flex-col items-center justify-center">
-                    <div className="w-5/6 bg-opacity-95 bg-[#FFFFF0] rounded-lg shadow-xl p-8 mt-10">
+            <div className="h-screen flex justify-center bg-gradient-to-br from-[#20935C] via-[#33a56c] to-[#1d7b4c]">
+                <div className="flex flex-col items-center justify-center w-5/6 mt-10">
+                    <div className="w-5/6 bg-opacity-95 bg-[#FFFFF0] rounded-lg shadow-xl p-8">
                         <h1 className="text-2xl font-bold mb-6">
                             Create a New Quiz
                         </h1>
@@ -173,7 +173,7 @@ const Create = () => {
                             
                             <button
                                 type="submit"
-                                className="transform bg-[#35A84C] font-bold text-white px-6 py-2 rounded-lg focus:outline-none focus:ring-4 focus:ring-green-300 shadow-lg hover:shadow-none float-right"
+                                className="transform bg-[#35A84C] font-bold text-white px-6 py-2 rounded-lg shadow-lg float-right"
                                 style={{
                                     boxShadow: "0 5px 0 #2c8c3b",
                                 }}
