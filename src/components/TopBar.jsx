@@ -15,17 +15,17 @@ import { DocumentPlusIcon as PlusSolid } from "@heroicons/react/24/solid";
 import { ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/outline";
 
 const TopBar = () => {
-    const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+    const [IsSideModalOpen, setIsSideModalOpen] = useState(false);
     const [user, setUser] = useState(null);
     const auth = getAuth();
     const navigate = useNavigate();
     const [showLogoText, setShowLogoText] = useState(true);
 
     const openModal = () => {
-        setIsProfileModalOpen(true);
+        setIsSideModalOpen(true);
     };
     const closeModal = () => {
-        setIsProfileModalOpen(false);
+        setIsSideModalOpen(false);
     };
 
     useEffect(() => {
@@ -154,9 +154,10 @@ const TopBar = () => {
                 />
             </div>
 
+            {/* Side Modal */}
             <div
                 className={`fixed top-0 right-0 h-full w-1/4 bg-[#FFFFF0] shadow-lg rounded-lg p-6 z-20 ${
-                    isProfileModalOpen ? "modal-visible" : "modal-hidden"
+                    IsSideModalOpen ? "modal-visible" : "modal-hidden"
                 }`}
                 style={{ display: "flex", flexDirection: "column" }}
             >
@@ -247,7 +248,7 @@ const TopBar = () => {
                 </div>
             </div>
 
-            {isProfileModalOpen && (
+            {IsSideModalOpen && (
                 <div
                     className="fixed inset-0 bg-gray-900 bg-opacity-50 z-10"
                     onClick={closeModal}
