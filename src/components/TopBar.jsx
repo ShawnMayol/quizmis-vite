@@ -5,13 +5,12 @@ import logo from "/assets/QuizmisBrand.svg";
 import "../assets/css/Topbar.css";
 import { HomeIcon as HomeIconSolid } from "@heroicons/react/16/solid";
 import { HomeIcon as HomeIconOutline } from "@heroicons/react/24/outline";
-import { PlusIcon as PlusIconSolid } from "@heroicons/react/16/solid";
-import { PlusIcon as PlusIconOutline } from "@heroicons/react/24/outline";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { UserIcon } from "@heroicons/react/24/outline";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { DocumentTextIcon } from "@heroicons/react/24/outline";
-import { DocumentPlusIcon } from "@heroicons/react/24/outline";
+import { DocumentPlusIcon as PlusOutline } from "@heroicons/react/24/outline";
+import { DocumentPlusIcon as PlusSolid } from "@heroicons/react/24/solid";
 import { ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/outline";
 
 const TopBar = () => {
@@ -69,28 +68,50 @@ const TopBar = () => {
                 <NavLink
                     to="/dashboard"
                     className={({ isActive }) =>
-                        "flex items-center px-4 py-4 text-[#02A850] transition duration-200 hover:text-[#6cbb91]" +
+                        `flex items-center px-4 py-4 text-[#02A850] transition duration-200 hover:text-[#6cbb91]` +
                         (isActive
                             ? " border-b-4 border-[#02A850]"
                             : " border-b-4 border-transparent")
                     }
                 >
-                    <HomeIconOutline className="w-6 mr-2" />
-                    <span className="text-2xl mt-1">Home</span>
+                    {({ isActive }) =>
+                        isActive ? (
+                            <>
+                                <HomeIconSolid className="w-6 mr-2" />
+                                <span className="text-2xl mt-1 font-semibold">Home</span>
+                            </>
+                        ) : (
+                            <>
+                                <HomeIconOutline className="w-6 mr-2" />
+                                <span className="text-2xl mt-1">Home</span>
+                            </>
+                        )
+                    }
                 </NavLink>
 
                 {/* Create Link */}
                 <NavLink
                     to="/create"
                     className={({ isActive }) =>
-                        "flex items-center px-4 py-4 text-[#02A850] transition duration-200 hover:text-[#6cbb91]" +
+                        `flex items-center px-4 py-4 text-[#02A850] transition duration-200 hover:text-[#6cbb91]` +
                         (isActive
                             ? " border-b-4 border-[#02A850]"
                             : " border-b-4 border-transparent")
                     }
                 >
-                    <PlusIconOutline className="w-6 mr-2" />
-                    <span className="text-2xl mt-1">Create</span>
+                    {({ isActive }) =>
+                        isActive ? (
+                            <>
+                                <PlusSolid className="w-6 mr-2" />
+                                <span className="text-2xl mt-1 font-semibold">Create</span>
+                            </>
+                        ) : (
+                            <>
+                                <PlusOutline className="w-6 mr-2" />
+                                <span className="text-2xl mt-1">Create</span>
+                            </>
+                        )
+                    }
                 </NavLink>
 
                 {/* Join Link */}
@@ -176,7 +197,7 @@ const TopBar = () => {
                                 to="/create"
                                 className="flex items-center p-2 rounded text-[#02A850] hover:bg-green-100 transition-all"
                             >
-                                <DocumentPlusIcon className="w-5 mr-2" />
+                                <PlusOutline className="w-5 mr-2" />
                                 <span className="mt-1">Create Quiz</span>
                             </Link>
                         </li>
