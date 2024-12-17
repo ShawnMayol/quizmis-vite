@@ -77,7 +77,7 @@ const Dashboard = () => {
     return (
         <div>
             <TopBar />
-            <div className="p-10 pt-24 min-h-screen bg-gradient-to-br from-[#FFFFF0] via-[#FFFFF0] to-[#FFFFF0]">
+            <div className="p-10 pt-24 min-h-screen bg-gradient-to-b from-[#FFFFF0] via-[#F7F7E8] to-[#EFEFD0]">
                 <div className="flex justify-between items-center mb-8 mt-2">
                     <h1 className="text-4xl font-extrabold text-[#02A850]">
                         Hello, {firstName}

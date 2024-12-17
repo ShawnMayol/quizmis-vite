@@ -30,7 +30,7 @@ const Join = () => {
     return (
         <div>
             <TopBar />
-            <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#FFFFF0] via-[#FFFFF0] to-[#FFFFF0]">
+            <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#FFFFF0] via-[#F7F7E8] to-[#EFEFD0]">
                 <img
                     src="/assets/ThatGraduate.svg"
                     alt="Background"

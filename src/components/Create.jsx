@@ -52,9 +52,9 @@ const Create = () => {
     return (
         <div>
             <TopBar />
-            <div className="h-screen flex justify-center bg-gradient-to-br from-[#20935C] via-[#33a56c] to-[#1d7b4c]">
+            <div className="h-screen flex justify-center bg-gradient-to-b from-[#20935C] via-[#33a56c] to-[#1d7b4c]">
                 <div className="flex flex-col items-center justify-center w-5/6 mt-10">
-                    <div className="w-5/6 bg-opacity-95 bg-[#FFFFF0] rounded-lg shadow-xl p-8">
+                    <div className="w-5/6 bg-opacity-95 bg-gradient-to-b from-[#FFFFF0] via-[#F7F7E8] to-[#EFEFD0] rounded-lg shadow-xl p-8">
                         <h1 className="text-2xl font-bold mb-6">
                             Create a New Quiz
                         </h1>
