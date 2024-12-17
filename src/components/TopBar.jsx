@@ -64,7 +64,7 @@ const TopBar = () => {
                 </Link>
             </div>
 
-            <div className="flex space-x-4 h-full">
+            <div className="hidden md:flex space-x-4 h-full">
                 {/* Home Link */}
                 <NavLink
                     to="/dashboard"
@@ -79,7 +79,9 @@ const TopBar = () => {
                         isActive ? (
                             <>
                                 <HomeIconSolid className="w-6 mr-2" />
-                                <span className="text-2xl mt-1 font-semibold">Home</span>
+                                <span className="text-2xl mt-1 font-semibold">
+                                    Home
+                                </span>
                             </>
                         ) : (
                             <>
@@ -104,7 +106,9 @@ const TopBar = () => {
                         isActive ? (
                             <>
                                 <PlusSolid className="w-6 mr-2" />
-                                <span className="text-2xl mt-1 font-semibold">Create</span>
+                                <span className="text-2xl mt-1 font-semibold">
+                                    Create
+                                </span>
                             </>
                         ) : (
                             <>
@@ -119,7 +123,7 @@ const TopBar = () => {
                 <NavLink
                     to="/join"
                     className={({ isActive }) =>
-                        "flex items-center px-4 py-4 text-[#02A850] transition duration-200 hover:text-[#6cbb91]" +
+                        `flex items-center px-4 py-4 text-[#02A850] transition duration-200 hover:text-[#6cbb91]` +
                         (isActive
                             ? " border-b-4 border-[#02A850]"
                             : " border-b-4 border-transparent")
@@ -129,7 +133,9 @@ const TopBar = () => {
                         isActive ? (
                             <>
                                 <PencilIconSolid className="w-6 mr-2" />
-                                <span className="text-2xl mt-1 font-semibold">Join</span>
+                                <span className="text-2xl mt-1 font-semibold">
+                                    Join
+                                </span>
                             </>
                         ) : (
                             <>
