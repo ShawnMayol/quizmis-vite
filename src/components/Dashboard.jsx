@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import TopBar from "./TopBar.jsx";
 import useAuthCheck from "../hooks/useAuthCheck.jsx";
 import LoadingScreen from "./LoadingScreen.jsx";
 import Footer from "./Footer.jsx";
+import { AdjustmentsHorizontalIcon as FilterOutline } from "@heroicons/react/24/outline";
+import { AdjustmentsHorizontalIcon as FilterSolid } from "@heroicons/react/24/solid";
 
 const courseData = [
     {
@@ -30,7 +33,9 @@ const courseData = [
 
 const Dashboard = () => {
     const db = getFirestore();
+    const [isFilterVisible, setIsFilterVisible] = useState(false);
     const user = useAuthCheck("/login");
+    const [firstName, setFirstName] = useState("");
 
     if (!user) {
         return <LoadingScreen />;
@@ -53,73 +58,81 @@ const Dashboard = () => {
     };
 
     const toggleFilterVisibility = () => {
+        setIsFilterVisible(!isFilterVisible);
         setShowFilters(!showFilters);
     };
+
+    useEffect(() => {
+        const auth = getAuth();
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser) {
+                const nameParts = currentUser.displayName.split(" ");
+                setFirstName(nameParts[0] || "Unknown");
+            }
+        });
+
+        return () => unsubscribe();
+    }, []);
 
     return (
         <div>
             <TopBar />
-            <div
-                className="p-10 pt-24 min-h-screen"
-                style={{
-                    background:
-                        "linear-gradient(to bottom, #e6f5e6, #c7e9c0, #90ee90)",
-                }}
-            >
+            <div className="p-10 pt-24 min-h-screen bg-gradient-to-br from-[#FFFFF0] via-[#FFFFF0] to-[#FFFFF0]">
                 <div className="flex justify-between items-center mb-8 mt-2">
-                    <h1 className="text-4xl font-extrabold text-green-700">
-                        Dashboard
+                    <h1 className="text-4xl font-extrabold text-[#02A850]">
+                        Hello, {firstName}
                     </h1>
-                    <img
-                        src="/assets/filter.svg"
-                        alt="Filter"
-                        className="h-8 w-8 cursor-pointer"
+                    <button
                         onClick={toggleFilterVisibility}
-                    />
+                        className="w-8 h-8 cursor-pointer text-[#02A850] hover:text-[#6cbb91] transition duration-200"
+                    >
+                        {isFilterVisible ? (
+                            <FilterSolid className="w-full h-full" />
+                        ) : (
+                            <FilterOutline className="w-full h-full" />
+                        )}
+                    </button>
                 </div>
 
-                <hr className="border-green-800" />
+                <hr className="border-[#62d899]" />
 
-                {/* Filter options here */}
-                {showFilters && (
-                    <div className="bg-green-50 bg-opacity-60 p-4 rounded shadow mt-7">
-                        <h2 className="text-2xl font-bold mb-4 text-gray-700">
-                            Filter Quizzes
-                        </h2>
-                        <div className="grid grid-cols-2 gap-4">
-                            {Object.entries(filters).map(
-                                ([course, isChecked]) => (
-                                    <label
-                                        key={course}
-                                        className="flex items-center bg-white p-2 rounded shadow hover:cursor-pointer"
-                                    >
-                                        <input
-                                            type="checkbox"
-                                            checked={isChecked}
-                                            onChange={() =>
-                                                toggleFilter(course)
-                                            }
-                                            className="mr-2 form-checkbox rounded text-green-500"
-                                        />
-                                        <span className="text-md text-gray-700">
-                                            {course}
-                                        </span>
-                                    </label>
-                                )
-                            )}
-                        </div>
+                {/* Filter options container */}
+                <div
+                    className={`transform transition-all duration-300 origin-top ${
+                        showFilters ? "scale-y-100 mt-7" : "scale-y-0"
+                    }`}
+                    style={{ maxHeight: showFilters ? "500px" : "0px" }}
+                >
+                    <div className="grid grid-cols-2 gap-4">
+                        {Object.entries(filters).map(([course, isChecked]) => (
+                            <label
+                                key={course}
+                                className="flex items-center bg-[#FAF9F6] p-2 rounded shadow hover:cursor-pointer"
+                            >
+                                <input
+                                    type="checkbox"
+                                    checked={isChecked}
+                                    onChange={() => toggleFilter(course)}
+                                    className="mr-2 form-checkbox rounded-full text-green-500 focus:outline-none focus:ring-0"
+                                />
+
+                                <span className="text-md text-gray-700">
+                                    {course}
+                                </span>
+                            </label>
+                        ))}
                     </div>
-                )}
+                </div>
 
                 {/* Course Sections */}
                 {/* Top 4 Quizzes are displayed (based on totalTakers) */}
                 {courseData.map((course, idx) => (
                     <div key={idx} className="mb-8 mt-8">
                         <div className="flex items-center mb-4">
-                            <h2 className="text-3xl font-extrabold text-green-700 me-2">
+                            <h2 className="text-3xl font-extrabold text-[#02A850] me-2">
                                 {course.name}
                             </h2>
-                            <button className="text-green-600 no-underline hover:underline">
+                            <button className="text-[#02A850] no-underline hover:underline">
                                 View More
                             </button>
                         </div>

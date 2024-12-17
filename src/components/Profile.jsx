@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import logo from "/Logo.png";
 import TopBar from "./TopBar.jsx";
 
 const Profile = () => {
@@ -49,7 +48,7 @@ const Profile = () => {
                     <div className="flex items-center space-x-8 mb-8">
                         <div className="relative">
                             <img
-                                src={user?.photoURL || logo}
+                                src={user?.photoURL}
                                 alt="User Profile"
                                 className="w-24 h-24 rounded-full object-cover border-4 border-gray-200"
                             />
