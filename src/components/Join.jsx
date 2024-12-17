@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import Logo from "/Brand.png";
+import Logo from "/assets/QuizmisBrand.svg";
+import TopBar from "./TopBar.jsx";
+import Footer from "./Footer.jsx";
+import "../assets/css/Join.css";
 
 const Join = () => {
     const [user, setUser] = useState(null);
@@ -10,7 +13,7 @@ const Join = () => {
     const auth = getAuth();
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, currentUser => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
         });
 
@@ -26,45 +29,43 @@ const Join = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-cyan-50 via-green-100 to-blue-50">
-            {/* Logo Section */}
-            <div className="flex flex-col items-center mb-10">
-                <Link to={user ? "/dashboard" : "/"}>
-                    <img
-                        src={Logo}
-                        className="h-48 w-auto transform hover:scale-105 transition-transform duration-300"
-                        alt="Quizmis Logo"
-                    />
-                </Link>
-                <h1 className="text-4xl font-extrabold text-gray-800 mt-6">
-                    Join a <span className="text-green-500">Quiz</span>
-                </h1>
-                <p className="text-lg text-gray-600 mt-2">
-                    Enter your unique quiz code to get started.
-                </p>
-            </div>
-
-            {/* Input Section */}
-            <div className="relative w-full max-w-lg bg-white shadow-2xl rounded-2xl p-8 transform hover:scale-105 transition-transform duration-300">
-                <div className="relative">
-                    <input
-                        type="text"
-                        placeholder="Enter quiz code"
-                        className="w-full p-4 pr-20 border rounded-lg text-lg focus:outline-none"
-                        value={quizCode}
-                        onChange={(e) => setQuizCode(e.target.value)}
-                    />
-                    <button
-                        className="absolute top-0 right-0 bg-green-500 text-white h-full px-4 rounded-r-lg hover:bg-green-400 transition duration-300"
-                        onClick={handleJoinQuiz}
-                    >
-                        JOIN
-                    </button>
+        <div>
+            <TopBar />
+            <div className="min-h-screen flex flex-col items-center justify-center bg-[#FAF9F6]">
+                <img
+                    src="/assets/ThatGraduate.svg"
+                    alt="Background"
+                    className="w-2/5 select-none pointer-events-none max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg"
+                />
+                <div className="absolute flex items-center justify-center w-100 px-4 mt-4">
+                    <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg pr-28 p-8">
+                        <input
+                            type="text"
+                            placeholder="Enter quiz code"
+                            className="w-full p-4 border-none bg-[#FFFFF0] rounded-lg text-lg focus:outline-none focus:ring-0"
+                            value={quizCode}
+                            onChange={(e) => setQuizCode(e.target.value)}
+                            maxLength={25}
+                        />
+                        <button
+                            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#35A84C] font-bold text-white px-6 py-2 rounded-lg focus:outline-none focus:ring-4 focus:ring-green-300 shadow-lg hover:shadow-none"
+                            style={{
+                                boxShadow: "0 5px 0 #2c8c3b",
+                            }}
+                            onClick={handleJoinQuiz}
+                        >
+                            JOIN
+                        </button>
+                    </div>
                 </div>
             </div>
+
+            {/* Make a smaller footer, for now use default 
+                - Shawn M.
+                */}
+            <Footer />
         </div>
     );
 };
-
 
 export default Join;

@@ -4,7 +4,7 @@ import Logo from "/assets/QuizmisBrand.svg";
 
 const footerData = [
   {
-    title: "Company",
+    title: "Team",
     links: [
       { name: "About Us", url: "/about" },
       { name: "Contact Us", url: "/contact" },
@@ -64,7 +64,7 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="sm:flex sm:items-center sm:justify-between">
           <span className="text-sm sm:text-center text-[#02A850]">
-            © {new Date().getFullYear()} Quizmis Inc. All Rights Reserved.
+            © {new Date().getFullYear()} Quizmis Team. All Rights Reserved.
           </span>
           <div className="flex mt-4 sm:justify-center sm:mt-0 space-x-4">
             {/* Facebook */}
