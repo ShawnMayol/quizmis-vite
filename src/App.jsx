@@ -11,7 +11,7 @@ import Create from "./components/Create.jsx";
 import CreateItems from "./components/CreateItems.jsx";
 import CreateQuestion from "./components/CreateQuestion.jsx";
 import EditQuestion from "./components/EditQuestion.jsx";
-import YourQuizzes from "./components/Quizzes.jsx";
+// import YourQuizzes from "./components/Quizzes.jsx";
 import AboutUs from "./components/AboutUs.jsx";
 import PrivacyPolicy from "./components/PrivacyPolicy.jsx";
 import TermsAndConditions from "./components/TermsAndConditions.jsx";
@@ -43,7 +43,7 @@ path="/quiz/:quizId/question/:questionIndex/edit"
                 path="/take-quiz/:quizId/question/:questionIndex"
                 element={<Quiz />}
             />
-            <Route path="/quizzes/:userID" element={<YourQuizzes />} />
+            {/* <Route path="/quizzes/:userID" element={<YourQuizzes />} /> */}
             <Route path="/about" element={<AboutUs />} />
             <Route path="/privacypolicy" element={<PrivacyPolicy />} />
             <Route

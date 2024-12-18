@@ -90,7 +90,7 @@ const TopBar = () => {
     };
 
     return (
-        <div className="fixed top-0 w-full bg-[#FFFFF0] shadow-[#02A850] shadow-sm px-8 flex justify-between items-center z-40">
+        <div className="fixed top-0 w-full sm:max-w-screen bg-[#FFFFF0] shadow-[#02A850] shadow-sm px-8 flex justify-between items-center z-40">
             <div className="flex items-center">
                 <Link to="/dashboard">
                     <img src={Brand} className="h-14 mr-4" alt="Quizmis Logo" />
@@ -205,7 +205,7 @@ const TopBar = () => {
 
             {/* Side Modal */}
             <div
-                className={`fixed top-0 right-0 h-full w-1/4 bg-[#FFFFF0] shadow-lg rounded-lg p-6 z-20 ${
+                className={`fixed top-0 right-0 h-full md:w-1/4 sm:w-full bg-[#FFFFF0] shadow-lg rounded-lg p-6 z-20 ${
                     IsSideModalOpen ? "modal-visible" : "modal-hidden"
                 }`}
                 style={{ display: "flex", flexDirection: "column" }}
@@ -253,7 +253,7 @@ const TopBar = () => {
                             </Link>
                         </li>
                         {/* Your Quizzes */}
-                        <li>
+                        {/* <li>
                             {user?.isVerified ? (
                                 <Link
                                     to={`/quizzes/${user?.uid}`}
@@ -268,7 +268,7 @@ const TopBar = () => {
                                     <span className="mt-1">Your Quizzes</span>
                                 </div>
                             )}
-                        </li>
+                        </li> */}
                         <hr className="border-[#8cf5bd]" />
 
                         {/* Create Quiz */}
