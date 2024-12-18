@@ -84,30 +84,32 @@ const CreateItems = () => {
                             <h1 className="text-2xl font-extrabold me-4 text-[#02A850]">
                                 {quiz.title || "Loading..."}
                             </h1>
-                            <div className="copy-button-wrapper bg-gradient-to-b text-lg from-gray-50 to-gray-100 shadow-md rounded-lg">
-                                <p className="text-lg font-medium text-gray-700 me-4 hover:cursor-default">
-                                    {quizId}
-                                </p>
-                                <div className="flex items-center">
-                                    <button
-                                        onClick={handleCopy}
-                                        className="copy-button"
-                                    >
-                                        <Square2StackIcon className="w-6" />
-                                    </button>
-                                    <span className="copy-tooltip">
-                                        {copied
-                                            ? "Copied to clipboard!"
-                                            : "Copy code"}
-                                    </span>
+                            {quiz.visibility !== "Private" && (
+                                <div className="copy-button-wrapper bg-gradient-to-b text-lg from-gray-50 to-gray-100 shadow-md rounded-lg">
+                                    <p className="text-lg font-medium text-gray-700 me-4 hover:cursor-default">
+                                        {quizId}
+                                    </p>
+                                    <div className="flex items-center">
+                                        <button
+                                            onClick={handleCopy}
+                                            className="copy-button"
+                                        >
+                                            <Square2StackIcon className="w-6" />
+                                        </button>
+                                        <span className="copy-tooltip">
+                                            {copied
+                                                ? "Copied to clipboard!"
+                                                : "Copy code"}
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                         {isSettingsOpen ? (
-                            <CogIconSolid className="w-8 hover:cursor-pointer text-[#1e7e4b]" />
+                            <CogIconSolid className="w-8 hover:cursor-pointer text-[#2c8c3b]" />
                         ) : (
                             <CogIconOutline
-                                className="w-8 hover:cursor-pointer"
+                                className="w-8 hover:cursor-pointer text-[#2c8c3b]"
                                 onClick={toggleSettingsModal}
                             />
                         )}
@@ -281,30 +283,40 @@ const CreateItems = () => {
                     )}
 
                     <div className="flex flex-col gap-4">
-                        {quiz.questions.map((question, index) => (
-                            <Link
-                                to={`/quiz/${quizId}/question/${index}/edit`}
-                                key={index}
-                                className="p-4 shadow rounded-lg bg-green-50 hover:bg-green-100"
-                            >
-                                <div className="flex justify-between items-center py-2">
-                                    <h2 className="text-lg font-semibold">{`Question ${
-                                        index + 1
-                                    }: ${question.questionText}`}</h2>
-                                    <div>
-                                        <span className="text-sm">{`Choices: ${question.options.length}`}</span>
+                        {quiz.questions.length > 0 ? (
+                            quiz.questions.map((question, index) => (
+                                <Link
+                                    to={`/quiz/${quizId}/question/${index}/edit`}
+                                    key={index}
+                                    className="p-4 shadow rounded-lg bg-green-50 hover:bg-green-100"
+                                >
+                                    <div className="flex justify-between items-center py-2">
+                                        <h2 className="text-lg font-semibold">{`Question ${
+                                            index + 1
+                                        }: ${question.questionText}`}</h2>
+                                        <div>
+                                            <span className="text-sm">{`Choices: ${question.options.length}`}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </Link>
-                        ))}
+                                </Link>
+                            ))
+                        ) : (
+                            <p className="text-center text-gray-500 text-sm hover:cursor-default select-none">
+                                No items. Click{" "}
+                                <span className="font-semibold">
+                                    Add a Question
+                                </span>{" "}
+                                button below to add an item.
+                            </p>
+                        )}
                         <button
                             onClick={handleAddQuestion}
-                            className="mt-4 bg-[#35A84C] font-bold text-white py-4 px-4 rounded-lg shadow-lg"
+                            className="mt-4 w-1/6 bg-[#35A84C] font-bold text-white py-4 px-2 rounded-lg shadow-lg self-end"
                             style={{
                                 boxShadow: "0 5px 0 #2c8c3b",
                             }}
                         >
-                            Add Question
+                            Add a Question
                         </button>
                     </div>
                 </div>
