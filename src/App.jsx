@@ -20,7 +20,6 @@ import TakeQuiz from "./components/TakeQuiz.jsx";
 import Quiz from "./components/Quiz.jsx";
 import Results from "./components/Results.jsx";
 
-
 function App() {
     return (
         <Routes>

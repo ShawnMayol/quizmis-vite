@@ -130,8 +130,8 @@ const Create = () => {
                                         <option value="CIS 1201">
                                             CIS 1201 - PROGRAMMING 2
                                         </option>
-                                        <option value="CS 1202">
-                                            CS 1202 - WEB DEVELOPMENT 1
+                                        <option value="CIS 1202">
+                                            CIS 1202 - WEB DEVELOPMENT 1
                                         </option>
                                         <option value="CIS 1205">
                                             CIS 1205 - NETWORKING 1

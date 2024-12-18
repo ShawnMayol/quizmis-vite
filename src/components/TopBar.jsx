@@ -1,47 +1,73 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, NavLink } from "react-router-dom";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import logo from "/assets/QuizmisBrand.svg";
+import Brand from "/assets/QuizmisBrand.svg";
+import BrandLogo from "/assets/QuizmisLogo.svg";
 import "../assets/css/Topbar.css";
-import { HomeIcon as HomeIconSolid } from "@heroicons/react/16/solid";
-import { HomeIcon as HomeIconOutline } from "@heroicons/react/24/outline";
-import { Bars3Icon } from "@heroicons/react/24/solid";
-import { UserIcon } from "@heroicons/react/24/outline";
-import { PencilIcon as PencilIconOutline } from "@heroicons/react/24/outline";
-import { PencilIcon as PencilIconSolid } from "@heroicons/react/24/solid";
-import { DocumentTextIcon } from "@heroicons/react/24/outline";
-import { DocumentPlusIcon as PlusOutline } from "@heroicons/react/24/outline";
-import { DocumentPlusIcon as PlusSolid } from "@heroicons/react/24/solid";
-import { ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/outline";
+import { db } from "../Firebase.js";
+import { doc, getDoc } from "firebase/firestore";
+import {
+    HomeIcon as HomeIconSolid,
+    Bars3Icon,
+    PencilIcon as PencilIconSolid,
+    DocumentPlusIcon as PlusSolid,
+    ArrowLeftStartOnRectangleIcon,
+} from "@heroicons/react/16/solid";
+import {
+    HomeIcon as HomeIconOutline,
+    UserIcon,
+    PencilIcon as PencilIconOutline,
+    DocumentTextIcon,
+    DocumentPlusIcon as PlusOutline,
+} from "@heroicons/react/24/outline";
 
 const TopBar = () => {
     const [IsSideModalOpen, setIsSideModalOpen] = useState(false);
     const [user, setUser] = useState(null);
     const auth = getAuth();
     const navigate = useNavigate();
-    const [showLogoText, setShowLogoText] = useState(true);
-
-    const openModal = () => {
-        setIsSideModalOpen(true);
-    };
-    const closeModal = () => {
-        setIsSideModalOpen(false);
-    };
 
     useEffect(() => {
-        const handleScroll = () => {
-            setShowLogoText(window.scrollY < 50);
-        };
-
-        window.addEventListener("scroll", handleScroll);
-
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+            if (currentUser) {
+                // Determine sign-in method, assuming multiple providerData entries are handled.
+                const signInMethod = currentUser.providerData[0]?.providerId; // e.g., 'google.com' for Google
+                try {
+                    const docRef = doc(db, "users", currentUser.uid);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        setUser({
+                            uid: currentUser.uid,
+                            email: currentUser.email,
+                            photoURL: currentUser.photoURL, // From auth provider
+                            signInMethod, // Store the sign-in method
+                            ...docSnap.data(),
+                        });
+                    } else {
+                        console.log("No user details found in Firestore");
+                        setUser({
+                            uid: currentUser.uid,
+                            email: currentUser.email,
+                            photoURL: currentUser.photoURL, // This might be null if not using an OAuth provider
+                            signInMethod,
+                        });
+                    }
+                } catch (error) {
+                    console.error(
+                        "Error fetching user details from Firestore",
+                        error
+                    );
+                    setUser({
+                        uid: currentUser.uid,
+                        email: currentUser.email,
+                        signInMethod,
+                    });
+                }
+            } else {
+                setUser(null);
+            }
         });
+
         return () => unsubscribe();
     }, []);
 
@@ -56,11 +82,19 @@ const TopBar = () => {
             });
     };
 
+    const openModal = () => {
+        setIsSideModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsSideModalOpen(false);
+    };
+
     return (
         <div className="fixed top-0 w-full bg-[#FFFFF0] shadow-[#02A850] shadow-sm px-8 flex justify-between items-center z-40">
             <div className="flex items-center">
                 <Link to="/dashboard">
-                    <img src={logo} className="h-14 mr-4" alt="Quizmis Logo" />
+                    <img src={Brand} className="h-14 mr-4" alt="Quizmis Logo" />
                 </Link>
             </div>
 
@@ -165,12 +199,14 @@ const TopBar = () => {
                     <div className="flex justify-between items-center mb-4">
                         <div className="flex items-center">
                             <img
-                                src={user?.photoURL || logo}
+                                src={user?.photoURL || BrandLogo}
                                 alt="User Profile"
                                 className="w-10 h-10 rounded-full border-2 border-green-400 mr-4"
                             />
                             <h2 className="text-xl text-[#02A850] font-semibold">
-                                {user?.displayName || "Unknown User"}
+                                {user
+                                    ? `${user.firstName} ${user.lastName}`
+                                    : "Unknown User"}
                             </h2>
                         </div>
                         <button

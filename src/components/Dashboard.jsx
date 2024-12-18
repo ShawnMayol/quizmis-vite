@@ -44,7 +44,7 @@ const Dashboard = () => {
     const [filters, setFilters] = useState({
         "CIS 1101": true,
         "CIS 1201": true,
-        "CS 1202": true,
+        "CIS 1202": true,
         "CIS 1205": true,
         "CIS 2101": true,
     });
