@@ -38,8 +38,8 @@ const Profile = () => {
                         setUser({
                             uid: currentUser.uid,
                             email: currentUser.email,
-                            photoURL: currentUser.photoURL, // From auth provider
-                            signInMethod, // Store the sign-in method
+                            photoURL: currentUser.photoURL,
+                            signInMethod,
                             ...docSnap.data(),
                         });
                     } else {

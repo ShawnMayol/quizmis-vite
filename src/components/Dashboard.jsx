@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getFirestore } from "firebase/firestore";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import TopBar from "./TopBar.jsx";
 import useAuthCheck from "../hooks/useAuthCheck.jsx";
@@ -8,47 +8,59 @@ import Footer from "./Footer.jsx";
 import { AdjustmentsHorizontalIcon as FilterOutline } from "@heroicons/react/24/outline";
 import { AdjustmentsHorizontalIcon as FilterSolid } from "@heroicons/react/24/solid";
 
-const courseData = [
-    {
-        name: "CIS 1101 - PROGRAMMING 1",
-        image: "https://northlink.edu.ph/lms/pluginfile.php/423/course/overviewfiles/computer%20programming1.jpg",
-    },
-    {
-        name: "CIS 1201 - PROGRAMMING 2",
-        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiRETUMKLftPuSQgUwezZjx9jv7mkXj17Tyzn1wkrrRfsmd7g9vB86CpVZhAmUVI46205Bb21LOImFq-4mATn9fOTQ87t6yr6N-T3SqOGNOv8avE7wruyjvRe_Ur9cjn18mlYxhFH9AsL8/s640/86698731_10158013343572442_3708177310558453760_n.jpg",
-    },
-    {
-        name: "CS 1202 - WEB DEVELOPMENT 1",
-        image: "https://media.geeksforgeeks.org/wp-content/uploads/20231205165904/web-development-image.webp",
-    },
-    {
-        name: "CIS 1205 - NETWORKING 1",
-        image: "https://i0.wp.com/www.technologygee.com/wp-content/uploads/2023/12/what-is-computer-networking-tech-gee-knowledge-base-technology-gee.png?resize=620%2C400&ssl=1",
-    },
-    {
-        name: "CIS 2101 - DATA STRUCTURES AND ALGORITHMS",
-        image: "https://www.synergisticit.com/wp-content/uploads/2020/09/Data-structures-and-algorithms-new.webp",
-    },
-];
-
 const Dashboard = () => {
     const db = getFirestore();
     const [isFilterVisible, setIsFilterVisible] = useState(false);
     const user = useAuthCheck("/login");
-    const [firstName, setFirstName] = useState("");
-
+    const [userInfo, setUserInfo] = useState(null);
+    const auth = getAuth();
     if (!user) {
         return <LoadingScreen />;
     }
 
-    const [filters, setFilters] = useState({
-        "CIS 1101": true,
-        "CIS 1201": true,
-        "CIS 1202": true,
-        "CIS 1205": true,
-        "CIS 2101": true,
-    });
-    const [showFilters, setShowFilters] = useState(false);
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+            if (currentUser) {
+                const signInMethod = currentUser.providerData[0]?.providerId;
+                try {
+                    const docRef = doc(db, "users", currentUser.uid);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        setUserInfo({
+                            uid: currentUser.uid,
+                            email: currentUser.email,
+                            photoURL: currentUser.photoURL,
+                            signInMethod,
+                            ...docSnap.data(),
+                        });
+                    } else {
+                        console.log("No user details found in Firestore");
+                        setUserInfo({
+                            uid: currentUser.uid,
+                            email: currentUser.email,
+                            photoURL: currentUser.photoURL,
+                            signInMethod,
+                        });
+                    }
+                } catch (error) {
+                    console.error(
+                        "Error fetching user details from Firestore",
+                        error
+                    );
+                    setUserInfo({
+                        uid: currentUser.uid,
+                        email: currentUser.email,
+                        signInMethod,
+                        ...docSnap.data(),
+                    });
+                }
+            } else {
+                setUserInfo(null);
+            }
+        });
+
+        return () => unsubscribe();
+    }, []);
 
     const toggleFilter = (course) => {
         setFilters((prevFilters) => ({
@@ -62,42 +74,30 @@ const Dashboard = () => {
         setShowFilters(!showFilters);
     };
 
-    useEffect(() => {
-        const auth = getAuth();
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser) {
-                const nameParts = currentUser.displayName.split(" ");
-                setFirstName(nameParts[0] || "Unknown");
-            }
-        });
-
-        return () => unsubscribe();
-    }, []);
-
     return (
         <div>
             <TopBar />
             <div className="p-10 pt-24 min-h-screen bg-gradient-to-b from-[#FFFFF0] via-[#F7F7E8] to-[#EFEFD0]">
                 <div className="flex justify-between items-center mb-8 mt-2">
                     <h1 className="text-4xl font-extrabold text-[#02A850]">
-                        Hello, {firstName}
+                        Hello, {userInfo?.firstName || ""}
                     </h1>
                     <button
                         onClick={toggleFilterVisibility}
                         className="w-8 h-8 cursor-pointer text-[#02A850] hover:text-[#6cbb91] transition duration-200"
                     >
-                        {isFilterVisible ? (
+                        {/* {isFilterVisible ? (
                             <FilterSolid className="w-full h-full" />
                         ) : (
                             <FilterOutline className="w-full h-full" />
-                        )}
+                        )} */}
                     </button>
                 </div>
 
                 <hr className="border-[#62d899]" />
 
                 {/* Filter options container */}
-                <div
+                {/* <div
                     className={`transform transition-all duration-300 origin-top ${
                         showFilters ? "scale-y-100 mt-7" : "scale-y-0"
                     }`}
@@ -122,11 +122,11 @@ const Dashboard = () => {
                             </label>
                         ))}
                     </div>
-                </div>
+                </div> */}
 
                 {/* Course Sections */}
                 {/* Top 4 Quizzes are displayed (based on totalTakers) */}
-                {courseData.map((course, idx) => (
+                {/* {courseData.map((course, idx) => (
                     <div key={idx} className="mb-8 mt-8">
                         <div className="flex items-center mb-4">
                             <h2 className="text-3xl font-extrabold text-[#02A850] me-2">
@@ -155,7 +155,7 @@ const Dashboard = () => {
                             ))}
                         </div>
                     </div>
-                ))}
+                ))} */}
             </div>
             <Footer />
         </div>

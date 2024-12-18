@@ -21,7 +21,7 @@ const footerData = [
 
 const Footer = () => {
   return (
-    <footer className="bg-[#FFFFF0] text-gray-400 border-t">
+    <footer className="bg-[#FFFFF0] sm:max-w-screen text-gray-400 border-t">
       {/* Top Section */}
       <div className="mx-auto w-full max-w-screen-xl p-4 py-8 lg:py-14">
         <div className="md:flex md:justify-between">
