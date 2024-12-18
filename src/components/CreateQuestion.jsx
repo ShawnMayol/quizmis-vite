@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import TopBar from "./TopBar.jsx";
-import Footer from "./Footer.jsx";
 import { db } from "../Firebase.js";
 import {
     doc,
@@ -97,7 +96,7 @@ const CreateQuestions = () => {
             <TopBar />
             <div className="flex items-center">
                 <div className="w-screen h-screen pt-28 bg-gradient-to-b from-[#FFFFF0] via-[#F7F7E8] to-[#EFEFD0] rounded-lg p-8">
-                    <h1 className="text-2xl text-[#02A850] font-bold mb-6">
+                    <h1 className="text-3xl text-[#02A850] font-bold mb-6">
                         Add a New Question
                     </h1>
                     <hr className="border-[#62d899] mb-8" />
@@ -142,17 +141,14 @@ const CreateQuestions = () => {
                                         onClick={() => removeOption(index)}
                                         className="absolute top-1 right-2"
                                     >
-                                        <TrashIcon className="h-5 mt-1 text-red-600 hover:cursor-pointer" />
+                                        <TrashIcon className="h-5 mt-1 text-red-600 hover:cursor-pointer hover:text-red-500 transition duration-300" />
                                     </button>
                                 )}
                             </div>
                         ))}
                         {options.length < 5 && (
-                            <button
-                                onClick={addOption}
-                                className="p-2"
-                            >
-                                <PlusCircleIcon className="w-10 text-[#02A850] hover:cursor-pointer" />
+                            <button onClick={addOption} className="p-2">
+                                <PlusCircleIcon className="w-10 text-[#02A850] hover:cursor-pointer hover:text-[#4dbd81] transition duration-300" />
                             </button>
                         )}
                     </div>
@@ -178,7 +174,6 @@ const CreateQuestions = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
         </div>
     );
 };
