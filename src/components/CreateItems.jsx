@@ -9,8 +9,15 @@ import YourQuizzes from "./Quizzes.jsx";
 import {
     Cog6ToothIcon as CogIconOutline,
     Square2StackIcon,
+    InformationCircleIcon as InfoIconOutline,
+    ChartBarIcon as ChartIconOutline,
+    CheckIcon,
 } from "@heroicons/react/24/outline";
-import { Cog6ToothIcon as CogIconSolid } from "@heroicons/react/16/solid";
+import {
+    Cog6ToothIcon as CogIconSolid,
+    InformationCircleIcon as InfoIconSolid,
+    ChartBarIcon as ChartIconSolid,
+} from "@heroicons/react/16/solid";
 
 const CreateItems = () => {
     const { quizId } = useParams();
@@ -25,8 +32,9 @@ const CreateItems = () => {
         questions: [],
     });
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+    const [isChartSolid, setIsChartSolid] = useState(false);
+    const [isInfoSolid, setIsInfoSolid] = useState(false);
     const navigate = useNavigate();
-    const [isHovering, setIsHovering] = useState(false);
     const [copied, setCopied] = useState(false);
 
     const handleCopy = () => {
@@ -53,6 +61,8 @@ const CreateItems = () => {
     const toggleSettingsModal = () => {
         setIsSettingsOpen(!isSettingsOpen);
     };
+    const toggleChartIcon = () => setIsChartSolid(!isChartSolid);
+    const toggleInfoIcon = () => setIsInfoSolid(!isInfoSolid);
 
     const handleSettingsUpdate = async (e) => {
         e.preventDefault();
@@ -89,7 +99,7 @@ const CreateItems = () => {
                                     {quiz.title || "Loading..."}
                                 </h1>
                                 {quiz.visibility !== "Private" && (
-                                    <div className="copy-button-wrapper bg-gradient-to-b text-lg from-gray-50 to-gray-100 shadow-md rounded-lg">
+                                    <div className="copy-button-wrapper me-4 bg-gradient-to-b text-lg from-gray-50 to-gray-100 shadow-md rounded-lg">
                                         <p className="text-lg font-medium text-gray-700 me-4 hover:cursor-default">
                                             {quizId}
                                         </p>
@@ -98,7 +108,11 @@ const CreateItems = () => {
                                                 onClick={handleCopy}
                                                 className="copy-button"
                                             >
-                                                <Square2StackIcon className="w-6" />
+                                                {copied ? (
+                                                    <CheckIcon className="w-6" />
+                                                ) : (
+                                                    <Square2StackIcon className="w-6" />
+                                                )}
                                             </button>
                                             <span className="copy-tooltip">
                                                 {copied
@@ -107,6 +121,31 @@ const CreateItems = () => {
                                             </span>
                                         </div>
                                     </div>
+                                )}
+                                {/* Chart Icon */}
+                                {isChartSolid ? (
+                                    <ChartIconSolid
+                                        className="w-6 me-3 hover:cursor-pointer text-[#2c8c3b]"
+                                        onClick={toggleChartIcon}
+                                    />
+                                ) : (
+                                    <ChartIconOutline
+                                        className="w-6 me-3 hover:cursor-pointer text-[#2c8c3b]"
+                                        onClick={toggleChartIcon}
+                                    />
+                                )}
+
+                                {/* Info Icon */}
+                                {isInfoSolid ? (
+                                    <InfoIconSolid
+                                        className="w-6 hover:cursor-pointer text-[#2c8c3b]"
+                                        onClick={toggleInfoIcon}
+                                    />
+                                ) : (
+                                    <InfoIconOutline
+                                        className="w-6 hover:cursor-pointer text-[#2c8c3b]"
+                                        onClick={toggleInfoIcon}
+                                    />
                                 )}
                             </div>
                             {isSettingsOpen ? (
@@ -119,8 +158,67 @@ const CreateItems = () => {
                             )}
                         </div>
 
-                        <hr className="border-[#62d899] mb-8" />
+                        {/* Statistics */}
+                        {isChartSolid && (
+                            <div className="px-4 mt-4 pointer-events-none select-none tracking-wide">
+                                <h2 className="text-lg font-bold">
+                                    Statistics
+                                </h2>
+                                <p className="text-sm">
+                                    Placeholder for chart-related information.
+                                </p>
+                            </div>
+                        )}
 
+                        {/* Info Details */}
+                        {isInfoSolid && (
+                            <div className="px-4 mt-4 pointer-events-none select-none tracking-wide">
+                                <div className="flex tracking-normal">
+                                    <p className="me-6 ">
+                                        <strong className="me-2">
+                                            Description:
+                                        </strong>
+                                        <span className="text-gray-700">
+                                            {quiz.description}
+                                        </span>
+                                    </p>
+                                    <p className="me-6 ">
+                                        <strong className="me-2">
+                                            Course:
+                                        </strong>
+                                        <span className="text-gray-700">
+                                            {quiz.course}
+                                        </span>
+                                    </p>
+                                    <p className="me-6 ">
+                                        <strong className="me-2">
+                                            Visibility:
+                                        </strong>
+                                        <span className="text-gray-700">
+                                            {quiz.visibility}
+                                        </span>
+                                    </p>
+                                    <p>
+                                        <strong className="me-2">
+                                            Date Created:
+                                        </strong>
+                                        <span className="text-gray-700">
+                                            {new Date(
+                                                quiz.dateCreated
+                                            ).toLocaleDateString("en-US", {
+                                                year: "numeric",
+                                                month: "short",
+                                                day: "numeric",
+                                            })}
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+
+                        <hr className="border-[#62d899] my-8" />
+
+                        {/* Settings Modal */}
                         {isSettingsOpen && (
                             <div
                                 className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50"

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TopBar from "./TopBar.jsx";
 import { db } from "../Firebase.js";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, getDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -29,20 +29,37 @@ const Create = () => {
             return;
         }
         const currentDate = new Date();
+
         try {
+            // Fetch additional user details from Firestore
+            const userDocRef = doc(db, "users", user.uid);
+            const userDocSnap = await getDoc(userDocRef);
+
+            let firstName = "";
+            let lastName = "";
+            if (userDocSnap.exists()) {
+                const userData = userDocSnap.data();
+                firstName = userData.firstName || "";
+                lastName = userData.lastName || "";
+            } else {
+                console.warn("User document does not exist in Firestore!");
+            }
+
+            // Add quiz to Firestore
             const docRef = await addDoc(collection(db, "quizzes"), {
                 title: quizTitle,
                 description: description,
                 course: course,
                 visibility: visibility,
                 creatorId: user.uid,
-                creatorName: user.displayName || "Anonymous",
+                creatorName: `${firstName} ${lastName}`.trim() || "Anonymous",
                 numItems: 0,
                 questions: [],
                 dateCreated: currentDate.toISOString(),
                 totalQuizTakers: 0,
                 scoreAccumulated: 0,
             });
+
             console.log("Document written with ID: ", docRef.id);
             navigate(`/quiz/${docRef.id}`);
         } catch (error) {
