@@ -110,7 +110,7 @@ const TakeQuiz = () => {
                     <button
                         className={`font-bold text-2xl text-white px-8 py-3 mt-10 rounded-lg shadow-lg float-right transition duration-300 ${
                             quiz?.numItems > 0
-                                ? "bg-[#35A84C] hover:bg-[#33a149] cursor-pointer"
+                                ? "bg-[#35A84C] hover:bg-[#33a149] transition duration-300 cursor-pointer"
                                 : "bg-gray-400 cursor-not-allowed"
                         }`}
                         style={{

@@ -107,18 +107,18 @@ const Quiz = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center">
-            <div className="w-5/6 bg-opacity-90 bg-white rounded-lg shadow-xl p-8 my-10">
-                <div className="flex items-center justify-center my-4 space-x-1">
+        <div className="flex items-center">
+            <div className="w-screen h-screen bg-gradient-to-br from-[#17613d] via-[#267e52] to-[#1d7b4c] animated-background p-8">
+                <div className="flex items-center justify-center mb-7 space-x-1">
                     {Array.from({ length: quiz?.questions.length }, (_, i) => (
                         <button
                             key={i}
-                            className={`p-4 rounded text-lg ${
+                            className={`p-4 rounded shadow-xl text-lg ${
                                 currentIndex === i
-                                    ? "bg-blue-500"
+                                    ? "bg-[#FFD700] border-white border-2 scale-105 transform transition"
                                     : answers[i] !== undefined
-                                    ? "bg-gray-400"
-                                    : "bg-gray-300"
+                                    ? "bg-[#FFD700] border-2 border-transparent"
+                                    : "bg-[#FAF9F6] border-2 border-transparent"
                             }`}
                             onClick={() => navigateToQuestion(i)}
                         >
@@ -129,7 +129,7 @@ const Quiz = () => {
 
                 {quiz && (
                     <div>
-                        <h2 className="w-full border rounded-lg text-3xl text-center py-40 bg-green-50">
+                        <h2 className="w-full p-2 shadow rounded-lg md:py-28 sm:py-10 text-center text-2xl bg-[#FAF9F6]  select-none">
                             {quiz.questions[currentIndex].questionText}
                         </h2>
                         <div className="flex space-x-2 text-xl">
@@ -140,10 +140,10 @@ const Quiz = () => {
                                         onClick={() =>
                                             handleSelectOption(index)
                                         }
-                                        className={`flex-1 text-center px-4 py-24 border rounded my-6 ${
+                                        className={`flex-1 text-center px-4  border-2 py-20 border-transparent rounded-md my-6 ${
                                             answers[currentIndex] === index
-                                                ? "bg-blue-500 text-white"
-                                                : "bg-gray-200"
+                                                ? "bg-[#FFD700]  border-white"
+                                                : "bg-[#FAF9F6]"
                                         }`}
                                         style={{
                                             minWidth: `${
@@ -162,29 +162,39 @@ const Quiz = () => {
                     </div>
                 )}
 
-                <div className="flex justify-between items-center mb-6">
+                <div className="flex justify-between items-center fixed bottom-0 left-0 w-full p-8">
                     <button
-                        className="bg-gray-200 py-3 px-5 text-lg rounded"
+                        className="mt-4 bg-[#FFD700] font-bold text-lg py-3 px-8 rounded-lg shadow-lg"
                         onClick={() => navigateToQuestion(currentIndex - 1)}
                         style={{
+                            boxShadow: "0 5px 0 #B8860B",
                             visibility: currentIndex > 0 ? "visible" : "hidden",
                         }}
                     >
                         Back
                     </button>
-                    <span>
+
+                    <span className="text-[#FFFFF0] select-none">
                         {currentIndex + 1}/{quiz?.questions.length}
                     </span>
                     {currentIndex < quiz?.questions.length - 1 ? (
                         <button
-                            className="bg-gray-200 py-3 px-5 text-lg rounded"
+                            className="mt-4 bg-[#FFD700] font-bold text-lg  py-3 px-8 rounded-lg shadow-lg"
                             onClick={() => navigateToQuestion(currentIndex + 1)}
+                            style={{
+                                boxShadow: "0 5px 0 #B8860B",
+                                visibility:
+                                    currentIndex >= 0 ? "visible" : "hidden",
+                            }}
                         >
                             Next
                         </button>
                     ) : (
                         <button
-                            className="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-5 text-lg rounded"
+                            className="mt-4 bg-[#8B0000] font-bold text-lg text-white py-3 px-8 rounded-lg shadow-lg"
+                            style={{
+                                boxShadow: "0 5px 0 #4B0000", // Darker red shadow
+                            }}
                             onClick={submitQuiz}
                         >
                             Submit
