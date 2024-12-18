@@ -44,59 +44,83 @@ const TakeQuiz = () => {
             : "0";
 
     return (
-        <div className="min-h-screen flex items-center justify-center">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#20935C] via-[#33a06a] to-[#1d7b4c] animated-background">
             <TopBar />
-            <div className="w-5/6 bg-opacity-95 bg-white rounded-lg shadow-xl py-10 px-12 mt-10">
+            <div className="md:w-5/6 lg:w-5/6 sm:w-full bg-opacity-95 bg-gradient-to-b from-[#FFFFF0] via-[#F7F7E8] to-[#EFEFD0] rounded-lg shadow-xl py-10 px-12 mt-10">
                 <div className="flex justify-between items-center mx-1">
-                    <h1 className="text-3xl font-bold">{quiz?.title}</h1>
-                    <span className="text-gray-700 text-lg">
-                        {quiz?.numItems} items
-                    </span>
+                    <h1 className="text-4xl font-bold">{quiz?.title}</h1>
+                    {quiz?.numItems !== undefined && (
+                        <span className="text-gray-700 text-lg">
+                            {quiz.numItems}{" "}
+                            {quiz.numItems === 1 ? "item" : "items"}
+                        </span>
+                    )}
                 </div>
-                <p className="text-md mb-6 mt-2 ms-1">{quiz?.description}</p>
+                <p className="text-xl mb-6 mt-2 ms-1">{quiz?.description}</p>
                 <hr className="border-black mb-8" />
-                <div className="flex justify-between">
-                    <div className="bg-green-100 w-5/6 p-4 rounded-md shadow">
-                        {quiz ? (
-                            <>
-                                <ul className=" pl-5 space-y-4 text-xl py-2">
-                                    <li>
-                                        <strong>Course:</strong> {quiz.course}
-                                    </li>
-                                    <li>
+                <div className="bg-[#FAF9F6] w-full p-4 rounded-md shadow">
+                    {quiz ? (
+                        <>
+                            <div className="flex flex-col text-xl p-4 space-y-4">
+                                <div className="flex justify-between">
+                                    <div className="w-full">
+                                        <strong>Course:</strong>{" "}
+                                        <span className="tracking-tighter">
+                                            {quiz.course}
+                                        </span>
+                                    </div>
+                                    <div className="w-full">
                                         <strong>Total Takers:</strong>{" "}
                                         {quiz.totalQuizTakers}
-                                    </li>
-                                    <li>
-                                        <strong>Average Score:</strong>{" "}
-                                        {averageScore} / {quiz.numItems}
-                                    </li>
-                                    <li>
-                                        <strong>Date Created:</strong>{" "}
-                                        {new Date(
-                                            quiz.dateCreated
-                                        ).toLocaleDateString("en-US", {
-                                            year: "numeric",
-                                            month: "short",
-                                            day: "numeric",
-                                        })}
-                                    </li>
-                                    <li>
+                                    </div>
+                                </div>
+                                <div className="flex justify-between">
+                                    <div className="w-full">
                                         <strong>Creator:</strong>{" "}
                                         {quiz.creatorName}
-                                    </li>
-                                </ul>
-                            </>
-                        ) : (
-                            <p>Loading quiz details...</p>
-                        )}
-                    </div>
+                                    </div>
+                                    <div className="w-full">
+                                        <strong>Average Score:</strong>{" "}
+                                        {averageScore} / {quiz.numItems}
+                                    </div>
+                                </div>
+                                <div>
+                                    <strong>Date Created:</strong>{" "}
+                                    {new Date(
+                                        quiz.dateCreated
+                                    ).toLocaleDateString("en-US", {
+                                        year: "numeric",
+                                        month: "short",
+                                        day: "numeric",
+                                    })}
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        <div className="flex items-center justify-center h-full">
+                            <div className="flex flex-col items-center">
+                                <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+                                <p className="mt-4 text-gray-500 text-sm hover:cursor-default select-none">
+                                    Loading quiz details...
+                                </p>
+                            </div>
+                        </div>
+                    )}
 
                     <button
-                        className="bg-green-400 w-1/6 hover:bg-green-500 text-white font-bold py-4 px-8 text-2xl rounded-e-md"
+                        className={`font-bold text-2xl text-white px-8 py-3 mt-10 rounded-lg shadow-lg float-right transition duration-300 ${
+                            quiz?.numItems > 0
+                                ? "bg-[#35A84C] hover:bg-[#33a149] cursor-pointer"
+                                : "bg-gray-400 cursor-not-allowed"
+                        }`}
+                        style={{
+                            boxShadow:
+                                quiz?.numItems > 0 ? "0 5px 0 #2c8c3b" : "none",
+                        }}
                         onClick={handleStartQuiz}
+                        disabled={quiz?.numItems === 0}
                     >
-                        Start
+                        Take Quiz
                     </button>
                 </div>
             </div>
