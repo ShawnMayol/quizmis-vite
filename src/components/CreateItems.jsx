@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import TopBar from "./TopBar";
+import Footer from "./Footer.jsx";
 import { db } from "../Firebase.js";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import "../assets/css/Copy.css";
+import {
+    Cog6ToothIcon as CogIconOutline,
+    Square2StackIcon,
+} from "@heroicons/react/24/outline";
+import { Cog6ToothIcon as CogIconSolid } from "@heroicons/react/16/solid";
 
 const CreateItems = () => {
     const { quizId } = useParams();
@@ -69,17 +75,17 @@ const CreateItems = () => {
     };
 
     return (
-        <div className="min-h-screen pt-20">
+        <div>
             <TopBar />
-            <div className="flex flex-col items-center justify-center">
-                <div className="w-5/6 bg-opacity-95 bg-white rounded-lg shadow-xl p-8 mt-10">
+            <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-[#20935C] via-[#33a06a] to-[#1d7b4c] animated-background">
+                <div className="w-5/6 bg-opacity-95 bg-gradient-to-b from-[#FFFFF0] via-[#F7F7E8] to-[#EFEFD0] rounded-lg shadow-xl p-8 mt-10">
                     <div className="flex justify-between items-center mb-6">
                         <div className="flex items-center">
-                            <h1 className="text-2xl font-bold me-2">
+                            <h1 className="text-2xl font-extrabold me-4 text-[#02A850]">
                                 {quiz.title || "Loading..."}
                             </h1>
-                            <div className="copy-button-wrapper">
-                                <p className="text-lg font-medium text-gray-700 me-4">
+                            <div className="copy-button-wrapper bg-gradient-to-b text-lg from-gray-50 to-gray-100 shadow-md rounded-lg">
+                                <p className="text-lg font-medium text-gray-700 me-4 hover:cursor-default">
                                     {quizId}
                                 </p>
                                 <div className="flex items-center">
@@ -87,11 +93,7 @@ const CreateItems = () => {
                                         onClick={handleCopy}
                                         className="copy-button"
                                     >
-                                        <img
-                                            src="/assets/copy.svg"
-                                            alt="Copy"
-                                            className="copy-icon"
-                                        />
+                                        <Square2StackIcon className="w-6" />
                                     </button>
                                     <span className="copy-tooltip">
                                         {copied
@@ -101,15 +103,17 @@ const CreateItems = () => {
                                 </div>
                             </div>
                         </div>
-                        <img
-                            src="/assets/settings.svg"
-                            alt="Settings"
-                            className="h-7 w-7 hover:cursor-pointer"
-                            onClick={toggleSettingsModal}
-                        />
+                        {isSettingsOpen ? (
+                            <CogIconSolid className="w-8 hover:cursor-pointer text-[#1e7e4b]" />
+                        ) : (
+                            <CogIconOutline
+                                className="w-8 hover:cursor-pointer"
+                                onClick={toggleSettingsModal}
+                            />
+                        )}
                     </div>
 
-                    <hr className="border-black mb-8" />
+                    <hr className="border-[#62d899] mb-8" />
 
                     {isSettingsOpen && (
                         <div
@@ -117,7 +121,7 @@ const CreateItems = () => {
                             onClick={() => setIsSettingsOpen(false)}
                         >
                             <div
-                                className="bg-white p-8 px-12 rounded-lg shadow-lg"
+                                className="bg-[#FFFFF0] p-8 px-12 rounded-lg shadow-lg"
                                 onClick={(e) => e.stopPropagation()}
                             >
                                 <form
@@ -125,17 +129,17 @@ const CreateItems = () => {
                                     className="space-y-4"
                                 >
                                     <div className="flex justify-between items-center">
-                                        <h1 className="text-xl font-bold">
+                                        <h1 className="text-xl text-[#02A850] font-bold">
                                             Quiz Settings
                                         </h1>
                                         <button
                                             onClick={toggleSettingsModal}
-                                            className="text-gray-500 hover:text-gray-700 hover:bg-gray-100 text-4xl px-2 rounded pb-1"
+                                            className="text-green-400 hover:bg-green-100 text-4xl px-3 rounded-full pb-1"
                                         >
                                             &times;
                                         </button>
                                     </div>
-                                    <hr className="border-black" />
+                                    <hr className="border-[#62d899]" />
                                     <div>
                                         <label
                                             htmlFor="quizTitle"
@@ -153,7 +157,7 @@ const CreateItems = () => {
                                                     title: e.target.value,
                                                 })
                                             }
-                                            className="mt-1 p-2 w-full border rounded-md"
+                                            className="mt-1 p-2 w-full border rounded-md bg-[#FAF9F6]"
                                             minLength="4"
                                             maxLength="20"
                                             required
@@ -176,87 +180,97 @@ const CreateItems = () => {
                                                 })
                                             }
                                             rows="4"
-                                            className="mt-1 p-2 w-full border rounded-md"
+                                            className="mt-1 p-2 w-full bg-[#FAF9F6] border rounded-md resize-none"
                                             maxLength="100"
                                         />
                                     </div>
-                                    <div className="mb-6">
-                                        <label
-                                            htmlFor="course"
-                                            className="block text-sm font-bold"
-                                        >
-                                            Course
-                                        </label>
-                                        <select
-                                            id="course"
-                                            value={quiz.course}
-                                            onChange={(e) =>
-                                                setQuiz({
-                                                    ...quiz,
-                                                    course: e.target.value,
-                                                })
-                                            }
-                                            className="mt-1 p-2 w-full border rounded-md hover:cursor-pointer"
-                                            required
-                                        >
-                                            <option value="CIS 1101">
-                                                CIS 1101 - PROGRAMMING 1
-                                            </option>
-                                            <option value="CIS 1201">
-                                                CIS 1201 - PROGRAMMING 2
-                                            </option>
-                                            <option value="CS 1202">
-                                                CS 1202 - WEB DEVELOPMENT 1
-                                            </option>
-                                            <option value="CIS 1205">
-                                                CIS 1205 - NETWORKING 1
-                                            </option>
-                                            <option value="CIS 2101">
-                                                CIS 2101 - DATA STRUCTURES AND
-                                                ALGORITHMS
-                                            </option>
-                                        </select>
+                                    <div className="flex justify-between">
+                                        <div className="w-full me-4">
+                                            <label
+                                                htmlFor="course"
+                                                className="block text-sm font-bold"
+                                            >
+                                                Course
+                                            </label>
+                                            <select
+                                                id="course"
+                                                value={quiz.course}
+                                                onChange={(e) =>
+                                                    setQuiz({
+                                                        ...quiz,
+                                                        course: e.target.value,
+                                                    })
+                                                }
+                                                className="mt-1 p-2 border rounded-md hover:cursor-pointer bg-[#FAF9F6]"
+                                                required
+                                            >
+                                                <option value="CIS 1101">
+                                                    CIS 1101 - PROGRAMMING 1
+                                                </option>
+                                                <option value="CIS 1201">
+                                                    CIS 1201 - PROGRAMMING 2
+                                                </option>
+                                                <option value="CS 1202">
+                                                    CS 1202 - WEB DEVELOPMENT 1
+                                                </option>
+                                                <option value="CIS 1205">
+                                                    CIS 1205 - NETWORKING 1
+                                                </option>
+                                                <option value="CIS 2101">
+                                                    CIS 2101 - DATA STRUCTURES
+                                                    AND ALGORITHMS
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div className="w-full">
+                                            <label
+                                                htmlFor="visibility"
+                                                className="block text-sm font-bold"
+                                            >
+                                                Visibility
+                                            </label>
+                                            <select
+                                                id="visibility"
+                                                value={quiz.visibility}
+                                                onChange={(e) =>
+                                                    setQuiz({
+                                                        ...quiz,
+                                                        visibility:
+                                                            e.target.value,
+                                                    })
+                                                }
+                                                className="mt-1 p-2 w-full border rounded-md hover:cursor-pointer bg-[#FAF9F6]"
+                                                required
+                                            >
+                                                <option value="Public">
+                                                    Public
+                                                </option>
+                                                <option value="Private">
+                                                    Private
+                                                </option>
+                                                <option value="Code">
+                                                    Accessible via Code
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div className="mb-6">
-                                        <label
-                                            htmlFor="visibility"
-                                            className="block text-sm font-bold"
-                                        >
-                                            Visibility
-                                        </label>
-                                        <select
-                                            id="visibility"
-                                            value={quiz.visibility}
-                                            onChange={(e) =>
-                                                setQuiz({
-                                                    ...quiz,
-                                                    visibility: e.target.value,
-                                                })
-                                            }
-                                            className="mt-1 p-2 w-full border rounded-md hover:cursor-pointer"
-                                            required
-                                        >
-                                            <option value="Public">
-                                                Public
-                                            </option>
-                                            <option value="Private">
-                                                Private
-                                            </option>
-                                            <option value="Code">
-                                                Accessible via Code
-                                            </option>
-                                        </select>
-                                    </div>
+
                                     <div className="flex justify-between">
                                         <button
                                             type="button"
-                                            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-500"
+                                            className="px-4 py-2 mt-4 bg-[#E02424] text-white rounded-lg font-bold shadow-lg hover:bg-red-500"
+                                            style={{
+                                                boxShadow: "0 5px 0 #9b1d1d",
+                                            }}
                                         >
                                             Delete
                                         </button>
                                         <button
                                             type="submit"
-                                            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500"
+                                            className="px-4 py-2 mt-4 bg-[#35A84C] font-bold rounded-lg shadow-lg text-white"
+                                            style={{
+                                                boxShadow: "0 5px 0 #2c8c3b",
+                                            }}
                                         >
                                             Update
                                         </button>
@@ -285,13 +299,17 @@ const CreateItems = () => {
                         ))}
                         <button
                             onClick={handleAddQuestion}
-                            className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4 rounded"
+                            className="mt-4 bg-[#35A84C] font-bold text-white py-4 px-4 rounded-lg shadow-lg"
+                            style={{
+                                boxShadow: "0 5px 0 #2c8c3b",
+                            }}
                         >
                             Add Question
                         </button>
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

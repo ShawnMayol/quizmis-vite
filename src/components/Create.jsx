@@ -55,7 +55,7 @@ const Create = () => {
             <TopBar />
             <div className="md:flex md:justify-between">
                 <YourQuizzes />
-                <div className="h-screen w-full flex justify-center bg-gradient-to-b from-[#20935C] via-[#33a56c] to-[#1d7b4c]">
+                <div className="h-screen w-full flex justify-center bg-gradient-to-br from-[#20935C] via-[#33a06a] to-[#1d7b4c] animated-background">
                     <div className="flex flex-col items-center justify-center w-5/6 mt-10">
                         <div className="w-5/6 bg-opacity-95 bg-gradient-to-b from-[#FFFFF0] via-[#F7F7E8] to-[#EFEFD0] rounded-lg shadow-xl p-8">
                             <h1 className="text-2xl font-bold mb-6">
@@ -103,8 +103,8 @@ const Create = () => {
                                         onChange={(e) =>
                                             setDescription(e.target.value)
                                         }
-                                        rows="4"
-                                        className="mt-1 p-2 w-full border bg-[#FAF9F6] rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        rows="2"
+                                        className="mt-1 p-2 w-full border bg-[#FAF9F6] rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                                         placeholder="Describe your quiz"
                                         maxLength="100"
                                     ></textarea>
@@ -120,6 +120,7 @@ const Create = () => {
                                         >
                                             Course
                                         </label>
+
                                         <select
                                             id="course"
                                             value={course}
@@ -149,6 +150,9 @@ const Create = () => {
                                                 ALGORITHMS
                                             </option>
                                         </select>
+                                        {/* <p className="text-xs text-gray-600 mt-2">
+                                            More courses will be added soon.
+                                        </p> */}
                                     </div>
                                     <div className="mb-6 w-full">
                                         <label
@@ -163,7 +167,7 @@ const Create = () => {
                                             onChange={(e) =>
                                                 setVisibility(e.target.value)
                                             }
-                                            className="mt-1 p-2 py-4 w-full borde bg-[#FAF9F6] rounded-md hover:cursor-pointer shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            className="mt-1 p-2 py-4 w-full border bg-[#FAF9F6] rounded-md hover:cursor-pointer shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                             required
                                         >
                                             <option value="">
