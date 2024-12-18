@@ -113,7 +113,7 @@ const CreateItems = () => {
                                 <CogIconSolid className="w-8 hover:cursor-pointer text-[#2c8c3b]" />
                             ) : (
                                 <CogIconOutline
-                                    className="w-8 hover:cursor-pointer text-[#2c8c3b]"
+                                    className="w-8 hover:cursor-pointer text-[#2c8c3b] hover:text-[#6cbb91] transition duration-200"
                                     onClick={toggleSettingsModal}
                                 />
                             )}
@@ -140,7 +140,7 @@ const CreateItems = () => {
                                             </h1>
                                             <button
                                                 onClick={toggleSettingsModal}
-                                                className="text-green-400 hover:bg-green-100 text-4xl px-3 rounded-full pb-1"
+                                                className="text-green-400 hover:bg-green-100 text-4xl px-3 rounded-full pb-1 transition duration-300"
                                             >
                                                 &times;
                                             </button>
@@ -268,7 +268,7 @@ const CreateItems = () => {
                                         <div className="flex justify-between">
                                             <button
                                                 type="button"
-                                                className="px-4 py-2 mt-4 bg-[#E02424] text-white rounded-lg font-bold shadow-lg hover:bg-red-500"
+                                                className="px-4 py-2 mt-4 bg-[#E02424] text-white rounded-lg font-bold shadow-lg"
                                                 style={{
                                                     boxShadow:
                                                         "0 5px 0 #9b1d1d",
@@ -292,13 +292,13 @@ const CreateItems = () => {
                             </div>
                         )}
 
-                        <div className="flex flex-col gap-4">
+                        <div className="flex flex-col">
                             {quiz.questions.length > 0 ? (
                                 quiz.questions.map((question, index) => (
                                     <Link
                                         to={`/quiz/${quizId}/question/${index}/edit`}
                                         key={index}
-                                        className="p-4 shadow rounded-lg bg-green-50 hover:bg-green-100"
+                                        className="py-1 px-4 shadow-sm hover:shadow-md mb-2 bg-gradient-to-b from-[#FFFFF0] to-[#FAF9F6] rounded transition duration-300"
                                     >
                                         <div className="flex justify-between items-center py-2">
                                             <h2 className="text-lg font-semibold">{`Question ${

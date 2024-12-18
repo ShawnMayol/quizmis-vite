@@ -67,7 +67,7 @@ const YourQuizzes = () => {
                     <Link
                         key={quiz.id}
                         to={`/quiz/${quiz.id}`}
-                        className="block py-3 px-2 shadow-sm hover:shadow-md mb-4 bg-gradient-to-b from-[#FFFFF0] to-[#FAF9F6] rounded transition duration-300 transform hover:scale-x-105"
+                        className="block py-3 px-2 shadow-sm hover:shadow-md mb-4 bg-gradient-to-b from-[#FFFFF0] to-[#FAF9F6] rounded transition duration-300"
                     >
                         <div className="flex justify-between items-center">
                             <h2 className="text-lg font-semibold">{quiz.title}</h2>
