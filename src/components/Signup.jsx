@@ -191,9 +191,9 @@ const Signup = () => {
                         {loading ? "Signing Up..." : "Sign Up"}
                     </button>
 
-                    {error && <p className="text-red-500 mt-8">{error}</p>}
+                    {error && <p className="text-red-500 mt-6">{error}</p>}
 
-                    <div className="text-center mb-4 mt-6">
+                    <div className="text-center my-6">
                         <div className="relative">
                             <div className="absolute inset-0 flex items-center">
                                 <div className="w-full border-t border-gray-300"></div>

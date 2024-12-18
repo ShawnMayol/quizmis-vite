@@ -66,7 +66,9 @@ const Login = () => {
                     setError("Invalid email format.");
                     break;
                 case "auth/invalid-credential":
-                    setError("Invalid credentials. Try logging in using Google below.");
+                    setError(
+                        "Invalid credentials. Try logging in using Google below."
+                    );
                     break;
                 case "auth/too-many-requests":
                     setError("Too many requests. Please try again later.");
