@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase.js";
 import { getAuth, sendEmailVerification } from "firebase/auth";
 import Loading from "/assets/Loading.gif";
@@ -19,11 +19,32 @@ const VerifyPage = () => {
             try {
                 const userDocRef = doc(db, "users", uid);
                 const userDoc = await getDoc(userDocRef);
+
                 if (userDoc.exists()) {
                     const userData = userDoc.data();
                     setUser(userData);
 
-                    if (userData.isVerified) {
+                    const auth = getAuth();
+                    const currentUser = auth.currentUser;
+
+                    if (!currentUser) {
+                        setError("No authenticated user found.");
+                        setLoading(false);
+                        return;
+                    }
+
+                    await currentUser.reload();
+
+                    if (currentUser.emailVerified && !userData.isVerified) {
+                        await updateDoc(userDocRef, {
+                            isVerified: true,
+                        });
+                        setUser((prevUser) => ({
+                            ...prevUser,
+                            isVerified: true,
+                        }));
+                        navigate("/dashboard");
+                    } else if (userData.isVerified) {
                         navigate("/dashboard");
                     }
                 } else {
@@ -129,9 +150,18 @@ const VerifyPage = () => {
                     </button>
                 )}
                 <p className="text-gray-600 text-sm hover:cursor-default">
-                    {isButtonDisabled && countdown > 0
-                        ? `You can resend the verification email in ${countdown} seconds.`
-                        : "Click the button above to get verified."}
+                    {isButtonDisabled && countdown > 0 ? (
+                        <>
+                            <span>
+                                You can resend the verification email in{" "}
+                                {countdown} seconds.
+                            </span>
+                            <br />
+                            <span>Email has been sent. Check your mail.</span>
+                        </>
+                    ) : (
+                        "Click the button above to get verified."
+                    )}
                 </p>
             </div>
         </div>
