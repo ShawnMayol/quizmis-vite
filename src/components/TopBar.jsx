@@ -17,7 +17,6 @@ import {
     HomeIcon as HomeIconOutline,
     UserIcon,
     PencilIcon as PencilIconOutline,
-    DocumentTextIcon,
     DocumentPlusIcon as PlusOutline,
 } from "@heroicons/react/24/outline";
 

@@ -4,6 +4,7 @@ import { db } from "../Firebase.js";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { DocumentPlusIcon } from "@heroicons/react/24/outline";
 
 const YourQuizzes = () => {
     const [quizzes, setQuizzes] = useState([]);
@@ -18,7 +19,10 @@ const YourQuizzes = () => {
             if (user) {
                 try {
                     const quizzesRef = collection(db, "quizzes");
-                    const q = query(quizzesRef, where("creatorId", "==", user.uid));
+                    const q = query(
+                        quizzesRef,
+                        where("creatorId", "==", user.uid)
+                    );
                     const querySnapshot = await getDocs(q);
                     const quizzesData = querySnapshot.docs.map((doc) => ({
                         id: doc.id,
@@ -26,7 +30,9 @@ const YourQuizzes = () => {
                     }));
                     setQuizzes(quizzesData);
                 } catch (error) {
-                    setQuizzesError("Failed to load quizzes. Please try again later.");
+                    setQuizzesError(
+                        "Failed to load quizzes. Please try again later."
+                    );
                     console.error("Error fetching quizzes:", error);
                 } finally {
                     setQuizzesLoading(false);
@@ -43,9 +49,14 @@ const YourQuizzes = () => {
 
     return (
         <div className="h-screen sm:max-w-screen md:w-1/4 bg-gradient-to-b from-[#FFFFF0] via-[#F7F7E8] to-[#EFEFD0] shadow-r-xl px-6 py-24 left-0">
-            <h1 className="text-2xl text-[#02A850] font-extrabold mb-2 hover:cursor-default select-none">
-                Your Quizzes
-            </h1>
+            <div className="flex justify-between items-center mb-4">
+                <h1 className="text-2xl text-[#02A850] font-extrabold hover:cursor-default select-none">
+                    Your Quizzes
+                </h1>
+                <Link to="/create">
+                    <DocumentPlusIcon className="w-7 me-1 text-[#02A850] hover:cursor-pointer transition duration-300 hover:text-[#63ac85] transform hover:scale-105" />
+                </Link>
+            </div>
             <hr className="border-[#62d899] mb-4" />
 
             {/* Loading State */}
@@ -70,7 +81,9 @@ const YourQuizzes = () => {
                         className="block py-3 px-2 shadow-sm hover:shadow-md mb-4 bg-gradient-to-b from-[#FFFFF0] to-[#FAF9F6] rounded transition duration-300"
                     >
                         <div className="flex justify-between items-center">
-                            <h2 className="text-lg font-semibold">{quiz.title}</h2>
+                            <h2 className="text-lg font-semibold">
+                                {quiz.title}
+                            </h2>
                             <span className="text-gray-500 text-sm">
                                 {quiz.numItems} items
                             </span>
