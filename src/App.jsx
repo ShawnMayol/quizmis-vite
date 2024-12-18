@@ -19,6 +19,7 @@ import ContactUs from "./components/ContactUs.jsx";
 import TakeQuiz from "./components/TakeQuiz.jsx";
 import Quiz from "./components/Quiz.jsx";
 import Results from "./components/Results.jsx";
+import VerifyPage from "./components/Verify.jsx";
 
 function App() {
     return (
@@ -51,6 +52,8 @@ path="/quiz/:quizId/question/:questionIndex/edit"
             />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/quiz/:quizId/results" element={<Results />} />
+            <Route path="/:uid/verify" element={<VerifyPage />} />
+
         </Routes>
     );
 }
