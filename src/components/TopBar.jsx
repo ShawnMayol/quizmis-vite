@@ -155,7 +155,7 @@ const TopBar = () => {
                         }
                     </NavLink>
                 ) : (
-                    <div className="flex items-center px-4 py-4 text-gray-400 cursor-not-allowed">
+                    <div className="flex items-center px-4 py-4 text-gray-400 cursor-not-allowed border-b-4 border-transparent">
                         <PlusOutline className="w-6 mr-2" />
                         <span className="text-2xl mt-1">Create</span>
                     </div>
@@ -189,7 +189,7 @@ const TopBar = () => {
                         }
                     </NavLink>
                 ) : (
-                    <div className="flex items-center px-4 py-4 text-gray-400 cursor-not-allowed">
+                    <div className="flex items-center px-4 py-4 text-gray-400 cursor-not-allowed border-b-4 border-transparent">
                         <PencilIconOutline className="w-6 mr-2" />
                         <span className="text-2xl mt-1">Join</span>
                     </div>
