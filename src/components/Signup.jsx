@@ -82,7 +82,6 @@ const Signup = () => {
                 return;
             }
 
-            // Fetch the user document to check existing sign-in method
             const userDocRef = doc(db, "users", user.uid);
             const userDoc = await getDoc(userDocRef);
             if (userDoc.exists()) {
@@ -99,7 +98,6 @@ const Signup = () => {
                     setError(err.message);
                 }
             } else {
-                // If the document does not exist, create a new one
                 let firstName = "";
                 let lastName = "";
                 if (user.displayName) {

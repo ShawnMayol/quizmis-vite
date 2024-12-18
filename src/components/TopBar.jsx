@@ -30,8 +30,7 @@ const TopBar = () => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             if (currentUser) {
-                // Determine sign-in method, assuming multiple providerData entries are handled.
-                const signInMethod = currentUser.providerData[0]?.providerId; // e.g., 'google.com' for Google
+                const signInMethod = currentUser.providerData[0]?.providerId;
                 try {
                     const docRef = doc(db, "users", currentUser.uid);
                     const docSnap = await getDoc(docRef);
@@ -39,8 +38,8 @@ const TopBar = () => {
                         setUser({
                             uid: currentUser.uid,
                             email: currentUser.email,
-                            photoURL: currentUser.photoURL, // From auth provider
-                            signInMethod, // Store the sign-in method
+                            photoURL: currentUser.photoURL,
+                            signInMethod,
                             ...docSnap.data(),
                         });
                     } else {
@@ -48,7 +47,7 @@ const TopBar = () => {
                         setUser({
                             uid: currentUser.uid,
                             email: currentUser.email,
-                            photoURL: currentUser.photoURL, // This might be null if not using an OAuth provider
+                            photoURL: currentUser.photoURL,
                             signInMethod,
                         });
                     }
@@ -127,58 +126,74 @@ const TopBar = () => {
                 </NavLink>
 
                 {/* Create Link */}
-                <NavLink
-                    to="/create"
-                    className={({ isActive }) =>
-                        `flex items-center px-4 py-4 text-[#02A850] transition duration-200 hover:text-[#6cbb91]` +
-                        (isActive
-                            ? " border-b-4 border-[#02A850]"
-                            : " border-b-4 border-transparent")
-                    }
-                >
-                    {({ isActive }) =>
-                        isActive ? (
-                            <>
-                                <PlusSolid className="w-6 mr-2" />
-                                <span className="text-2xl mt-1 font-semibold">
-                                    Create
-                                </span>
-                            </>
-                        ) : (
-                            <>
-                                <PlusOutline className="w-6 mr-2" />
-                                <span className="text-2xl mt-1">Create</span>
-                            </>
-                        )
-                    }
-                </NavLink>
+                {user?.isVerified ? (
+                    <NavLink
+                        to="/create"
+                        className={({ isActive }) =>
+                            `flex items-center px-4 py-4 text-[#02A850] transition duration-200 hover:text-[#6cbb91]` +
+                            (isActive
+                                ? " border-b-4 border-[#02A850]"
+                                : " border-b-4 border-transparent")
+                        }
+                    >
+                        {({ isActive }) =>
+                            isActive ? (
+                                <>
+                                    <PlusSolid className="w-6 mr-2" />
+                                    <span className="text-2xl mt-1 font-semibold">
+                                        Create
+                                    </span>
+                                </>
+                            ) : (
+                                <>
+                                    <PlusOutline className="w-6 mr-2" />
+                                    <span className="text-2xl mt-1">
+                                        Create
+                                    </span>
+                                </>
+                            )
+                        }
+                    </NavLink>
+                ) : (
+                    <div className="flex items-center px-4 py-4 text-gray-400 cursor-not-allowed">
+                        <PlusOutline className="w-6 mr-2" />
+                        <span className="text-2xl mt-1">Create</span>
+                    </div>
+                )}
 
                 {/* Join Link */}
-                <NavLink
-                    to="/join"
-                    className={({ isActive }) =>
-                        `flex items-center px-4 py-4 text-[#02A850] transition duration-200 hover:text-[#6cbb91]` +
-                        (isActive
-                            ? " border-b-4 border-[#02A850]"
-                            : " border-b-4 border-transparent")
-                    }
-                >
-                    {({ isActive }) =>
-                        isActive ? (
-                            <>
-                                <PencilIconSolid className="w-6 mr-2" />
-                                <span className="text-2xl mt-1 font-semibold">
-                                    Join
-                                </span>
-                            </>
-                        ) : (
-                            <>
-                                <PencilIconOutline className="w-6 mr-2" />
-                                <span className="text-2xl mt-1">Join</span>
-                            </>
-                        )
-                    }
-                </NavLink>
+                {user?.isVerified ? (
+                    <NavLink
+                        to="/join"
+                        className={({ isActive }) =>
+                            `flex items-center px-4 py-4 text-[#02A850] transition duration-200 hover:text-[#6cbb91]` +
+                            (isActive
+                                ? " border-b-4 border-[#02A850]"
+                                : " border-b-4 border-transparent")
+                        }
+                    >
+                        {({ isActive }) =>
+                            isActive ? (
+                                <>
+                                    <PencilIconSolid className="w-6 mr-2" />
+                                    <span className="text-2xl mt-1 font-semibold">
+                                        Join
+                                    </span>
+                                </>
+                            ) : (
+                                <>
+                                    <PencilIconOutline className="w-6 mr-2" />
+                                    <span className="text-2xl mt-1">Join</span>
+                                </>
+                            )
+                        }
+                    </NavLink>
+                ) : (
+                    <div className="flex items-center px-4 py-4 text-gray-400 cursor-not-allowed">
+                        <PencilIconOutline className="w-6 mr-2" />
+                        <span className="text-2xl mt-1">Join</span>
+                    </div>
+                )}
             </div>
 
             <div>
@@ -237,34 +252,61 @@ const TopBar = () => {
                                 <span className="mt-1">Your Profile</span>
                             </Link>
                         </li>
+                        {/* Your Quizzes */}
                         <li>
-                            <Link
-                                to={`/quizzes/${user?.uid}`}
-                                className="flex items-center p-2 rounded text-[#02A850] hover:bg-green-100 transition-all"
-                            >
-                                <DocumentTextIcon className="w-5 mr-2" />
-                                <span className="mt-1">Your Quizzes</span>
-                            </Link>
+                            {user?.isVerified ? (
+                                <Link
+                                    to={`/quizzes/${user?.uid}`}
+                                    className="flex items-center p-2 rounded text-[#02A850] hover:bg-green-100 transition-all"
+                                >
+                                    <DocumentTextIcon className="w-5 mr-2" />
+                                    <span className="mt-1">Your Quizzes</span>
+                                </Link>
+                            ) : (
+                                <div className="flex items-center p-2 rounded text-gray-400 cursor-not-allowed">
+                                    <DocumentTextIcon className="w-5 mr-2" />
+                                    <span className="mt-1">Your Quizzes</span>
+                                </div>
+                            )}
                         </li>
                         <hr className="border-[#8cf5bd]" />
+
+                        {/* Create Quiz */}
                         <li>
-                            <Link
-                                to="/create"
-                                className="flex items-center p-2 rounded text-[#02A850] hover:bg-green-100 transition-all"
-                            >
-                                <PlusOutline className="w-5 mr-2" />
-                                <span className="mt-1">Create Quiz</span>
-                            </Link>
+                            {user?.isVerified ? (
+                                <Link
+                                    to="/create"
+                                    className="flex items-center p-2 rounded text-[#02A850] hover:bg-green-100 transition-all"
+                                >
+                                    <PlusOutline className="w-5 mr-2" />
+                                    <span className="mt-1">Create Quiz</span>
+                                </Link>
+                            ) : (
+                                <div className="flex items-center p-2 rounded text-gray-400 cursor-not-allowed">
+                                    <PlusOutline className="w-5 mr-2" />
+                                    <span className="mt-1">Create Quiz</span>
+                                </div>
+                            )}
                         </li>
+
+                        {/* Join Quiz */}
                         <li>
-                            <Link
-                                to="/join"
-                                className="flex items-center p-2 rounded text-[#02A850] hover:bg-green-100 transition-all"
-                            >
-                                <PencilIconOutline className="w-5 mr-2" />
-                                <span className="mt-1">Join Quiz</span>
-                            </Link>
+                            {user?.isVerified ? (
+                                <Link
+                                    to="/join"
+                                    className="flex items-center p-2 rounded text-[#02A850] hover:bg-green-100 transition-all"
+                                >
+                                    <PencilIconOutline className="w-5 mr-2" />
+                                    <span className="mt-1">Join Quiz</span>
+                                </Link>
+                            ) : (
+                                <div className="flex items-center p-2 rounded text-gray-400 cursor-not-allowed">
+                                    <PencilIconOutline className="w-5 mr-2" />
+                                    <span className="mt-1">Join Quiz</span>
+                                </div>
+                            )}
                         </li>
+
                         <hr className="border-[#8cf5bd]" />
                         <li>
                             <button
