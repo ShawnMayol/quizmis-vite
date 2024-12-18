@@ -56,15 +56,18 @@ const HomePage = () => {
                         <br /> one <span className="text-red-500">quiz</span> at
                         a time
                     </h1>
-                    <p className="text-lg text-gray-600 mb-8">
+                    <p className="text-lg text-gray-600">
                         Connecting learners through shared knowledge and
                         interactive experiences.
                     </p>
+                    <p className="text-lg text-gray-600 mb-8">
+                        Log into your USC email and start learning!
+                    </p>
                     <Link
-                        to="/join"
+                        to="/login"
                         className="inline-block bg-green-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-green-600 shadow-lg transition duration-300"
                     >
-                        Enter Quiz
+                        Log In
                     </Link>
                 </div>
             </section>

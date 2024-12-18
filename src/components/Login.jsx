@@ -7,7 +7,7 @@ import {
     signInWithEmailAndPassword,
     onAuthStateChanged,
 } from "firebase/auth";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import PasswordInput from "./PasswordInput";
 import Logo from "/assets/QuizmisLogo.svg";
 import Google from "/assets/google.svg";
@@ -17,6 +17,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -31,14 +32,19 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
 
+        if (!email || !password) {
+            setError("Please provide both email and password.");
+            return;
+        }
+
         try {
+            setLoading(true);
             const userCredential = await signInWithEmailAndPassword(
                 auth,
                 email,
                 password
             );
             const user = userCredential.user;
-
             const userDocRef = doc(db, "users", user.uid);
             const userDoc = await getDoc(userDocRef);
             if (!userDoc.exists()) {
@@ -48,45 +54,99 @@ const Login = () => {
 
             navigate("/dashboard");
         } catch (err) {
-            if (err.code === "auth/user-not-found") {
-                setError("No account found with this email.");
-            } else if (err.code === "auth/wrong-password") {
-                setError("Incorrect password. Please try again.");
-            } else if (err.code === "auth/invalid-email") {
-                setError("Invalid email format.");
-            } else {
-                setError("Failed to log in. Please check your credentials.");
+            console.error("Login error: ", err);
+            switch (err.code) {
+                case "auth/user-not-found":
+                    setError("No account found with this email.");
+                    break;
+                case "auth/wrong-password":
+                    setError("Incorrect password. Please try again.");
+                    break;
+                case "auth/invalid-email":
+                    setError("Invalid email format.");
+                    break;
+                case "auth/invalid-credential":
+                    setError("Invalid credentials. Try logging in using Google below.");
+                    break;
+                case "auth/too-many-requests":
+                    setError("Too many requests. Please try again later.");
+                    break;
             }
+        } finally {
+            setLoading(false);
         }
     };
 
     const handleGoogleLogin = async () => {
-        setError("");
         const provider = new GoogleAuthProvider();
         try {
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
-            console.log("Google login successful, user email:", user.email); // Debugging
-
+            console.log("Received email:", user.email);
             if (!user.email.endsWith("@usc.edu.ph")) {
-                console.log("Non-USC email attempted to sign in"); // Debugging
+                console.log("Email does not end with @usc.edu.ph");
                 setError("Only USC email addresses are allowed.");
                 await auth.signOut();
                 return;
             }
 
+            // Fetch the user document to check existing sign-in method
             const userDocRef = doc(db, "users", user.uid);
             const userDoc = await getDoc(userDocRef);
-            if (!userDoc.exists()) {
+            if (userDoc.exists()) {
+                try {
+                    const userData = userDoc.data();
+                    if (userData.signInMethod === "EmailAndPassword") {
+                        await updateDoc(userDocRef, {
+                            signInMethod: "Google",
+                            isVerified: true,
+                        });
+                    }
+                } catch (err) {
+                    console.error("Error updating document:", err);
+                    setError(err.message);
+                }
+            } else {
+                // If the document does not exist, create a new one
+                let firstName = "";
+                let lastName = "";
+                if (user.displayName) {
+                    const splitName = user.displayName.trim().split(/\s+/);
+                    if (splitName.length > 1) {
+                        lastName = splitName.pop();
+                        firstName = splitName.join(" ");
+                    } else {
+                        firstName = user.displayName;
+                    }
+                }
                 await setDoc(userDocRef, {
-                    username: user.displayName || "Google User",
+                    firstName,
+                    lastName,
                     email: user.email,
+                    signInMethod: "Google",
+                    isVerified: true,
                 });
             }
             navigate("/dashboard");
         } catch (err) {
-            console.error("Google sign-in error:", err);
-            setError("Failed to sign up with Google. Please try again.");
+            if (err.code === "auth/account-exists-with-different-credential") {
+                setError(
+                    "Email is already registered. Please sign in using your email and password."
+                );
+            } else {
+                setError("Failed to sign up with Google. Please try again.");
+            }
+        }
+    };
+
+    const handleEmailChange = (e) => {
+        const inputEmail = e.target.value;
+        setEmail(inputEmail);
+
+        if (inputEmail.length > 0 && !inputEmail.endsWith("@usc.edu.ph")) {
+            setError("Email must end with @usc.edu.ph");
+        } else {
+            setError("");
         }
     };
 
@@ -109,10 +169,10 @@ const Login = () => {
 
                     <input
                         type="email"
-                        placeholder="Email"
+                        placeholder="USC Email"
                         className="w-full p-2 mb-4 border rounded bg-[#FAF9F6]"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={handleEmailChange}
                     />
 
                     <PasswordInput
@@ -126,10 +186,12 @@ const Login = () => {
                         style={{
                             boxShadow: "0 6px 0 #2c8c3b",
                         }}
+                        disabled={loading}
                     >
-                        Log In
+                        {loading ? "Logging In..." : "Log In"}
                     </button>
-                    {error && <p className="text-red-500 mt-2">{error}</p>}
+
+                    {error && <p className="text-red-500 mt-6">{error}</p>}
 
                     <div className="relative my-6">
                         <div className="absolute inset-0 flex items-center">
