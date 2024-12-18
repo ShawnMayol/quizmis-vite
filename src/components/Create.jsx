@@ -205,7 +205,7 @@ const Create = () => {
 
                                 <button
                                     type="submit"
-                                    className="bg-[#35A84C] font-bold text-white px-6 py-2 rounded-lg shadow-lg float-right"
+                                    className="bg-[#35A84C] hover:bg-[#33a149] transition duration-300 font-bold text-white px-6 py-2 rounded-lg shadow-lg float-right"
                                     style={{
                                         boxShadow: "0 5px 0 #2c8c3b",
                                     }}

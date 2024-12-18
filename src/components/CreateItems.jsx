@@ -114,7 +114,7 @@ const CreateItems = () => {
                                                     <Square2StackIcon className="w-6" />
                                                 )}
                                             </button>
-                                            <span className="copy-tooltip">
+                                            <span className="copy-tooltip pointer-events-none text-sm">
                                                 {copied
                                                     ? "Copied to clipboard!"
                                                     : "Copy code"}
@@ -161,12 +161,46 @@ const CreateItems = () => {
                         {/* Statistics */}
                         {isChartSolid && (
                             <div className="px-4 mt-4 pointer-events-none select-none tracking-wide">
-                                <h2 className="text-lg font-bold">
-                                    Statistics
-                                </h2>
-                                <p className="text-sm">
-                                    Placeholder for chart-related information.
-                                </p>
+                                <div className="flex tracking-normal">
+                                    <p className="me-6 ">
+                                        <strong className="me-2">
+                                            Total Takes:
+                                        </strong>
+                                        <span className="text-gray-700">
+                                            {quiz.totalQuizTakers}
+                                        </span>
+                                    </p>
+                                    <p className="me-6">
+                                        <strong className="me-2">
+                                            Average Score:
+                                        </strong>
+                                        <span className="text-gray-700">
+                                            {quiz.totalQuizTakers > 0
+                                                ? (
+                                                      quiz.scoreAccumulated /
+                                                      quiz.totalQuizTakers
+                                                  ).toFixed(2) +
+                                                  " / " +
+                                                  quiz.numItems
+                                                : "N/A"}
+                                        </span>
+                                    </p>
+                                    <p className="me-6">
+                                        <strong className="me-2">
+                                            Average Percentage:
+                                        </strong>
+                                        <span className="text-gray-700">
+                                            {quiz.totalQuizTakers > 0
+                                                ? (
+                                                      (quiz.scoreAccumulated /
+                                                          (quiz.numItems *
+                                                              quiz.totalQuizTakers)) *
+                                                      100
+                                                  ).toFixed(2) + "%"
+                                                : "N/A"}
+                                        </span>
+                                    </p>
+                                </div>
                             </div>
                         )}
 
@@ -376,7 +410,7 @@ const CreateItems = () => {
                                             </button>
                                             <button
                                                 type="submit"
-                                                className="px-4 py-2 mt-4 bg-[#35A84C] font-bold rounded-lg shadow-lg text-white"
+                                                className="px-4 py-2 mt-4 bg-[#35A84C] hover:bg-[#33a149] transition duration-300 font-bold rounded-lg shadow-lg text-white"
                                                 style={{
                                                     boxShadow:
                                                         "0 5px 0 #2c8c3b",
@@ -419,7 +453,7 @@ const CreateItems = () => {
                             )}
                             <button
                                 onClick={handleAddQuestion}
-                                className="mt-4 w-1/6 bg-[#35A84C] font-bold text-white py-2 px-2 rounded-lg shadow-lg self-end"
+                                className="mt-4 w-1/6 bg-[#35A84C] hover:bg-[#33a149] transition duration-300 font-bold text-white py-2 px-2 rounded-lg shadow-lg self-end"
                                 style={{
                                     boxShadow: "0 5px 0 #2c8c3b",
                                 }}

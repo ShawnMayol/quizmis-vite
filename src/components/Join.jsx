@@ -47,7 +47,7 @@ const Join = () => {
                             maxLength={25}
                         />
                         <button
-                            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#35A84C] font-bold text-white px-6 py-2 rounded-lg focus:outline-none focus:ring-4 focus:ring-green-300 shadow-lg hover:shadow-none"
+                            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#35A84C] hover:bg-[#33a149] transition duration-300 font-bold text-white px-6 py-2 rounded-lg focus:outline-none focus:ring-4 focus:ring-green-300 shadow-lg hover:shadow-none"
                             style={{
                                 boxShadow: "0 5px 0 #2c8c3b",
                             }}
@@ -59,9 +59,7 @@ const Join = () => {
                 </div>
             </div>
 
-            {/* Make a smaller footer, for now use default 
-                - Shawn M.
-                */}
+            {/*  */}
             <Footer />
         </div>
     );

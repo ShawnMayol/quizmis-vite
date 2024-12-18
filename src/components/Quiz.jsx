@@ -96,9 +96,14 @@ const Quiz = () => {
                 dateTaken: new Date(),
             });
 
-            // Navigate to a results page or use state to show results
+            if (document.fullscreenElement) {
+                document.exitFullscreen().catch((err) => {
+                    console.error("Error exiting fullscreen:", err);
+                });
+            }
+
             navigate(`/quiz/${quizId}/results`, {
-                state: { score, percentageScore, numItems: totalItems }, // Now passing numItems
+                state: { score, percentageScore, numItems: totalItems },
             });
         } catch (error) {
             console.error("Failed to record quiz results:", error);

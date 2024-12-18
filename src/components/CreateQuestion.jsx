@@ -155,7 +155,7 @@ const CreateQuestions = () => {
                     <div className="flex justify-between mt-3 items-center">
                         <button
                             onClick={() => navigate(`/quiz/${quizId}`)}
-                            className="mt-4 bg-[#35A84C] font-bold text-lg text-white py-3 px-8 rounded-lg shadow-lg"
+                            className="mt-4 bg-[#35A84C] hover:bg-[#33a149] transition duration-300 font-bold text-lg text-white py-3 px-8 rounded-lg shadow-lg"
                             style={{
                                 boxShadow: "0 5px 0 #2c8c3b",
                             }}
@@ -164,7 +164,7 @@ const CreateQuestions = () => {
                         </button>
                         <button
                             onClick={handleSaveQuestion}
-                            className="mt-4 bg-[#35A84C] font-bold text-lg text-white py-3 px-8 rounded-lg shadow-lg"
+                            className="mt-4 bg-[#35A84C] hover:bg-[#33a149] transition duration-300 font-bold text-lg text-white py-3 px-8 rounded-lg shadow-lg"
                             style={{
                                 boxShadow: "0 5px 0 #2c8c3b",
                             }}

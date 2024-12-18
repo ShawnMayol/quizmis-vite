@@ -63,7 +63,7 @@ const Results = () => {
                         Review
                     </button>
                     {/* Tooltip */}
-                    <div className="select-none absolute top-1/2 w-full left-full transform -translate-y-1/2 translate-x-2 bg-gray-800 text-white text-sm rounded-md py-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="select-none pointer-events-none absolute top-1/2 w-full left-full transform -translate-y-1/2 translate-x-2 bg-gray-800 text-white text-sm rounded-md py-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         This feature is in development.
                     </div>
                 </div>
