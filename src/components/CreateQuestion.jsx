@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import TopBar from "./TopBar.jsx";
+import Footer from "./Footer.jsx";
 import { db } from "../Firebase.js";
 import {
     doc,
@@ -9,6 +10,7 @@ import {
     arrayUnion,
     increment,
 } from "firebase/firestore";
+import { TrashIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
 
 const CreateQuestions = () => {
     const navigate = useNavigate();
@@ -91,20 +93,20 @@ const CreateQuestions = () => {
     };
 
     return (
-        <div className="min-h-screen py-20">
+        <div>
             <TopBar />
-            <div className="flex flex-col items-center justify-center">
-                <div className="w-5/6 bg-opacity-95 bg-white rounded-lg shadow-xl p-8 mt-10">
-                    <h1 className="text-2xl font-bold mb-6">
+            <div className="flex items-center">
+                <div className="w-screen h-screen pt-28 bg-gradient-to-b from-[#FFFFF0] via-[#F7F7E8] to-[#EFEFD0] rounded-lg p-8">
+                    <h1 className="text-2xl text-[#02A850] font-bold mb-6">
                         Add a New Question
                     </h1>
-                    <hr className="border-black mb-8" />
+                    <hr className="border-[#62d899] mb-8" />
                     <input
                         type="text"
                         value={questionText}
                         onChange={(e) => setQuestionText(e.target.value)}
                         placeholder="Enter question"
-                        className="w-full p-2 border rounded-lg py-40 text-center text-2xl bg-green-50"
+                        className="w-full p-2 border rounded-lg md:py-28 sm:py-10 text-center text-2xl bg-[#FAF9F6] border-[#62d899]"
                     />
                     <div className="flex justify-between items-center mt-4 space-x-2">
                         {options.map((option, index) => (
@@ -120,7 +122,7 @@ const CreateQuestions = () => {
                                         onChange={() =>
                                             handleToggleCorrect(index)
                                         }
-                                        className="form-radio hover:cursor-pointer border-gray-700 border-2 rounded-full h-5 w-5 text-green-600"
+                                        className="form-radio hover:cursor-pointer mt-1 border-[#50b17d] border-2 rounded-full h-5 w-5 text-green-600 focus:outline-[#FAF9F6] focus:ring-[#FAF9F6]"
                                     />
                                 </label>
                                 <input
@@ -133,18 +135,14 @@ const CreateQuestions = () => {
                                         )
                                     }
                                     placeholder="Enter answer option"
-                                    className="flex-grow p-2 text-center py-24 bg-green-50 rounded-lg text-xl"
+                                    className="flex-grow p-2 text-center py-20 bg-[#FAF9F6] rounded-lg text-xl border-[#62d899]"
                                 />
                                 {options.length > 2 && (
                                     <button
                                         onClick={() => removeOption(index)}
                                         className="absolute top-1 right-2"
                                     >
-                                        <img
-                                            src="/assets/trash.svg"
-                                            alt="Delete"
-                                            className="h-7 w-7 hover:cursor-pointer"
-                                        />
+                                        <TrashIcon className="h-5 mt-1 text-red-600 hover:cursor-pointer" />
                                     </button>
                                 )}
                             </div>
@@ -152,32 +150,35 @@ const CreateQuestions = () => {
                         {options.length < 5 && (
                             <button
                                 onClick={addOption}
-                                className="bg-green-200 hover:bg-green-300 font-bold p-2 rounded"
+                                className="p-2"
                             >
-                                <img
-                                    src="/assets/plus.svg"
-                                    alt="Add option"
-                                    className="h-7 w-7 hover:cursor-pointer"
-                                />
+                                <PlusCircleIcon className="w-10 text-[#02A850] hover:cursor-pointer" />
                             </button>
                         )}
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between mt-3 items-center">
                         <button
                             onClick={() => navigate(`/quiz/${quizId}`)}
-                            className="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                            className="mt-4 bg-[#35A84C] font-bold text-lg text-white py-3 px-8 rounded-lg shadow-lg"
+                            style={{
+                                boxShadow: "0 5px 0 #2c8c3b",
+                            }}
                         >
                             Cancel
                         </button>
                         <button
                             onClick={handleSaveQuestion}
-                            className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            className="mt-4 bg-[#35A84C] font-bold text-lg text-white py-3 px-8 rounded-lg shadow-lg"
+                            style={{
+                                boxShadow: "0 5px 0 #2c8c3b",
+                            }}
                         >
                             Save
                         </button>
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };
