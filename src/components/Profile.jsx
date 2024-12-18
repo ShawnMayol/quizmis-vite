@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import TopBar from "./TopBar.jsx";
 import Footer from "./Footer.jsx";
@@ -139,7 +140,9 @@ const Profile = () => {
                                         </div>
                                     ) : (
                                         <div className="group relative flex items-center">
-                                            <ExclamationCircleIcon className="w-5 text-red-700 hover:cursor-pointer" />
+                                            <Link to={`/${user?.uid}/verify`}>
+                                                <ExclamationCircleIcon className="w-5 text-red-700 hover:cursor-pointer" />
+                                            </Link>
                                             <span className="absolute bottom-6 left-1/2 transform -translate-x-1/2 scale-0 transition-transform duration-150 bg-red-500 text-white text-xs rounded px-2 py-1 group-hover:scale-100">
                                                 Unverified
                                             </span>
