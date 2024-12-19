@@ -100,15 +100,25 @@ const TakeQuiz = () => {
                         <div className="flex items-center justify-center h-full">
                             <div className="flex flex-col items-center">
                                 <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
-                                <p className="mt-4 text-gray-500 text-sm hover:cursor-default select-none">
+                                <p className="mt-4 text-gray-500 text-md hover:cursor-default select-none">
                                     Loading quiz details...
                                 </p>
                             </div>
                         </div>
                     )}
-
+                </div>
+                <div className="flex justify-between">
                     <button
-                        className={`font-bold text-2xl text-white px-8 py-3 mt-10 rounded-lg shadow-lg float-right transition duration-300 ${
+                        className="font-bold text-2xl text-white px-8 py-3 mt-10 rounded-lg shadow-lg float-right transition duration-300 bg-[#35A84C] hover:bg-[#33a149] cursor-pointer"
+                        style={{
+                            boxShadow: "0 5px 0 #2c8c3b",
+                        }}
+                        onClick={() => navigate(-1)} 
+                    >
+                        Back
+                    </button>
+                    <button
+                        className={`font-bold text-2xl text-white px-8 py-3 mt-10 rounded-lg shadow-lg transition duration-300 ${
                             quiz?.numItems > 0
                                 ? "bg-[#35A84C] hover:bg-[#33a149] transition duration-300 cursor-pointer"
                                 : "bg-gray-400 cursor-not-allowed"

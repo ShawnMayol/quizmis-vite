@@ -6,17 +6,19 @@ const Results = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const user = useAuthCheck();
-    const { score, percentageScore, numItems } = location.state || {
-        score: 0,
-        percentageScore: 0,
-        numItems: 0,
-    };
+    const { score, percentageScore, numItems, userQuizRecordId, quizTitle } =
+        location.state || {
+            score: 0,
+            percentageScore: 0,
+            numItems: 0,
+            userQuizRecordId: null,
+            quizTitle: "Untitled Quiz",
+        };
 
-    if (!user) {
+    if (!user || !userQuizRecordId ) {
         navigate("/dashboard");
         return null;
     }
-
     const isPassed = percentageScore >= 60;
 
     return (
@@ -27,10 +29,11 @@ const Results = () => {
                         You Passed!
                     </p>
                 ) : (
-                    <p className="text-6xl font-extrabold text-red-600 mb-12">
+                    <p className="text-6xl font-extrabold text-red-600 mb-8">
                         You Failed!
                     </p>
                 )}
+                <h1 className="text-4xl font-bold mb-8">{quizTitle}</h1>
                 <p className="text-2xl">
                     Your Score: {score} / {numItems}
                 </p>

@@ -81,10 +81,10 @@ const YourQuizzes = () => {
                         className="block py-3 px-2 shadow-sm hover:shadow-md mb-4 bg-gradient-to-b from-[#FFFFF0] to-[#FAF9F6] rounded transition duration-300"
                     >
                         <div className="flex justify-between items-center">
-                            <h2 className="text-lg font-semibold">
+                            <h2 className="text-lg font-semibold text-ellipsis overflow-hidden whitespace-nowrap w-2/3">
                                 {quiz.title}
                             </h2>
-                            <span className="text-gray-500 text-sm">
+                            <span className="text-gray-500 text-sm w-1/3 text-end">
                                 {quiz.numItems} items
                             </span>
                         </div>
