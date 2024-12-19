@@ -118,11 +118,11 @@ const Quiz = () => {
                     {Array.from({ length: quiz?.questions.length }, (_, i) => (
                         <button
                             key={i}
-                            className={`p-4 rounded shadow-xl text-lg ${
+                            className={`p-4 rounded shadow-xl text-lg transform transition ${
                                 currentIndex === i
-                                    ? "bg-[#FFD700] border-white border-2 scale-105 transform transition"
+                                    ? "bg-[#FFD700] hover:bg-[#FFC120] duration-300 border-white border-2 scale-105"
                                     : answers[i] !== undefined
-                                    ? "bg-[#FFD700] border-2 border-transparent"
+                                    ? "bg-[#FFD700] hover:bg-[#FFC120] duration-300 border-2 border-transparent"
                                     : "bg-[#FAF9F6] border-2 border-transparent"
                             }`}
                             onClick={() => navigateToQuestion(i)}
@@ -169,7 +169,7 @@ const Quiz = () => {
 
                 <div className="flex justify-between items-center fixed bottom-0 left-0 w-full p-8">
                     <button
-                        className="mt-4 bg-[#FFD700] font-bold text-lg py-3 px-8 rounded-lg shadow-lg"
+                        className="mt-4 bg-[#FFD700] hover:bg-[#FFC120] transition duration-300 font-bold text-lg py-3 px-8 rounded-lg shadow-lg"
                         onClick={() => navigateToQuestion(currentIndex - 1)}
                         style={{
                             boxShadow: "0 5px 0 #B8860B",
@@ -184,7 +184,7 @@ const Quiz = () => {
                     </span>
                     {currentIndex < quiz?.questions.length - 1 ? (
                         <button
-                            className="mt-4 bg-[#FFD700] font-bold text-lg  py-3 px-8 rounded-lg shadow-lg"
+                            className="mt-4 bg-[#FFD700] hover:bg-[#FFC120] transition duration-300 font-bold text-lg  py-3 px-8 rounded-lg shadow-lg"
                             onClick={() => navigateToQuestion(currentIndex + 1)}
                             style={{
                                 boxShadow: "0 5px 0 #B8860B",
@@ -196,9 +196,9 @@ const Quiz = () => {
                         </button>
                     ) : (
                         <button
-                            className="mt-4 bg-[#8B0000] font-bold text-lg text-white py-3 px-8 rounded-lg shadow-lg"
+                            className="mt-4 bg-[#8B0000] hover:bg-[#5F0000] transition duration-300 font-bold text-lg text-white py-3 px-8 rounded-lg shadow-lg"
                             style={{
-                                boxShadow: "0 5px 0 #4B0000", // Darker red shadow
+                                boxShadow: "0 5px 0 #4B0000",
                             }}
                             onClick={submitQuiz}
                         >
