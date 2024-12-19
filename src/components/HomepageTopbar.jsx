@@ -10,16 +10,17 @@ const TopBar = () => {
             <div className="flex space-x-4">
                 <Link
                     to="/login"
-                    className="bg-[#FAF9F6] text-[#02A850] border-2  px-4 py-2 rounded-lg shadow-lg"
+                    className="bg-[#FAF9F6] text-[#02A850] border-2 px-4 py-2 rounded-lg shadow-lg hover:bg-[#E6F4EA] transition duration-300"
                     style={{
                         boxShadow: "0 6px 0 #cecdcc",
                     }}
                 >
                     Log In
                 </Link>
+
                 <Link
                     to="/signup"
-                    className="bg-[#00A850] text-white border-2 border-transparent px-4 py-2 rounded-lg shadow-md"
+                    className="bg-[#00A850] hover:bg-[#33a149] trasition duration-300 text-white border-2 border-transparent px-4 py-2 rounded-lg shadow-md"
                     style={{
                         boxShadow: "0 5px 0 #2c8c3b",
                     }}

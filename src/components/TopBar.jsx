@@ -386,6 +386,7 @@ const TopBar = () => {
                             account to access all our features.{" "}
                         </p>
                         <Link
+                            target="_blank"
                             to={`/${user?.uid}/verify`}
                             className="bg-[#FFD700] hover:bg-[#FFC120] px-2 py-1 rounded-md transition duration-300 font-semibold text-sm"
                             style={{
