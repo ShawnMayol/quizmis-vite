@@ -16,6 +16,31 @@ const Create = () => {
     const auth = getAuth();
     const [user, loading, error] = useAuthState(auth);
     const navigate = useNavigate();
+    const [courseOptions, setCourseOptions] = useState([]);
+
+    useEffect(() => {
+        const fetchCourses = async () => {
+            try {
+                const coursesDocRef = doc(
+                    db,
+                    "adminConfig",
+                    "77j74B03UV8D39cP10JN"
+                );
+                const coursesDocSnap = await getDoc(coursesDocRef);
+
+                if (coursesDocSnap.exists()) {
+                    const data = coursesDocSnap.data();
+                    setCourseOptions(data.courses || []); // Update state with courses array
+                } else {
+                    console.error("No such document!");
+                }
+            } catch (error) {
+                console.error("Error fetching courses:", error);
+            }
+        };
+
+        fetchCourses();
+    }, []);
 
     const handleQuizCreation = async (e) => {
         e.preventDefault();
@@ -150,22 +175,16 @@ const Create = () => {
                                             <option value="">
                                                 Select Course
                                             </option>
-                                            <option value="CIS 1101">
-                                                CIS 1101 - PROGRAMMING 1
-                                            </option>
-                                            <option value="CIS 1201">
-                                                CIS 1201 - PROGRAMMING 2
-                                            </option>
-                                            <option value="CIS 1202">
-                                                CIS 1202 - WEB DEVELOPMENT 1
-                                            </option>
-                                            <option value="CIS 1205">
-                                                CIS 1205 - NETWORKING 1
-                                            </option>
-                                            <option value="CIS 2101">
-                                                CIS 2101 - DATA STRUCTURES AND
-                                                ALGORITHMS
-                                            </option>
+                                            {courseOptions.map(
+                                                (courseName, index) => (
+                                                    <option
+                                                        key={index}
+                                                        value={courseName}
+                                                    >
+                                                        {courseName}
+                                                    </option>
+                                                )
+                                            )}
                                         </select>
                                         {/* <p className="text-xs text-gray-600 mt-2">
                                             More courses will be added soon.

@@ -36,6 +36,7 @@ const CreateItems = () => {
     const [isInfoSolid, setIsInfoSolid] = useState(false);
     const navigate = useNavigate();
     const [copied, setCopied] = useState(false);
+    const [courseOptions, setCourseOptions] = useState([]);
 
     const handleCopy = () => {
         navigator.clipboard.writeText(quizId).then(() => {
@@ -43,6 +44,30 @@ const CreateItems = () => {
             setTimeout(() => setCopied(false), 2000);
         });
     };
+
+    useEffect(() => {
+        const fetchCourses = async () => {
+            try {
+                const coursesDocRef = doc(
+                    db,
+                    "adminConfig",
+                    "77j74B03UV8D39cP10JN"
+                );
+                const coursesDocSnap = await getDoc(coursesDocRef);
+
+                if (coursesDocSnap.exists()) {
+                    const data = coursesDocSnap.data();
+                    setCourseOptions(data.courses || []); // Update state with courses array
+                } else {
+                    console.error("No such document!");
+                }
+            } catch (error) {
+                console.error("Error fetching courses:", error);
+            }
+        };
+
+        fetchCourses();
+    }, []);
 
     useEffect(() => {
         const fetchQuizDetails = async () => {
@@ -259,7 +284,7 @@ const CreateItems = () => {
                                 onClick={() => setIsSettingsOpen(false)}
                             >
                                 <div
-                                    className="bg-[#FFFFF0] p-8 px-12 rounded-lg shadow-lg"
+                                    className="bg-[#FFFFF0] w-1/3 p-8 px-12 rounded-lg shadow-lg"
                                     onClick={(e) => e.stopPropagation()}
                                 >
                                     <form
@@ -341,27 +366,24 @@ const CreateItems = () => {
                                                                 .value,
                                                         })
                                                     }
-                                                    className="mt-1 p-2 border rounded-md hover:cursor-pointer bg-[#FAF9F6]"
+                                                    className="mt-1 w-full p-2 border rounded-md hover:cursor-pointer bg-[#FAF9F6]"
                                                     required
                                                 >
-                                                    <option value="CIS 1101">
-                                                        CIS 1101 - PROGRAMMING 1
+                                                    <option value="" disabled>
+                                                        Select Course
                                                     </option>
-                                                    <option value="CIS 1201">
-                                                        CIS 1201 - PROGRAMMING 2
-                                                    </option>
-                                                    <option value="CS 1202">
-                                                        CS 1202 - WEB
-                                                        DEVELOPMENT 1
-                                                    </option>
-                                                    <option value="CIS 1205">
-                                                        CIS 1205 - NETWORKING 1
-                                                    </option>
-                                                    <option value="CIS 2101">
-                                                        CIS 2101 - DATA
-                                                        STRUCTURES AND
-                                                        ALGORITHMS
-                                                    </option>
+                                                    {courseOptions.map(
+                                                        (courseName, index) => (
+                                                            <option
+                                                                key={index}
+                                                                value={
+                                                                    courseName
+                                                                }
+                                                            >
+                                                                {courseName}
+                                                            </option>
+                                                        )
+                                                    )}
                                                 </select>
                                             </div>
                                             <div className="w-full">
