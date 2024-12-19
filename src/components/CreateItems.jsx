@@ -232,12 +232,12 @@ const CreateItems = () => {
                         {/* Info Details */}
                         {isInfoSolid && (
                             <div className="px-4 mt-4 pointer-events-none select-none tracking-wide">
-                                <div className="flex tracking-normal">
-                                    <p className="me-6 ">
+                                <div className="flex space-y-1 flex-col tracking-normal">
+                                    <p className="me-6 text-ellipsis overflow-hidden whitespace-nowrap">
                                         <strong className="me-2">
                                             Description:
                                         </strong>
-                                        <span className="text-gray-700">
+                                        <span className="text-gray-700 ">
                                             {quiz.description}
                                         </span>
                                     </p>
