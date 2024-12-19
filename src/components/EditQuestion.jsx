@@ -15,6 +15,7 @@ const EditQuestion = () => {
         options: [{ text: "" }, { text: "" }],
         correctIndex: null,
     });
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const addOption = () => {
         if (question.options.length < 5) {
@@ -69,6 +70,22 @@ const EditQuestion = () => {
         }));
     };
 
+    const handleDeleteQuestion = async () => {
+        try {
+            const updatedQuestions = [...quiz.questions];
+            updatedQuestions.splice(index, 1); // Remove the question
+
+            const quizRef = doc(db, "quizzes", quizId);
+            await updateDoc(quizRef, { questions: updatedQuestions });
+
+            setIsModalOpen(false);
+            navigate(`/quiz/${quizId}`); // Redirect after deletion
+        } catch (error) {
+            console.error("Error deleting question: ", error);
+            // alert("Failed to delete question. Please try again.");
+        }
+    };
+
     const removeOption = (optionIndex) => {
         if (question.options.length > 2) {
             const newOptions = question.options.filter(
@@ -121,9 +138,50 @@ const EditQuestion = () => {
                         <h1 className="text-3xl text-[#02A850] font-bold">
                             Edit Question
                         </h1>
-                        <TrashIcon className="w-8 hover:cursor-pointer text-red-600 hover:text-red-500 transition duration-300" />
+                        <TrashIcon
+                            className="w-8 hover:cursor-pointer text-red-600 hover:text-red-500 transition duration-300"
+                            onClick={() => setIsModalOpen(true)}
+                        />
                     </div>
+
+                    {/* Confirmation Modal */}
+                    {isModalOpen && (
+                        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+                            <div className="bg-white p-6 py-10 rounded-lg shadow-lg max-w-md w-full">
+                                <h2 className="text-lg mb-4 text-center">
+                                    Are you sure you want to delete{" "}
+                                    <span className="font-extrabold">
+                                        {question.questionText ||
+                                            "this question"}
+                                    </span>
+                                    ?
+                                </h2>
+                                <div className="flex justify-end mt-6 space-x-4">
+                                    <button
+                                        className="px-4 py-2 bg-[#e0e0e0] text-gray-700 rounded-lg"
+                                        onClick={() => setIsModalOpen(false)}
+                                        style={{
+                                            boxShadow: "0 3px 0 #949494",
+                                        }}
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        className="px-4 py-2 bg-[#E02424] text-white rounded-lg font-bold shadow-lg"
+                                        style={{
+                                            boxShadow: "0 3px 0 #9b1d1d",
+                                        }}
+                                        onClick={handleDeleteQuestion}
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
                     <hr className="border-[#62d899] mb-8" />
+
                     <input
                         type="text"
                         value={question.questionText}

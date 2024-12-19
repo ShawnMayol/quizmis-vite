@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import TopBar from "./TopBar";
 import Footer from "./Footer.jsx";
 import { db } from "../Firebase.js";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import "../assets/css/Copy.css";
 import YourQuizzes from "./Quizzes.jsx";
 import {
@@ -37,6 +37,8 @@ const CreateItems = () => {
     const navigate = useNavigate();
     const [copied, setCopied] = useState(false);
     const [courseOptions, setCourseOptions] = useState([]);
+    const [quizToDelete, setQuizToDelete] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleCopy = () => {
         navigator.clipboard.writeText(quizId).then(() => {
@@ -103,7 +105,7 @@ const CreateItems = () => {
             window.location.reload();
         } catch (error) {
             console.error("Error updating quiz settings: ", error);
-            alert("Failed to update quiz settings. Please try again.");
+            // alert("Failed to update quiz settings. Please try again.");
         }
     };
 
@@ -111,12 +113,27 @@ const CreateItems = () => {
         navigate(`/quiz/${quizId}/add`);
     };
 
+    const handleDelete = async () => {
+        try {
+            const quizRef = doc(db, "quizzes", quizToDelete.id);
+            await deleteDoc(quizRef);
+            // alert(
+            //     `Quiz "${quizToDelete.title}" has been deleted successfully.`
+            // );
+            setIsModalOpen(false);
+            navigate("/create");
+        } catch (error) {
+            console.error("Error deleting quiz: ", error);
+            // alert("Failed to delete quiz. Please try again.");
+        }
+    };
+
     return (
         <div>
             <TopBar />
             <div className="md:flex md:justify-between">
                 <YourQuizzes />
-                <div className="h-screen w-full flex justify-center items-center bg-gradient-to-br from-[#20935C] via-[#33a06a] to-[#1d7b4c] animated-background">
+                <div className="min-h-screen w-full flex justify-center items-center bg-gradient-to-br from-[#20935C] via-[#33a06a] to-[#1d7b4c] animated-background">
                     <div className="w-5/6 bg-opacity-95 bg-gradient-to-b from-[#FFFFF0] via-[#F7F7E8] to-[#EFEFD0] rounded-lg shadow-xl p-8 mt-10">
                         <div className="flex justify-between items-center mb-6">
                             <div className="flex items-center">
@@ -183,52 +200,6 @@ const CreateItems = () => {
                             )}
                         </div>
 
-                        {/* Statistics */}
-                        {isChartSolid && (
-                            <div className="px-4 mt-4 pointer-events-none select-none tracking-wide">
-                                <div className="flex tracking-normal">
-                                    <p className="me-6 ">
-                                        <strong className="me-2">
-                                            Total Takes:
-                                        </strong>
-                                        <span className="text-gray-700">
-                                            {quiz.totalQuizTakers}
-                                        </span>
-                                    </p>
-                                    <p className="me-6">
-                                        <strong className="me-2">
-                                            Average Score:
-                                        </strong>
-                                        <span className="text-gray-700">
-                                            {quiz.totalQuizTakers > 0
-                                                ? (
-                                                      quiz.scoreAccumulated /
-                                                      quiz.totalQuizTakers
-                                                  ).toFixed(2) +
-                                                  " / " +
-                                                  quiz.numItems
-                                                : "N/A"}
-                                        </span>
-                                    </p>
-                                    <p className="me-6">
-                                        <strong className="me-2">
-                                            Average Percentage:
-                                        </strong>
-                                        <span className="text-gray-700">
-                                            {quiz.totalQuizTakers > 0
-                                                ? (
-                                                      (quiz.scoreAccumulated /
-                                                          (quiz.numItems *
-                                                              quiz.totalQuizTakers)) *
-                                                      100
-                                                  ).toFixed(2) + "%"
-                                                : "N/A"}
-                                        </span>
-                                    </p>
-                                </div>
-                            </div>
-                        )}
-
                         {/* Info Details */}
                         {isInfoSolid && (
                             <div className="px-4 mt-4 pointer-events-none select-none tracking-wide">
@@ -275,6 +246,52 @@ const CreateItems = () => {
                             </div>
                         )}
 
+                        {/* Statistics */}
+                        {isChartSolid && (
+                            <div className="px-4 mt-4 pointer-events-none select-none tracking-wide">
+                                <div className="flex tracking-normal">
+                                    <p className="me-6 ">
+                                        <strong className="me-2">
+                                            Total Takes:
+                                        </strong>
+                                        <span className="text-gray-700">
+                                            {quiz.totalQuizTakers}
+                                        </span>
+                                    </p>
+                                    <p className="me-6">
+                                        <strong className="me-2">
+                                            Average Score:
+                                        </strong>
+                                        <span className="text-gray-700">
+                                            {quiz.totalQuizTakers > 0
+                                                ? (
+                                                      quiz.scoreAccumulated /
+                                                      quiz.totalQuizTakers
+                                                  ).toFixed(2) +
+                                                  " / " +
+                                                  quiz.numItems
+                                                : "N/A"}
+                                        </span>
+                                    </p>
+                                    <p className="me-6">
+                                        <strong className="me-2">
+                                            Average Percentage:
+                                        </strong>
+                                        <span className="text-gray-700">
+                                            {quiz.totalQuizTakers > 0
+                                                ? (
+                                                      (quiz.scoreAccumulated /
+                                                          (quiz.numItems *
+                                                              quiz.totalQuizTakers)) *
+                                                      100
+                                                  ).toFixed(2) + "%"
+                                                : "N/A"}
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+
                         <hr className="border-[#62d899] my-8" />
 
                         {/* Settings Modal */}
@@ -284,7 +301,7 @@ const CreateItems = () => {
                                 onClick={() => setIsSettingsOpen(false)}
                             >
                                 <div
-                                    className="bg-[#FFFFF0] w-1/3 p-8 px-12 rounded-lg shadow-lg"
+                                    className="bg-[#FFFFF0] w-2/5 p-8 px-12 rounded-lg shadow-lg"
                                     onClick={(e) => e.stopPropagation()}
                                 >
                                     <form
@@ -427,9 +444,62 @@ const CreateItems = () => {
                                                     boxShadow:
                                                         "0 5px 0 #9b1d1d",
                                                 }}
+                                                onClick={() => {
+                                                    setQuizToDelete({
+                                                        id: quizId,
+                                                        title: quiz.title,
+                                                    });
+                                                    setIsModalOpen(true);
+                                                }}
                                             >
                                                 Delete
                                             </button>
+
+                                            {/* Confirmation Modal */}
+                                            {isModalOpen && (
+                                                <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+                                                    <div className="bg-white px-8 py-10 rounded-lg shadow-lg max-w-md w-full">
+                                                        <h2 className="text-lg text-center mb-8">
+                                                            Are you sure you
+                                                            want to delete{" "}
+                                                            <span className="font-extrabold">
+                                                                {
+                                                                    quizToDelete.title
+                                                                }
+                                                            </span>
+                                                            ?
+                                                        </h2>
+                                                        <div className="flex justify-end space-x-4">
+                                                            <button
+                                                                className="px-4 py-2 bg-[#e0e0e0] text-gray-700 rounded-lg"
+                                                                onClick={() =>
+                                                                    setIsModalOpen(
+                                                                        false
+                                                                    )
+                                                                }
+                                                                style={{
+                                                                    boxShadow:
+                                                                        "0 3px 0 #949494",
+                                                                }}
+                                                            >
+                                                                Cancel
+                                                            </button>
+                                                            <button
+                                                                className="px-4 py-2 bg-[#E02424] text-white rounded-lg font-bold shadow-lg"
+                                                                style={{
+                                                                    boxShadow:
+                                                                        "0 3px 0 #9b1d1d",
+                                                                }}
+                                                                onClick={
+                                                                    handleDelete
+                                                                }
+                                                            >
+                                                                Delete
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
                                             <button
                                                 type="submit"
                                                 className="px-4 py-2 mt-4 bg-[#35A84C] hover:bg-[#33a149] transition duration-300 font-bold rounded-lg shadow-lg text-white"

@@ -139,14 +139,14 @@ const TopBar = () => {
                             {({ isActive }) =>
                                 isActive ? (
                                     <>
-                                        <PlusSolid className="w-6 mr-2" />
+                                        <PlusOutline className="w-6 mr-2" />
                                         <span className="text-2xl mt-1 font-semibold">
                                             Create
                                         </span>
                                     </>
                                 ) : (
                                     <>
-                                        <PlusOutline className="w-6 mr-2" />
+                                        <PlusSolid className="w-6 mr-2" />
                                         <span className="text-2xl mt-1">
                                             Create
                                         </span>
@@ -195,14 +195,14 @@ const TopBar = () => {
                             {({ isActive }) =>
                                 isActive ? (
                                     <>
-                                        <PencilIconSolid className="w-6 mr-2" />
+                                        <PencilIconOutline className="w-6 mr-2" />
                                         <span className="text-2xl mt-1 font-semibold">
                                             Join
                                         </span>
                                     </>
                                 ) : (
                                     <>
-                                        <PencilIconOutline className="w-6 mr-2" />
+                                        <PencilIconSolid className="w-6 mr-2" />
                                         <span className="text-2xl mt-1">
                                             Join
                                         </span>
