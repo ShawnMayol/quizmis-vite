@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
       <HomePagetopbar />
 
       {/* Content */}
-      <div className="flex-1 px-8 py-12">
+      <div className="flex-1 px-8 py-12 mt-16">
         <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg border border-gray-200">
           <h1 className="text-4xl font-bold mb-6 text-green-600 text-center">
             Privacy Policy

@@ -73,7 +73,7 @@ const ContactUs = () => {
       <HomePagetopbar />
 
       {/* Content Section */}
-      <div className="flex-1 container mx-auto px-6 py-12">
+      <div className="flex-1 container mx-auto px-6 py-12 mt-16">
         {/* Header */}
         <h1 className="text-5xl font-extrabold text-green-600 mb-8 text-center">
           Get In <span className="text-gray-800">Touch</span>
