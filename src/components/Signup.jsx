@@ -182,7 +182,7 @@ const Signup = () => {
                     />
                     <button
                         type="submit"
-                        className="w-full bg-[#00A850] text-white py-3 rounded-md shadow-md"
+                        className="w-full bg-[#35A84C] hover:bg-[#33a149] transition duration-300 text-white py-3 rounded-md shadow-md"
                         style={{ boxShadow: "0 6px 0 #2c8c3b" }}
                         disabled={loading}
                     >

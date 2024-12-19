@@ -183,7 +183,7 @@ const TopBar = () => {
                             }
                         </NavLink>
                     ) : (
-                        <div className="flex items-center px-4 py-4 text-gray-400 cursor-not-allowed border-b-4 border-transparent">
+                        <div className="flex items-center px-4 py-4 text-gray-400 select-none cursor-not-allowed border-b-4 border-transparent">
                             <PlusOutline className="w-6 mr-2" />
                             <span className="text-2xl mt-1">Create</span>
                         </div>
@@ -239,7 +239,7 @@ const TopBar = () => {
                             }
                         </NavLink>
                     ) : (
-                        <div className="flex items-center px-4 py-4 text-gray-400 cursor-not-allowed border-b-4 border-transparent">
+                        <div className="flex items-center px-4 py-4 text-gray-400 select-none cursor-not-allowed border-b-4 border-transparent">
                             <PencilIconOutline className="w-6 mr-2" />
                             <span className="text-2xl mt-1">Join</span>
                         </div>
@@ -292,7 +292,7 @@ const TopBar = () => {
                                     <span className="mt-1">Dashboard</span>
                                 </Link>
                             </li>
-                            <hr className="border-[#8cf5bd]" />
+                            {/* <hr className="border-[#8cf5bd]" /> */}
                             <li>
                                 <Link
                                     to="/profile"
@@ -302,7 +302,6 @@ const TopBar = () => {
                                     <span className="mt-1">Your Profile</span>
                                 </Link>
                             </li>
-                            <hr className="border-[#8cf5bd]" />
 
                             {/* Create Quiz */}
                             <li>
@@ -317,7 +316,7 @@ const TopBar = () => {
                                         </span>
                                     </Link>
                                 ) : (
-                                    <div className="flex items-center p-2 rounded text-gray-400 cursor-not-allowed">
+                                    <div className="flex items-center p-2 rounded text-gray-400 select-none cursor-not-allowed">
                                         <PlusOutline className="w-5 mr-2" />
                                         <span className="mt-1">
                                             Create Quiz
@@ -337,7 +336,7 @@ const TopBar = () => {
                                         <span className="mt-1">Join Quiz</span>
                                     </Link>
                                 ) : (
-                                    <div className="flex items-center p-2 rounded text-gray-400 cursor-not-allowed">
+                                    <div className="flex items-center p-2 rounded text-gray-400 select-none cursor-not-allowed">
                                         <PencilIconOutline className="w-5 mr-2" />
                                         <span className="mt-1">Join Quiz</span>
                                     </div>
