@@ -100,12 +100,12 @@ const CreateQuestions = () => {
                         Add a New Question
                     </h1>
                     <hr className="border-[#62d899] mb-8" />
-                    <input
+                    <textarea
                         type="text"
                         value={questionText}
                         onChange={(e) => setQuestionText(e.target.value)}
                         placeholder="Enter question"
-                        className="w-full p-2 border rounded-lg md:py-28 sm:py-10 text-center text-2xl bg-[#FAF9F6] border-[#62d899]"
+                        className="w-full p-2 border rounded-lg md:py-28 sm:py-10 text-center text-2xl bg-[#FAF9F6] border-[#62d899] overflow-y-auto resize-none"
                     />
                     <div className="flex justify-between items-center mt-4 space-x-2">
                         {options.map((option, index) => (
@@ -124,7 +124,7 @@ const CreateQuestions = () => {
                                         className="form-radio hover:cursor-pointer mt-1 border-[#50b17d] border-2 rounded-full h-5 w-5 text-green-600 focus:outline-[#FAF9F6] focus:ring-[#FAF9F6]"
                                     />
                                 </label>
-                                <input
+                                <textarea
                                     type="text"
                                     value={option.text}
                                     onChange={(e) =>
@@ -134,7 +134,8 @@ const CreateQuestions = () => {
                                         )
                                     }
                                     placeholder="Enter answer option"
-                                    className="flex-grow p-2 text-center py-20 bg-[#FAF9F6] rounded-lg text-xl border-[#62d899]"
+                                    className="flex-grow p-2 text-center py-20 bg-[#FAF9F6] rounded-lg text-xl border-[#62d899] overflow-y-hidden resize-none"
+                                    maxLength={100}
                                 />
                                 {options.length > 2 && (
                                     <button
