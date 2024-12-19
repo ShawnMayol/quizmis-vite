@@ -72,17 +72,25 @@ const EditQuestion = () => {
 
     const handleDeleteQuestion = async () => {
         try {
+            if (!quiz || !quiz.questions || quiz.questions.length <= index) {
+                console.error("Invalid quiz data or question index.");
+                return;
+            }
+
             const updatedQuestions = [...quiz.questions];
             updatedQuestions.splice(index, 1); // Remove the question
 
             const quizRef = doc(db, "quizzes", quizId);
-            await updateDoc(quizRef, { questions: updatedQuestions });
+            await updateDoc(quizRef, {
+                questions: updatedQuestions,
+                numItems: (quiz.numItems || 1) - 1, // Decrement numItems, ensuring it doesn't go below 0
+            });
 
             setIsModalOpen(false);
             navigate(`/quiz/${quizId}`); // Redirect after deletion
         } catch (error) {
             console.error("Error deleting question: ", error);
-            // alert("Failed to delete question. Please try again.");
+            alert("Failed to delete question. Please try again.");
         }
     };
 

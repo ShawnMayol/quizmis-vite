@@ -255,7 +255,7 @@ const TopBar = () => {
 
                 {/* Side Modal */}
                 <div
-                    className={`fixed top-0 right-0 h-full md:w-1/4 sm:w-full bg-[#FFFFF0] shadow-lg rounded-lg p-6 z-20 ${
+                    className={`fixed top-0 right-0 h-full md:w-1/4 sm:w-full bg-[#FFFFF0] shadow-lg rounded-l-lg p-6 z-20 ${
                         IsSideModalOpen ? "modal-visible" : "modal-hidden"
                     }`}
                     style={{ display: "flex", flexDirection: "column" }}

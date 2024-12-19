@@ -39,6 +39,7 @@ const CreateItems = () => {
     const [courseOptions, setCourseOptions] = useState([]);
     const [quizToDelete, setQuizToDelete] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const handleCopy = () => {
         navigator.clipboard.writeText(quizId).then(() => {
@@ -77,8 +78,10 @@ const CreateItems = () => {
             const quizDoc = await getDoc(quizRef);
             if (quizDoc.exists()) {
                 setQuiz(quizDoc.data());
+                setLoading(false);
             } else {
                 console.log("No such quiz!");
+                setLoading(false);
             }
         };
 
@@ -137,7 +140,7 @@ const CreateItems = () => {
                     <div className="w-5/6 bg-opacity-95 bg-gradient-to-b from-[#FFFFF0] via-[#F7F7E8] to-[#EFEFD0] rounded-lg shadow-xl p-8 mt-10">
                         <div className="flex justify-between items-center mb-6">
                             <div className="flex items-center">
-                                <h1 className="text-2xl font-extrabold me-4 text-[#02A850]">
+                                <h1 className="text-3xl font-extrabold me-4">
                                     {quiz.title || "Loading..."}
                                 </h1>
                                 {quiz.visibility !== "Private" && (
@@ -517,7 +520,14 @@ const CreateItems = () => {
                         )}
 
                         <div className="flex flex-col">
-                            {quiz.questions.length > 0 ? (
+                            {loading ? (
+                                <div className="py-1 px-4 shadow-sm mb-2 bg-gradient-to-b from-[#FFFFF0] to-[#FAF9F6] rounded transition duration-300 flex items-center">
+                                    <div className="w-6 h-6 border-4 border-green-500 border-t-transparent rounded-full animate-spin mr-4"></div>
+                                    <span className="text-lg font-semibold text-gray-500">
+                                        Loading questions...
+                                    </span>
+                                </div>
+                            ) : quiz?.questions?.length > 0 ? (
                                 quiz.questions.map((question, index) => (
                                     <Link
                                         to={`/quiz/${quizId}/question/${index}/edit`}
@@ -543,6 +553,7 @@ const CreateItems = () => {
                                     button below to add an item.
                                 </p>
                             )}
+
                             <button
                                 onClick={handleAddQuestion}
                                 className="mt-4 w-1/6 bg-[#35A84C] hover:bg-[#33a149] transition duration-300 font-bold text-white py-2 px-2 rounded-lg shadow-lg self-end"

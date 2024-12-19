@@ -191,20 +191,14 @@ const Dashboard = () => {
                             {/* Filters Dropdown */}
                             {showFilters && (
                                 <div
-                                    className="absolute mt-2 right-0 -me-10 bg-white p-4 rounded-lg shadow-md w-72 z-10 border border-gray-200"
+                                    className="absolute mt-2 right-0 -me-10 bg-[#FFFFF0] p-4 rounded-lg shadow-md w-72 z-10 border border-gray-200"
                                     style={{
                                         transform: "translateX(-10%)",
                                         maxWidth: "calc(100vw - 20px)",
                                     }}
                                 >
                                     {/* Tail */}
-                                    <div
-                                        className="absolute -top-2 right-4 w-4 h-4 bg-white border-t border-l border-gray-200 transform rotate-45 z-0"
-                                        style={{
-                                            boxShadow:
-                                                "-1px -1px 2px rgba(0, 0, 0, 0.1)", // Add shadow for the tail
-                                        }}
-                                    ></div>
+                                    <div className="absolute -top-2 right-4 w-4 h-4 bg-[#FFFFF0] border-t border-l border-gray-200 transform rotate-45 z-0"></div>
 
                                     <h2 className="text-lg font-bold mb-4 text-[#02A850]">
                                         Select Courses
@@ -236,7 +230,10 @@ const Dashboard = () => {
                                     <div className="flex justify-end mt-4">
                                         <button
                                             onClick={toggleFilter}
-                                            className="px-4 py-2 bg-[#02A850] text-white rounded-md hover:bg-[#6cbb91] transition duration-300"
+                                            className="px-4 py-2 bg-[#35A84C] hover:bg-[#33a149] transition duration-300 text-white rounded shadow-xl"
+                                            style={{
+                                                boxShadow: "0 5px 0 #2c8c3b",
+                                            }}
                                         >
                                             Done
                                         </button>
