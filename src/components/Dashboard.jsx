@@ -175,51 +175,78 @@ const Dashboard = () => {
                             <div className="h-10 w-56 bg-gradient-to-r from-green-100 via-green-200 to-green-100 rounded animate-pulse"></div>
                         )}
 
-                        <button
-                            onClick={toggleFilter}
-                            className="w-8 h-8 cursor-pointer text-[#02A850] hover:text-[#6cbb91]"
-                        >
-                            {showFilters ? (
-                                <FilterSolid className="w-full h-full" />
-                            ) : (
-                                <FilterOutline className="w-full h-full" />
+                        <div className="relative">
+                            {/* Filter Button */}
+                            <button
+                                onClick={toggleFilter}
+                                className="w-8 h-8 cursor-pointer text-[#02A850] hover:text-[#6cbb91]"
+                            >
+                                {showFilters ? (
+                                    <FilterSolid className="w-full h-full" />
+                                ) : (
+                                    <FilterOutline className="w-full h-full" />
+                                )}
+                            </button>
+
+                            {/* Filters Dropdown */}
+                            {showFilters && (
+                                <div
+                                    className="absolute mt-2 right-0 -me-10 bg-white p-4 rounded-lg shadow-md w-72 z-10 border border-gray-200"
+                                    style={{
+                                        transform: "translateX(-10%)",
+                                        maxWidth: "calc(100vw - 20px)",
+                                    }}
+                                >
+                                    {/* Tail */}
+                                    <div
+                                        className="absolute -top-2 right-4 w-4 h-4 bg-white border-t border-l border-gray-200 transform rotate-45 z-0"
+                                        style={{
+                                            boxShadow:
+                                                "-1px -1px 2px rgba(0, 0, 0, 0.1)", // Add shadow for the tail
+                                        }}
+                                    ></div>
+
+                                    <h2 className="text-lg font-bold mb-4 text-[#02A850]">
+                                        Select Courses
+                                    </h2>
+                                    <div className="grid grid-cols-2 gap-2">
+                                        {courses.map((course) => (
+                                            <label
+                                                key={course}
+                                                className="flex items-center bg-[#FAF9F6] p-2 rounded shadow hover:cursor-pointer"
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    checked={
+                                                        filters[course] || false
+                                                    }
+                                                    onChange={() =>
+                                                        toggleCourseFilter(
+                                                            course
+                                                        )
+                                                    }
+                                                    className="mr-2 form-checkbox rounded-full text-green-500 focus:outline-none focus:ring-white"
+                                                />
+                                                <span className="text-md text-gray-700 select-none">
+                                                    {course}
+                                                </span>
+                                            </label>
+                                        ))}
+                                    </div>
+                                    <div className="flex justify-end mt-4">
+                                        <button
+                                            onClick={toggleFilter}
+                                            className="px-4 py-2 bg-[#02A850] text-white rounded-md hover:bg-[#6cbb91] transition duration-300"
+                                        >
+                                            Done
+                                        </button>
+                                    </div>
+                                </div>
                             )}
-                        </button>
+                        </div>
                     </div>
 
                     <hr className="border-[#62d899] mb-10" />
-
-                    {/* Filter options container */}
-                    <div
-                        // without animation
-                        className={` ${
-                            // with animation
-                            // className={`transform transition-all duration-300 origin-top ${
-                            showFilters ? "scale-y-100 mt-7" : "scale-y-0"
-                        }`}
-                        style={{ maxHeight: showFilters ? "500px" : "0px" }}
-                    >
-                        <div className="grid grid-cols-3 gap-4 mb-8">
-                            {courses.map((course) => (
-                                <label
-                                    key={course}
-                                    className="flex items-center bg-[#FAF9F6] p-2 rounded shadow hover:cursor-pointer"
-                                >
-                                    <input
-                                        type="checkbox"
-                                        checked={filters[course] || false}
-                                        onChange={() =>
-                                            toggleCourseFilter(course)
-                                        }
-                                        className="mr-2 form-checkbox rounded-full text-green-500 focus:outline-none focus:ring-white"
-                                    />
-                                    <span className="text-md text-gray-700 select-none">
-                                        {course}
-                                    </span>
-                                </label>
-                            ))}
-                        </div>
-                    </div>
 
                     <TrendingQuizzes />
 
